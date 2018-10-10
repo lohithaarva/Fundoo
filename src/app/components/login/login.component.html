@@ -1,16 +1,75 @@
+<!-- <div class="container" fxLayout="row" fxLayoutAlign="center center" fxFlex="30%" fxFlex.sm="90" fxFlex.md="100" fxFlex.xs="100"> -->
+<div align-content = "center" class="container" fxLayout =  "row" fxLayout.xs="row" fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        fxLayoutGap.xs="0">
+        <div fxFlex = "30" fxFlex.sm = "80" fxFlex.md = "60" fxFlex.lg = "50" fxFlex.xl = "30"></div> 
+        <div  fxFlex = "40" fxFlexOrder="3"></div>
+    <mat-card >
+        <my-slide-panel [activePane]="isLeftVisible ? 'right' : 'left'">
 
- <div fxLayout="row" fxLayoutAlign="center center" class="row-height">
-    <mat-card fxFlex="30%">
-        <mat-card-title>Sign in</mat-card-title>
+            <div leftPane>
 
-        <mat-card-content fxLayout="column">
-            <mat-form-field>
-                <input matInput placeholder="Enter your email" required>
-            </mat-form-field>
-           
-        </mat-card-content>
+                <div class="heading" fxlayout="row" fxLayoutAlign="center center">
+                    <div>F</div>
+                    <div>U</div>
+                    <div>N</div>
+                    <div>D</div>
+                    <div>O</div>
+                    <div>O</div>
+                </div>
 
-        <button class= "button" mat-raised-button color='primary' (click)="next()">Next</button>
-</mat-card> 
-   
+                <div class="subheading" fxlayout="row" fxLayoutAlign="center center">
+                    <p> Sign in</p>
+                </div>
+                <div class="fundoo-heading" fxlayout="row" fxLayoutAlign="center center">
+                    <p> Continue to Fundoo</p>
+                </div>
+
+                <mat-card-content fxLayout="column">
+                    <mat-form-field>
+                        <input [(ngModel)]="email" matInput placeholder="Enter your email" required>
+                    </mat-form-field><br>
+                    <p> Not your computer? Use Guest mode to sign in privately. </p>
+                </mat-card-content><br><br>
+
+                <div class="lastrow" fxLayout="row" fxLayoutAlign="space-between">
+                    <a href="/signup">Create account</a>
+                    <button mat-raised-button color='primary' (click)="isLeftVisible = !isLeftVisible">Next</button>
+                </div><br><br>
+            </div>
+            <div rightPane>
+
+                <div class="heading" fxlayout="row" fxLayoutAlign="center center">
+                    <div>F</div>
+                    <div>U</div>
+                    <div>N</div>
+                    <div>D</div>
+                    <div>O</div>
+                    <div>O</div>
+                </div>
+
+                <div class="subheading" fxlayout="row" fxLayoutAlign="center center">
+                    <p> Sign in</p>
+                </div>
+                <div class="fundoo-heading" fxlayout="row" fxLayoutAlign="center center">
+                    <p> Continue to Fundoo</p>
+                </div>
+
+                <mat-card-content fxLayout="column">
+                        <mat-form-field>
+                                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </mat-form-field>
+                </mat-card-content><br><br>
+
+                <div class="lastrow" fxLayout="row" fxLayoutAlign="space-between">
+                    <a href="/signup">Create account</a>
+                    <button mat-raised-button color='primary' (click)=changeDivState()>Next</button>
+                </div><br><br>
+            </div>
+
+
+
+        </my-slide-panel>
+    </mat-card>
 </div>

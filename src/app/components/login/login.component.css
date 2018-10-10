@@ -1,15 +1,55 @@
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-  .row-height {
-    height: 100%
+.container{
+  height: 100vh;
+  display : flex;
+  align-items: center;
 }
-.button{
-  min-width: -10px;
+
+ .heading{
+  font-size: 22px;
+
+} 
+ .subheading{
+  font-size: 25px; 
 }
+
+
+.heading div:nth-child(1)
+{
+  color: blue;
+}
+.heading div:nth-child(2)
+{
+  color:red;
+}
+.heading div:nth-child(3)
+{
+  color:yellow;
+}
+.heading div:nth-child(4)
+{
+  color:blue;
+}
+.heading div:nth-child(5)
+{
+  color:green;
+}
+.heading div:nth-child(6)
+{
+  color:red;
+}
+/* }
+.matcard{
+  width:400px;
+  height:500px;
+} */
+.password{
+  width:100%;
+}
+
+
+
+
+
+
+
+

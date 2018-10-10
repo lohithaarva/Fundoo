@@ -1,0 +1,74 @@
+.container{
+    height: 100vh;    
+}
+.signup-heading{
+    font-size: 30px;
+}
+.mat-card-subtitle{
+   font-size: 20px;
+   color: black;
+}
+.mat-card-content{
+    font-size: 17px;
+}
+  .name-container{
+      display: flex;       
+}
+.username-container{
+  display: flex;
+  width:170px;
+}
+.firstname{
+    margin-right: 5%;
+}
+.password-container{
+    display: flex;
+}
+.password{
+    margin-right: 5%;
+  }
+.signup-heading div:nth-child(1)
+{
+  color: blue;
+}
+.signup-heading div:nth-child(2)
+{
+  color:red;
+}
+.signup-heading div:nth-child(3)
+{
+  color:yellow;
+}
+.signup-heading div:nth-child(4)
+{
+  color:blue;
+}
+.signup-heading div:nth-child(5)
+{
+  color:green;
+}
+.signup-heading div:nth-child(6)
+{
+  color:red;
+}
+.sign-container{
+    font-size: 20px;
+}
+.footer{
+  margin-top: -19px;
+  font-size: 12px;
+}
+.username{
+  margin-right: 22%;
+}
+
+/* .mat-card-subtitle{
+  color: antiquewhite;
+  word-wrap: break-word;
+} */
+/* .card1{
+  position:'relative'
+}
+.card2{
+  position:'relative'
+} */

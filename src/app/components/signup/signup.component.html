@@ -1,3 +1,69 @@
-<p>
-  signup works!
-</p>
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="60%" fxFlex.sm="100%" fxFlex.md="100" fxFlex.xs="100">
+        <!-- <form #userForm= "ngForm" (ngSubmit) = "onSubmit()" novalidate> -->
+        <mat-card>
+
+            <div class="signup-heading" fxlayout="row" fxLayoutAlign="flex-start">
+                <div>F</div>
+                <div>U</div>
+                <div>N</div>
+                <div>D</div>
+                <div>O</div>
+                <div>O</div>
+            </div>
+            <mat-card-subtitle>Create your Fundoo Account </mat-card-subtitle>
+            <mat-card-content>Continue to Fundoo</mat-card-content><br>
+            
+            <!-- <div class= "form-group"> -->
+            <div class="name-container" fxLayout="row"> 
+                <div class="firstname" >
+                    <mat-form-field >
+                        <input matInput placeholder="Firstname" [(ngModel)] = "info.firstName" #firstName="ngModel" required>
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <input matInput placeholder="Lastname" [(ngModel)] = "info.lastName" #lastName="ngModel" required> 
+                </mat-form-field>
+            </div>
+            <!-- </div> -->
+
+            <div class="username-container" fxLayout ="row" >
+                <div class="username">
+                <mat-form-field><input matInput placeholder="Username" [(ngModel)] = "info.userName" #userName="ngModel" required></mat-form-field>
+                </div>
+                <mat-form-field><input matInput placeholder="Enter your email" [(ngModel)]="info.email" #email="ngModel" required></mat-form-field>
+            </div>
+
+            <div class="password-container">
+                <div class="password">
+                    <mat-form-field>
+                        <input matInput placeholder="Enter your password" [(ngModel)]="info.password" #password="ngModel" required [type]="hide ? 'password' : 'text'">
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="footer"> Use 8 or more characters with a mix of letters, numbers & symbols</div><br><br>
+            <div fxLayout="row" fxLayoutGap="65px">
+                    
+                    <mat-card [@basic]="isBasic ? 'open' : 'closed'" class = "card1" (click)="card1()">
+                    <mat-card-title>Basic</mat-card-title>
+                    <p> Ability to add only title and description.</p>  
+                    </mat-card>
+                    <mat-card [@advance]="isAdvance ? 'open' : 'closed'" class = "card2" (click)="card2()">
+                    <mat-card-title>Advance </mat-card-title>
+                    <p> Ability to add title, description, images, labels, checklist and colors. </p>
+                        </mat-card>
+            </div>
+            <br><br>
+
+            <div class="signup-lastrow" fxLayout="row" fxLayoutGap="230px">
+                <a href="/login">Sign in instead</a>
+                <button mat-raised-button color='primary' (click)="next()">Next</button>
+            </div><br><br>
+        </mat-card>
+    <!-- </form> -->
+    </div>
+</div>
