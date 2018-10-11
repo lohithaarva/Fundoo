@@ -15,7 +15,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './services/http.service';
 import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -37,10 +39,9 @@ import { FormsModule } from '@angular/forms'
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    FormsModule
-    
-    
-
+    FormsModule,
+    MatSnackBarModule
+  
   ],
   
 

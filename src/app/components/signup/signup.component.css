@@ -14,12 +14,14 @@
   .name-container{
       display: flex;       
 }
-.username-container{
-  display: flex;
-  width:170px;
+.email{
+  width:57%;
 }
 .firstname{
     margin-right: 5%;
+}
+.lastname{
+  width: 27%;
 }
 .password-container{
     display: flex;
@@ -27,6 +29,7 @@
 .password{
     margin-right: 5%;
   }
+  /**************************Fundoo color ***********************************/
 .signup-heading div:nth-child(1)
 {
   color: blue;
@@ -51,6 +54,7 @@
 {
   color:red;
 }
+/***************************************************************************************/
 .sign-container{
     font-size: 20px;
 }
@@ -62,13 +66,31 @@
   margin-right: 22%;
 }
 
-/* .mat-card-subtitle{
-  color: antiquewhite;
-  word-wrap: break-word;
-} */
-/* .card1{
-  position:'relative'
+.choose{
+  width:150px;
+  height:80px;
+  color:white;
+  background:linear-gradient(to right, rgb(0, 0, 0), rgb(67, 67, 67));
+  
 }
-.card2{
-  position:'relative'
-} */
+.notchosen{
+  width:150px;
+  height:80px;
+  color:black;
+  background: linear-gradient(to right, rgb(31, 64, 55), rgb(153, 242, 200));
+}
+.cards{
+ 
+  cursor:pointer;
+  
+}
+.description{
+font-size:12px
+}
+.card-title{
+  font-size: 16px;
+}
+.image{
+  width:80px;
+  height:80px;
+}

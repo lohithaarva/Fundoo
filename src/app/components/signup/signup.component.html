@@ -1,8 +1,7 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="60%" fxFlex.sm="100%" fxFlex.md="100" fxFlex.xs="100">
-        <!-- <form #userForm= "ngForm" (ngSubmit) = "onSubmit()" novalidate> -->
         <mat-card>
-
+                <form>
             <div class="signup-heading" fxlayout="row" fxLayoutAlign="flex-start">
                 <div>F</div>
                 <div>U</div>
@@ -12,32 +11,35 @@
                 <div>O</div>
             </div>
             <mat-card-subtitle>Create your Fundoo Account </mat-card-subtitle>
-            <mat-card-content>Continue to Fundoo</mat-card-content><br>
-            
-            <!-- <div class= "form-group"> -->
-            <div class="name-container" fxLayout="row"> 
-                <div class="firstname" >
-                    <mat-form-field >
-                        <input matInput placeholder="Firstname" [(ngModel)] = "info.firstName" #firstName="ngModel" required>
-                    </mat-form-field>
-                </div>
-                <mat-form-field>
-                    <input matInput placeholder="Lastname" [(ngModel)] = "info.lastName" #lastName="ngModel" required> 
-                </mat-form-field>
-            </div>
-            <!-- </div> -->
+            <mat-card-content>Continue to Fundoo</mat-card-content>
 
-            <div class="username-container" fxLayout ="row" >
-                <div class="username">
-                <mat-form-field><input matInput placeholder="Username" [(ngModel)] = "info.userName" #userName="ngModel" required></mat-form-field>
-                </div>
-                <mat-form-field><input matInput placeholder="Enter your email" [(ngModel)]="info.email" #email="ngModel" required></mat-form-field>
+            <!-- <div class="image" >
+                    <img mat-card-image= "../../../assets/images/logo.png" alt="image not found" >
+            </div> -->
+            
+            <div class="name-container" fxLayout="row"> 
+                    <mat-form-field class="firstname" >
+                        <input matInput placeholder="Firstname" [(ngModel)] = "info.firstName" minlength="3" [formControl]="firstName" required>
+                        <mat-error *ngIf="firstName.invalid">{{getErrorMessagefirstName()}}</mat-error>
+                    </mat-form-field>
+                     <mat-form-field class= "lastname">
+                        <input matInput placeholder="Lastname" [(ngModel)] = "info.lastName" minlength="3" [formControl]="lastName"required>
+                        <mat-error *ngIf="lastName.invalid">{{getErrorMessagelastName()}}</mat-error>
+                    </mat-form-field>
+            </div>
+        
+            <div fxLayout ="row" >
+                <mat-form-field class="email">
+                    <input matInput placeholder="Enter your email" [(ngModel)]="info.email"[formControl]="email" required>
+                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
             </div>
 
             <div class="password-container">
                 <div class="password">
                     <mat-form-field>
-                        <input matInput placeholder="Enter your password" [(ngModel)]="info.password" #password="ngModel" required [type]="hide ? 'password' : 'text'">
+                        <input matInput placeholder="Enter your password"  minlength="8" [(ngModel)]="info.password" [formControl] = "password"  required 
+                        [type]="hide ? 'password' : 'text'">             
                     </mat-form-field>
                 </div>
                 <mat-form-field>
@@ -45,25 +47,24 @@
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="footer"> Use 8 or more characters with a mix of letters, numbers & symbols</div><br><br>
-            <div fxLayout="row" fxLayoutGap="65px">
-                    
-                    <mat-card [@basic]="isBasic ? 'open' : 'closed'" class = "card1" (click)="card1()">
-                    <mat-card-title>Basic</mat-card-title>
-                    <p> Ability to add only title and description.</p>  
-                    </mat-card>
-                    <mat-card [@advance]="isAdvance ? 'open' : 'closed'" class = "card2" (click)="card2()">
-                    <mat-card-title>Advance </mat-card-title>
-                    <p> Ability to add title, description, images, labels, checklist and colors. </p>
-                        </mat-card>
-            </div>
-            <br><br>
 
+            <div class="footer"> Use 8 or more characters</div><br>
+            <mat-card-subtitle> Subscribe</mat-card-subtitle>
+            <div flexLayout="row" fxFlexLayout="center" fxLayoutGap="-100px" class="cards">
+            <div fxFlex.lg="50" *ngFor="let data of card">
+                    <mat-card mat-button (click)=" displayCards(data)" [ngClass]="data.choose? 'choose': 'notchosen'" >
+                        <mat-card-title fxLayout="row" class=" card-title " > {{data.name}}</mat-card-title>
+                        <mat-card-content class="description" >{{data.description}}</mat-card-content>
+                    </mat-card>
+                </div>
+                </div>
+            <br><br>
             <div class="signup-lastrow" fxLayout="row" fxLayoutGap="230px">
                 <a href="/login">Sign in instead</a>
                 <button mat-raised-button color='primary' (click)="next()">Next</button>
-            </div><br><br>
+            </div><br>
+        </form>
         </mat-card>
-    <!-- </form> -->
-    </div>
+   
+</div>
 </div>
