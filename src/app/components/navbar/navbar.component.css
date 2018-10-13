@@ -1,0 +1,33 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  /* background-color:pink */
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+}
+.mat-drawer.mat-drawer-side {
+  top:0;
+  height:100%;
+  margin-top:65px;
+  /* position: relative; */
+}
+.mat-toolbar.mat-primary {
+  background:#fb0 ;
+  
+}
+.title-header{
+  padding-left: 30px;
+color:black;
+}
+.toggle-icon{
+  color: dimgray;
+
+}
+
+

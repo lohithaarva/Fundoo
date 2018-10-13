@@ -1,28 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-signup',
-  // animations: [
-  // trigger('basic', [ state('open', style({ color:'white', height:'90px', width:'150px',cursor: 'pointer',
-  //                 background: 'linear-gradient(to right, rgb(0, 0, 0), rgb(67, 67, 67))'})),
-  //                   state('closed', style({ color:'black', height:'90px', width:'150px',cursor: 'pointer',
-  //                   background:' linear-gradient(to right, rgb(31, 64, 55), rgb(153, 242, 200))'})),
-  //                   transition('open => closed', [ animate('1s')]),
-  //                   transition('closed => open', [ animate('0.5s')
-  //                   ]),
-  //                 ]),   
-  //             ,
-  // trigger('advance', [ state('open', style({ color:'white', height:'97px', width:'150px',cursor: 'pointer',
-  //             background: 'linear-gradient(to right, rgb(0, 0, 0), rgb(67, 67, 67))'})),
-  //               state('closed', style({ color:'black', height:'97px', width:'150px',cursor: 'pointer',
-  //               background:' linear-gradient(to right, rgb(31, 64, 55), rgb(153, 242, 200))'})),
-  //               transition('open => closed', [ animate('1s')]),
-  //               transition('closed => open', [ animate('0.5s')
-  //               ]),
-  //             ]),   
-  //         ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
@@ -32,20 +17,18 @@ export class SignupComponent implements OnInit {
   public card = [];
   info: any = {};
   service;
-  constructor(private myHttpService: HttpService) { }
+  constructor(private myHttpService: HttpService, public snackBar: MatSnackBar, private router:Router) { }
 
   email = new FormControl('', [Validators.required, Validators.email]);
   firstName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
   lastName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
-  // Name= new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z ]*')])
-  password = new FormControl('',[Validators.required])
-
+  password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
+  confirmPassword = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
   getErrorMessagefirstName() {
     return this.firstName.hasError('required') ? 'First Name is Required' :
       this.firstName.hasError('pattern') ? 'Invalid First Name' :
         '';
   }
-
   getErrorMessagelastName() {
     return this.lastName.hasError('required') ? 'Last Name is Required' :
       this.lastName.hasError('pattern') ? 'Invalid Last Name' :
@@ -54,6 +37,16 @@ export class SignupComponent implements OnInit {
   getErrorMessage() {
     return this.email.hasError('required') ? 'Email is Required' :
       this.email.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+  getErrorMessagepassword() {
+    return this.password.hasError('required') ? 'Password is Required' :
+      this.password.hasError('pattern') ? 'Not a valid password' :
+        '';
+  }
+  getErrorMessageconfirmPassword() {
+    return this.password.hasError('required') ? 'Confirmpassword is required' :
+      this.password.hasError('pattern') ? 'Not a valid password' :
         '';
   }
 
@@ -82,14 +75,38 @@ export class SignupComponent implements OnInit {
     }
 
   }
-
-  // signup() {
-  //   alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.info))
-  // }
-
-
+  check=false;
   next() {
 
+    console.log(this.service)
+    if (this.info.firstName == 0 || this.info.lastName == 0 || this.info.email == 0 || 
+     this.info.password == 0 || this.service==0  ){
+      console.log("fill all the details")
+      this.snackBar.open("Fill in all the details", "signup failed", {
+        duration: 2000
+      })
+      return;
+    }
+// else if(!this.info.firstName == this.info.lastName){
+//   console.log("give a valid name");
+//      this.check=true;
+//      this.snackBar.open("Firstname or Lastname doesnt match", "signup failed", {
+//        duration: 2000
+//      })
+//         return;
+
+//     }
+
+     else if(!this.info.password ==this.info.confirmPassword){
+     console.log("give same password to confirm");
+     this.check=true;
+     this.snackBar.open("Password doesnot match", "signup failed", {
+       duration: 2000
+     })
+        return;
+   }
+
+    console.log(this.service.length)
     console.log(this.info.firstName);
     console.log(this.info.lastName);
     console.log(this.info.email);
@@ -98,19 +115,21 @@ export class SignupComponent implements OnInit {
       .postData('user/userSignUp', {
         "firstName": this.info.firstName,
         "lastName": this.info.lastName,
-        "service": "string",
+        "service": this.service,
         "email": this.info.email,
         "emailVerified": true,
         "password": this.info.password,
-        // "createdDate": "2018-10-09T06:35:12.617Z",
-        // "modifiedDate": "2018-10-09T06:35:12.617Z",
       }).subscribe(
         (data) => {
           console.log("POST Request is successful ", data);
+          this.router.navigate(['/home'])
         },
         error => {
+        
           console.log("Error", error);
         })
+
+        
   }
 
 }

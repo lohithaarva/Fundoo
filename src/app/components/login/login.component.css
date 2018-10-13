@@ -37,12 +37,10 @@
 {
   color:red;
 }
-/* }
-.matcard{
-  width:400px;
-  height:500px;
-} */
 .password{
+  width:100%;
+}
+.email{
   width:100%;
 }
 
