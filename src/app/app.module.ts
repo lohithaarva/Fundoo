@@ -23,6 +23,12 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
+import { NotesComponent } from './components/notes/notes.component';
+import { RemaindersComponent } from './components/remainders/remainders.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { TrashComponent } from './components/trash/trash.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { LabelsComponent } from './components/labels/labels.component';
 
 
 
@@ -36,6 +42,13 @@ import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/mate
     ResetPasswordComponent,
     HomeComponent,
     NavbarComponent,
+    NotesComponent,
+    RemaindersComponent,
+    ArchiveComponent,
+    TrashComponent,
+    SettingsComponent,
+    LabelsComponent,
+   
     
   ],
   imports: [

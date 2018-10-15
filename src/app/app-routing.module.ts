@@ -5,13 +5,28 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HomeComponent } from './components/home/home.component';
+import { NotesComponent } from './components/notes/notes.component';
+import { RemaindersComponent } from './components/remainders/remainders.component';
+import { LabelsComponent } from './components/labels/labels.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { TrashComponent } from './components/trash/trash.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 const routes : Routes =[
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'home', component:HomeComponent },
+  { path: 'home', component:HomeComponent , children  :[
+
+              { path: 'notes', component: NotesComponent }, 
+              { path: 'remainders', component: RemaindersComponent },
+              { path: 'labels', component: LabelsComponent},
+              { path: 'archive', component: ArchiveComponent},
+              { path: 'trash', component: TrashComponent},
+              { path: 'settings', component:SettingsComponent},
+  ]},
+
   { path: 'resetpassword/:forgotToken', component: ResetPasswordComponent},
   { path: '', redirectTo: '/signup', pathMatch: 'full'}
 ];
