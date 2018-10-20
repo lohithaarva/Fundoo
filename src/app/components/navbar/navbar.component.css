@@ -1,10 +1,15 @@
 .sidenav-container {
   height: 100%;
+  position: fixed;
+  background-color: rgb(221, 221, 230);
 }
 
 .sidenav {
+  overflow-y: scroll;
   width: 250px;
   margin-top: 65px;
+  background-color: rgb(221, 221, 230);
+ 
   /* background-color:rgb(216, 46, 75) */
 }
 .mat-toolbar.mat-primary {
@@ -15,6 +20,7 @@
 .mat-drawer.mat-drawer-side {
   top:0;
   height:100%;
+  
 }
 /* .mat-toolbar.mat-primary {
   background:#fb0 ;  
@@ -64,8 +70,7 @@ input:focus{
 /***************************************************************************************/
 .toolbar{
   background:#fb0 ;  
-  display: flex;
-  position: relative;
+  display: flex; 
 }
 .title{
   padding-right: 50px;
@@ -74,4 +79,12 @@ input:focus{
 .list-icon{
   padding-left: 5px;
   padding-right: 15px;
+}
+.icons{
+  margin-right: 9px;
+  color: black;
+  opacity: 1;
+  cursor: pointer;
+  align-items: center;
+  padding-left: 50px;
 }

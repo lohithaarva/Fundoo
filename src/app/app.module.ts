@@ -29,6 +29,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LabelsComponent } from './components/labels/labels.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -48,7 +49,7 @@ import { LabelsComponent } from './components/labels/labels.component';
     TrashComponent,
     SettingsComponent,
     LabelsComponent,
-   
+    
     
   ],
   imports: [
@@ -68,7 +69,8 @@ import { LabelsComponent } from './components/labels/labels.component';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule,
   
   ],
   
