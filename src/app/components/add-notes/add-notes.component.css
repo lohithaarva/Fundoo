@@ -1,0 +1,90 @@
+
+.takeNotes {
+    width: 600px;
+    height: 46px;
+    height: 46px!important;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 4px;
+ 
+  }
+  .inputTitle {
+    /* height: 46px!important; */
+    width: 80%;
+    border: none;
+    outline: none;
+    margin-top: 7px;
+    font-size: 15px;
+    margin-left: 20px;   
+  }
+  .inputTitleNote {
+    border: none;
+    outline: none;
+    width: 80%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor:text;
+}
+.inputNote{
+    outline: none;
+    border: none;
+    cursor: text;
+    width: 80%;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.pinIcon {
+    float: right;
+    opacity: 0.5;
+    padding-left: 450px;
+    padding-top: 5px;
+}
+
+    .hiddentakeNotes {
+        width: 580px;
+        position: relative;
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-top: -50px;
+        padding: 5px;
+        margin-bottom: 5px;
+        /* margin-left: initial; */
+    } 
+    
+  .hiddenDiv {
+    padding: 10px;
+}
+  .icons {
+    float: right;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+    margin-top: -17px;
+    cursor: pointer;
+  }
+
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
+
+.hiddentakeNotes {
+    width: 580px;
+    /* height: 133px; */
+    position: relative;
+    /* top: 0;
+    bottom: 0; */
+    left: 0;
+    right: 0;
+    margin: auto;
+    /* margin-top: -50px; */
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+.closeButton{
+    float:right;
+}
+.take{
+    margin-top: 13px;
+}

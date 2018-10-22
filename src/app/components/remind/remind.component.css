@@ -1,0 +1,10 @@
+.remind{
+    background-position: center;
+    height: 32px;
+    opacity: .54;
+    margin: 0 8px;
+    width: 32px;
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+}

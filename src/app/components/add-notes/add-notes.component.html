@@ -1,8 +1,8 @@
-<!-- <div fxFlex fxLayout="column" style="margin-top: 10vh;height: 100%; margin-left: 50vh">
+<div fxFlex fxLayout="column" style="margin-top: 10vh;height: 100%; margin-left: 50vh">
     <mat-card *ngIf="enterExpression" class="takeNotes">
         <mat-card-title class="notesTitle">
             <div>
-                <span><input (click)="newNote()" class="inputTitle" placeholder="Take a note..."></span>
+                <span><input (click)="enterExpression=!enterExpression" class="inputTitle" placeholder="Take a note..."></span>
                 </div>
                 <div>
                      <mat-icon class="icons" matTooltip="New note with Drawing" matTooltipPosition="above">create</mat-icon>
@@ -13,7 +13,7 @@
         </mat-card-title>
     </mat-card>
 
-<mat-card *ngIf="expression" class="hiddentakeNotes" >
+<mat-card *ngIf="!enterExpression" class="hiddentakeNotes" >
         <div class="hiddenDiv">
           <span>
             <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
@@ -33,6 +33,4 @@
         </div>
         </span>
 </mat-card>
-</div> -->
-<app-add-notes></app-add-notes>
-<app-note-card></app-note-card>
+</div>

@@ -30,6 +30,15 @@ import { TrashComponent } from './components/trash/trash.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LabelsComponent } from './components/labels/labels.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { IconsListComponent } from './components/icons-list/icons-list.component';
+import { RemindComponent } from './components/remind/remind.component';
+import { CollaboratorComponent } from './components/collaborator/collaborator.component';
+import { ColorComponent } from './components/color/color.component';
+import { AddImageComponent } from './components/add-image/add-image.component';
+import { AddArchiveComponent } from './components/add-archive/add-archive.component';
+import { MoreComponent } from './components/more/more.component';
+import { NoteCardComponent } from './components/note-card/note-card.component';
+import { AddNotesComponent } from './components/add-notes/add-notes.component';
 
 
 
@@ -49,6 +58,15 @@ import { MatMenuModule } from '@angular/material/menu';
     TrashComponent,
     SettingsComponent,
     LabelsComponent,
+    IconsListComponent,
+    RemindComponent,
+    CollaboratorComponent,
+    ColorComponent,
+    AddImageComponent,
+    AddArchiveComponent,
+    MoreComponent,
+    AddNotesComponent,
+    NoteCardComponent
     
     
   ],

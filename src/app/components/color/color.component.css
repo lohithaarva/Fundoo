@@ -1,0 +1,11 @@
+.color{
+    background-position: center;
+    opacity: .54;;
+    height: 32px;
+    margin: 0 8px;
+    width: 32px;
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+
+}

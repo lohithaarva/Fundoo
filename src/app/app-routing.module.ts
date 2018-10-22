@@ -17,9 +17,9 @@ const routes : Routes =[
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'home', component:HomeComponent , children  :[
+  { path: '', component:HomeComponent , children  :[
 
-              { path: 'notes', component: NotesComponent }, 
+              { path: 'home', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
               { path: 'archive', component: ArchiveComponent},
@@ -28,7 +28,7 @@ const routes : Routes =[
   ]},
 
   { path: 'resetpassword/:forgotToken', component: ResetPasswordComponent},
-  { path: '', redirectTo: '/signup', pathMatch: 'full'}
+  { path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
 @NgModule({
