@@ -9,13 +9,13 @@ import { HttpService } from '../../services/http.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+
+
 export class LoginComponent implements OnInit {
 constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, private router:Router ) { }
   info:any = {};
   isLeftVisible : any;
   service;
-  // count: number = 0;
-//  continue:boolean = false;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
 
@@ -47,16 +47,21 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
     this.myHttpService
       .postlogin('user/login', {
         "email": this.info.email,
-        "password":this.info.password,
-        "emailVerified": true,
-       
+        "password":this.info.password 
+          
       }).subscribe(
         (data) => {
           console.log("POST Request is successful ", data);
           this.snackBar.open("login successful", " ", {
             duration: 2000
           })
-          this.router.navigate(['/home'])
+          console.log(data['id']);
+          localStorage.setItem('token',data['id'])
+          localStorage.setItem("firstName",data["firstName"]);
+          localStorage.setItem("lastname",data["lastName"]);
+          localStorage.setItem("email",data["email"]);
+          localStorage.setItem("userId",data["userId"]);
+          this.router.navigateByUrl('home')
         },
         error => {
           console.log("Password or emailid is wrong")
@@ -65,9 +70,10 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
           })
           console.log("Error", error);
         })
+        return false;
       }
   
   ngOnInit() {
-    
+   
   }
 }

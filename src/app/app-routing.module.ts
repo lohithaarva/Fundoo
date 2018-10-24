@@ -11,24 +11,25 @@ import { LabelsComponent } from './components/labels/labels.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { SettingsComponent } from './components/settings/settings.component';
-
+import { AuthGuard } from './auth.guard';
 
 const routes : Routes =[
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: '', component:HomeComponent , children  :[
+  { path: 'home', component:HomeComponent , canActivate: [AuthGuard], children  :[
 
-              { path: 'home', component: NotesComponent }, 
+              { path: 'notes', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
               { path: 'settings', component:SettingsComponent},
+              { path:'', redirectTo:'notes',pathMatch:'full'},
   ]},
 
   { path: 'resetpassword/:forgotToken', component: ResetPasswordComponent},
-  { path: '', redirectTo: '/login', pathMatch: 'full'}
+  { path: '', redirectTo: '/login', pathMatch: 'full', }
 ];
 
 @NgModule({

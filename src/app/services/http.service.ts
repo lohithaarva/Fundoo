@@ -46,6 +46,42 @@ export class HttpService {
     }
     return formBody.join('&');
   }
+
+  postLogout(name,access_token){
+    // console.log(url);
+    console.log(access_token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json' ,
+        'Authorization' : access_token
+      })
+    };
+    return this.http.post(this.url+" "+name, null, httpOptions)
+
+  }
+  addNotes(url,body,access_token){
+    // console.log(url);
+    // console.log(access_token)
+    url= this.url+url;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/x-www-form-urlencoded' ,
+        'Authorization' : access_token
+      })
+    };
+    return this.http.post(url,this.getFormUrlEncoded(body), httpOptions)
+  }
+
+  getNotes(url,access_token){
+    url=this.url+url;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/x-www-form-urlencoded' ,
+        'Authorization' : access_token
+      })
+    };
+    return this.http.get(url,httpOptions)
+  }
 }
   
 

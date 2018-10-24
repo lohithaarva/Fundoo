@@ -1,3 +1,25 @@
-<p>
-  note-card works!
-</p>
+<div display="flex" fxLayout="row wrap" fxLayoutAlign="space-around">
+<div *ngFor="let note of cardAdded">
+  <mat-card fxLayoutGap="2%" class="note-card" style="margin-top:6vh">
+    <!-- <div class="hiddenDiv"> -->
+     
+      <div>
+        <div>{{note.title}}</div>
+      <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+   
+    </div>
+        <div>{{note.description}}</div>
+    <div></div><br><br>
+    <span>
+      <div>
+        <app-remind></app-remind>
+        <app-collaborator></app-collaborator>
+        <app-color></app-color>
+        <app-add-image></app-add-image>
+        <app-add-archive></app-add-archive>
+        <app-more></app-more>
+      </div>
+    </span>
+  </mat-card>
+</div>
+</div>

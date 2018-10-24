@@ -39,6 +39,8 @@ import { AddArchiveComponent } from './components/add-archive/add-archive.compon
 import { MoreComponent } from './components/more/more.component';
 import { NoteCardComponent } from './components/note-card/note-card.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -93,7 +95,7 @@ import { AddNotesComponent } from './components/add-notes/add-notes.component';
   ],
   
 
-  providers: [HttpService],
+  providers: [HttpService, AuthGuard , AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
