@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpService } from '../../services/http.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { LabelsComponent } from '../labels/labels.component';
+
 
 
 
@@ -20,6 +23,7 @@ export class NavbarComponent {
     );
     
   constructor(private breakpointObserver: BreakpointObserver,
+    public dialog: MatDialog,
     private myHttpService: HttpService,
     private router:Router,
     public route:ActivatedRoute,) {}
@@ -28,6 +32,7 @@ export class NavbarComponent {
      firstName;
      lastName;
      email;
+     value= [];
   
   ngOnInit() {
 
@@ -35,6 +40,21 @@ export class NavbarComponent {
       console.log(this.firstName)
       this.lastName = localStorage.getItem("lastname");
       this.email = localStorage.getItem("email");
+      this.myHttpService.getNotes("noteLabels/getNoteLabelList",this.accessToken)
+      .subscribe(response=>{
+        console.log("accessToken",this.accessToken)
+      console.log(" Get label successfull",response);
+      for(var i =0; i< response['data']['details'].length; i++){
+        if(response['data']['details'][i].isDeleted == false){
+          this.value.push(response['data']['details'][i]);
+        }
+      }
+      console.log(response);
+      console.log(this.value);
+
+    },error=>{
+      console.log("failed",error)
+    })
   }
 
   signout(){
@@ -48,9 +68,24 @@ export class NavbarComponent {
     },error=>{
       console.log("failed",error)
     })
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LabelsComponent, {
+      width: '250px',
+      data: {labelDialog:this.value}
+          });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+     
+    });
+  }
+
+  // openLabelHeader(){
    
 
-  
-    
-  }
+  // }
+
 }
+

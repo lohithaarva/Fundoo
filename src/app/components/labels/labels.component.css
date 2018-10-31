@@ -1,0 +1,98 @@
+[contenteditable=true]:empty:before{
+    content: attr(placeholder);
+    display: block; 
+  }
+
+.mat-dialog-container{
+    overflow: hidden;
+}
+
+.labelDone{
+    float: right;
+}
+.marg
+{
+    margin-top: 60%;
+}
+.marg1
+{
+    margin-top: 5%;
+    margin-left: 6%;
+}
+.marg2
+{
+    margin-top: 8%;
+}
+.flot
+{
+    
+    float: right;
+}
+
+
+.content
+{
+     border: none; 
+    border-color: transparent;
+    outline: none;
+    word-wrap: break-word;
+    width: 100%;
+    min-height: 20px;
+    border-bottom: 1px solid black;
+}
+.labelList{
+    margin-top: 4%;
+}
+
+/* 
+ ::ng-deep.mat-dialog-container {
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    display: block;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    outline: 0;
+    width: 400px;
+    height: auto;
+    min-height: inherit;
+    border-radius: 10px;
+    max-height: inherit;
+    padding: 5px
+}
+.material-icons:hover {
+    size:5px
+}
+.note{
+    width: 100%;
+  height: auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid black;
+  outline: none
+
+}
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+}
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1.5;
+}
+.label{
+     word-wrap: break-word;
+ width:120px
+}
+ .hovericon > .delete + .lab 
+.hovericon :hover .delete
+.hovericon .delete {
+  display: none;
+}
+.hovericon:hover .lab {
+  display: inherit;
+} */

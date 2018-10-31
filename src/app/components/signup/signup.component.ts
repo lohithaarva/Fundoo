@@ -122,7 +122,7 @@ export class SignupComponent implements OnInit {
       }).subscribe(
         (data) => {
           console.log("POST Request is successful ", data);
-          this.router.navigate(['/home'])
+          this.router.navigateByUrl('home')
         },
         error => {
         

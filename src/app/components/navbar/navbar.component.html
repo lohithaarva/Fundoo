@@ -28,7 +28,14 @@
             <a mat-list-item routerLink='/home/notes'><img src="../../../assets/images/notes.svg">Notes</a>
             <a mat-list-item routerLink="/home/remainders"><img src="../../../assets/images/remainders.svg">Remainders</a>
             <hr>
-            <a mat-list-item routerLink="/home/labels"><img src="../../../assets/images/labels.svg">Create new label</a>
+            <p >LABELS</p>
+            <div *ngFor="let result of value">
+              <a mat-list-item>
+                <mat-icon>label_outline</mat-icon>
+                <div class = "response">{{result.label}}</div>
+              </a>
+            </div>
+            <a (click)=" openDialog()"><mat-icon class="createLabelIcon">create</mat-icon>Edit Labels</a>
             <hr>
             <a mat-list-item routerLink="/home/archive"><img src="../../../assets/images/archive.svg">Archive</a>
             <a mat-list-item routerLink="/home/trash"><img src="../../../assets/images/trash.svg">Trash</a>

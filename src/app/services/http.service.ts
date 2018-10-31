@@ -56,7 +56,7 @@ export class HttpService {
         'Authorization' : access_token
       })
     };
-    return this.http.post(this.url+" "+name, null, httpOptions)
+    return this.http.post(this.url+name, null, httpOptions)
 
   }
   addNotes(url,body,access_token){
@@ -82,6 +82,120 @@ export class HttpService {
     };
     return this.http.get(url,httpOptions)
   }
-}
-  
 
+  deleteNotes(url,body,access_token){
+    url=this.url+url;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json' ,
+        'Authorization' : access_token
+      })
+    };
+    return this.http.post(url,body,httpOptions)
+
+  }
+
+  trashNotes(url,access_token){
+    url=this.url+url;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json' ,
+        'Authorization' : access_token
+      })
+    };
+    return this.http.get(url,httpOptions)
+}
+
+setColors(url,body,access_token){
+  url=this.url+url;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type' : 'application/json' ,
+      'Authorization' : access_token
+    })
+  };
+  return this.http.post(url,body,httpOptions)
+}
+
+postArchive(url,body,access_token){
+  url=this.url+url;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type' : 'application/json' ,
+      'Authorization' : access_token
+    })
+  };
+  return this.http.post(url,body,httpOptions)
+
+}
+getArchive(url,access_token){
+  url=this.url+url;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type' : 'application/json' ,
+      'Authorization' : access_token
+    })
+  };
+  return this.http.get(url,httpOptions)
+}
+noteUpdate(url,body,access_token){
+  url = this.url + url;
+  const httpOptions = {
+    headers : new HttpHeaders({
+      'Content-Type' : 'application/x-www-form-urlencoded',
+    'Authorization' : access_token
+    })
+  };
+  return this.http.post(url,this.getFormUrlEncoded(body),httpOptions)
+  }
+
+  postLabel(url,body,access_token){
+  url = this.url + url;
+  const httpOptions = {
+    headers : new HttpHeaders({
+      'Content-Type' : 'application/x-www-form-urlencoded',
+    'Authorization' : access_token
+    })
+  }
+  return this.http.post(url,this.getFormUrlEncoded(body),httpOptions)
+}
+
+access_token = localStorage.getItem('token')
+deleteLabel(url, body) {
+  url = this.url + url;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': this.access_token
+    })
+  }
+  return this.http.delete(url, body);
+}
+
+postDel(url, body, access_token){
+  url=this.url+url;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': access_token
+    })
+  };
+  // console.log(this.getFormUrlEncoded(input))
+  return this.http.post(url, body, httpOptions)
+}
+
+delete(name,token){
+  // var url = `${this.URL + "/" + name}/${id}/${"deleteNoteLabel"}`;
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.delete(this.url + "/" + name,httpOptions)
+
+}
+
+
+  
+}

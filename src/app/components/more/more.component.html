@@ -1,1 +1,9 @@
-<span class="more" matTooltip="More"><i class="material-icons">more_vert</i></span>
+<span class="more"[matMenuTriggerFor]="menu" matTooltip="More"><i class="material-icons">more_vert</i></span>
+<mat-menu #menu="matMenu">
+    <button  mat-menu-item (click) = "deleteCard(noteDeleteCard.id)">Delete</button>
+    <button mat-menu-item>Add label</button>
+    <button mat-menu-item>Add drawing</button>
+    <button mat-menu-item>Make a copy</button>
+    <button mat-menu-item>Show checkboxes</button>
+    <button mat-menu-item>Copy to Google Docs</button>
+  </mat-menu>

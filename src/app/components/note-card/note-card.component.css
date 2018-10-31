@@ -10,7 +10,12 @@
 }
 
 .note-card{
-    width:290px;
+    width:245px;
+    cursor: pointer;
+    border-radius:3%;
+}
+.note-card:hover .iconInvisible {
+    visibility: visible;
 }
     /* .hiddentakeNotes {
         width:290px;
@@ -49,4 +54,15 @@
 
 .take{
     margin-top: 13px;
+}
+.iconInvisible{
+    visibility: hidden;
+    padding-left:10px;
+}
+.centerdiv{
+    width:784px;
+    background-color: aqua;
+    position: fixed;
+    margin-top: 3%;
+
 }

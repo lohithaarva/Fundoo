@@ -1,11 +1,45 @@
 .color{
     background-position: center;
     opacity: .54;;
-    height: 32px;
-    margin: 0 8px;
-    width: 32px;
+    height: 30px;
+    /* margin: 0 8px; */
+    width: 30px;
     cursor: pointer;
     display: inline-block;
     outline: none!important;
 
 }
+.colorPalette {
+    border-radius: 100%;
+    outline: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    }
+    .fundoo33 {
+    margin-left: 0px;
+    opacity: 0.54;
+    }
+    .colorCard {
+    left: 331px;
+    margin-top: -692px;
+    width: 160px;
+    padding: 5px;
+    }
+    .colorDiv{
+    margin-bottom:5px;
+    display:flex;
+    }
+    
+    .firstColor{
+        
+    }
+/* {
+    background-color: #fafafa;
+     width:26px;
+      height:26px; 
+      margin-right: 5px;
+       margin-bottom: 3px;
+       margin-left: 3px;
+}
+     */

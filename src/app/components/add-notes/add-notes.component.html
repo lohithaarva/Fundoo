@@ -1,5 +1,5 @@
-<div class="flex-container" fxFlex fxLayout="column" fxlayoutalign="center" 
-    style="margin-top:10vh;height: 100%; align-items: center">
+<div class="flex-container" fxFlex fxLayout="column" fxlayoutalign="center" >
+    <div style="margin-top:10vh;height: 100%; align-items: center">
     <mat-card *ngIf="enterExpression" class="takeNotes">
         <mat-card-title class="notesTitle">
             <div>
@@ -8,25 +8,46 @@
                 <div>
                      <mat-icon class="icons" matTooltip="New note with Drawing" matTooltipPosition="above">create</mat-icon>
                     <i class="material-icons icons"> image </i>
-                    <i class="material-icons icons"> list </i>
+                    <i class="material-icons icons" (click)="enterExpression=!enterExpression"  (click)="boxClicked=!boxClicked"> <mat-icon>check_box</mat-icon></i>
                 </div>
            
         </mat-card-title>
     </mat-card>
-
-<mat-card *ngIf="!enterExpression" class="hiddentakeNotes" >
+    </div>
+<mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes" >
         <div class="hiddenDiv">
           <span>
             <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
             <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title" #title></div>
           </span>
-        </div><br>
-        <div class="inputNote" id="notesId" contenteditable="true"data-text="Take a note" #description></div><br><br>
+        </div>
+
+
+      
+       
+        <div *ngIf="!boxClicked">
+           <hr>
+           <div>
+                <span>
+            <mat-icon class="addIcon">add</mat-icon>
+            <mat-icon>check_box_outline_blank</mat-icon>
+            <input (click)="enterList=!enterList"class="listItem" placeholder="List Item">
+                </span>
+                    </div>
+            <hr>
+        </div>
+       
+ 
+
+
+
+
+        <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" #description></div>
         <span>
-        <div>
+        <div class="noteCardIcon">
         <app-remind></app-remind>
         <app-collaborator></app-collaborator>
-        <app-color></app-color>
+        <app-color (emitColorNotes)= "ChangeColorNotes($event)"></app-color>
         <app-add-image></app-add-image>
         <app-add-archive></app-add-archive>
         <app-more></app-more>

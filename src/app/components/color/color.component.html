@@ -1,2 +1,27 @@
-<span class="color" matTooltip="Change color"><i class="material-icons">palette</i></span>
+<span class="color" [matMenuTriggerFor]="menu" matTooltip="Change color"><i class="material-icons">palette</i></span>
+<mat-menu #menu="matMenu">
+    <div style="overflow: hidden">
+        <div>
+            <button class="firstColor"style="background-color: #fafafa; width:26px; height:26px; margin-right: 5px; margin-bottom: 3px;margin-left: 3px;" mat-mini-fab (click)= "changeColor(0)"></button>
+            <button style="background-color:#ff8a80; width:26px; height:26px;  margin-right: 5px" mat-mini-fab (click)= "changeColor(1)"></button>
+            <button style="background-color:#ffd180; width:26px; height:26px;  margin-right: 5px" mat-mini-fab (click)= "changeColor(2)"></button>
+            <button style="background-color:#ffff8d; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(3)"></button>
+        </div>
 
+        <div>
+            <button style="background-color:#ccff90; width:26px; height:26px;  margin-right: 5px; margin-bottom: 3px;margin-left: 3px;" mat-mini-fab (click)= "changeColor(4)"></button>
+            <button style="background-color:#a7ffeb; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(5)"></button>
+            <button style="background-color: #80d8ff; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(6)"></button>
+            <button style="background-color:#82b1ff; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(7)"></button>
+        </div>
+
+        <div>
+            <button style="background-color:#b388ff; width:26px; height:26px; margin-right: 5px; margin-bottom: 3px;margin-left: 3px;" mat-mini-fab (click)= "changeColor(8)"></button>
+            <button style="background-color:#f8bbd0; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(9)"></button>
+            <button style="background-color:#d7ccc8; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(10)"></button>
+            <button style="background-color:#cfd8dc; width:26px; height:26px; margin-right: 5px" mat-mini-fab (click)= "changeColor(11)"></button>
+        </div>
+    </div>
+
+
+</mat-menu>

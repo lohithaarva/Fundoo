@@ -1,25 +1,97 @@
-<div display="flex" fxLayout="row wrap" fxLayoutAlign="space-around">
-<div *ngFor="let note of cardAdded">
-  <mat-card fxLayoutGap="2%" class="note-card" style="margin-top:6vh">
-    <!-- <div class="hiddenDiv"> -->
-     
-      <div>
-        <div>{{note.title}}</div>
-      <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-   
+
+<div fxFlex="row"></div>
+
+
+
+<div fxFlex="row" fxLayoutAlign="center start" style="align-self: center" fxLayoutGap="30px" style="margin-top:6vh;padding-bottom: 5%;">
+
+
+
+  <div fxFlex="column">
+    <!-- <div *ngFor="let note of first"> -->
+      <!-- <div> -->
+      <mat-card *ngFor="let note of first" (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
+        <div>
+          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
+          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+
+        </div>
+
+        <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
+        <br><br>
+        <span>
+          <div fxFlex="row" fxLayout-gap="3%" class="iconInvisible">
+            <app-remind></app-remind>
+            <app-collaborator></app-collaborator>
+            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
+            <app-add-image></app-add-image>
+            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
+          </div>
+        </span>
+      </mat-card>
+      <!-- </div> -->
+    <!-- </div> -->
+  </div>
+
+
+  <div fxFlex="column">
+    <div *ngFor="let note of second">
+      <!-- <div> -->
+      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
+        <div>
+          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
+          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+
+        </div>
+
+        <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
+        <br><br>
+        <span>
+          <div class="iconInvisible">
+            <app-remind></app-remind>
+            <app-collaborator></app-collaborator>
+            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
+            <app-add-image></app-add-image>
+            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
+          </div>
+        </span>
+      </mat-card>
+      <!-- </div> -->
     </div>
-        <div>{{note.description}}</div>
-    <div></div><br><br>
-    <span>
-      <div>
-        <app-remind></app-remind>
-        <app-collaborator></app-collaborator>
-        <app-color></app-color>
-        <app-add-image></app-add-image>
-        <app-add-archive></app-add-archive>
-        <app-more></app-more>
-      </div>
-    </span>
-  </mat-card>
+  </div>
+
+
+  <div fxFlex="column">
+    <div *ngFor="let note of third">
+      <!-- <div> -->
+      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
+        <div>
+          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
+          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+
+        </div>
+
+        <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
+        <br><br>
+        <span>
+          <div class="iconInvisible">
+            <app-remind></app-remind>
+            <app-collaborator></app-collaborator>
+            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
+            <app-add-image></app-add-image>
+            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
+          </div>
+        </span>
+      </mat-card>
+      <!-- </div> -->
+    </div>
+  </div>
+  <!-- <mat-card class="centerdiv"></mat-card> -->
 </div>
-</div>
+
+
+
+<div fxFlex="row"></div>

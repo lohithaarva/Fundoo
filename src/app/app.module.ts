@@ -41,7 +41,8 @@ import { NoteCardComponent } from './components/note-card/note-card.component';
 import { AddNotesComponent } from './components/add-notes/add-notes.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { AuthService } from './services/auth.service';
     AddArchiveComponent,
     MoreComponent,
     AddNotesComponent,
-    NoteCardComponent
+    NoteCardComponent,
+    DialogComponentComponent
     
     
   ],
@@ -91,11 +93,13 @@ import { AuthService } from './services/auth.service';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
+    MatDialogModule
   
   ],
   
 
   providers: [HttpService, AuthGuard , AuthService],
+  entryComponents :[DialogComponentComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

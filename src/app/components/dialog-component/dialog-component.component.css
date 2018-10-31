@@ -1,0 +1,54 @@
+  .inputTitle {
+    /* height: 46px!important; */
+    width: 80%;
+    border: none;
+    outline: none;
+    margin-top: 7px;
+    font-size: 15px;
+    margin-left: 20px;   
+  }
+  .inputTitleNote {
+    border: none;
+    outline: none;
+    width: 80%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor:text;
+    margin-top: 4%;
+    margin-left: 2%;
+}
+.inputNote{
+    outline: none;
+    border: none;
+    cursor: text;
+    width: 80%;
+    font-size: 16px;
+    padding-left: 10px;
+    margin-left: 2%;
+}
+.pinIcon {
+    float: right;
+    opacity: 0.5;
+    padding-left: 450px;
+    margin-top: -3%;
+    margin-right: 3%;
+    /* padding-top: 5px; */
+}
+  .icons {
+    float: right;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+    margin-top: -17px;
+    cursor: pointer;
+  }
+
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
+.closeButton{
+    float:right;
+}
+.dialogIcons{
+   margin-top: 10%;
+}

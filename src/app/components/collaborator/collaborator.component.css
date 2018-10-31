@@ -1,9 +1,9 @@
 .collaborator{
     background-position: center;
     opacity: .54;;
-    height: 32px;
-    margin: 0 8px;
-    width: 32px;
+    height: 30px;
+    /* margin: 0 8px; */
+    width: 30px;
     cursor: pointer;
     display: inline-block;
     outline: none!important;
