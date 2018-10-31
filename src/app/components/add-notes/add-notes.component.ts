@@ -11,37 +11,25 @@ import { ColorComponent } from '../color/color.component';
 export class AddNotesComponent implements OnInit {
   enterExpression = true;
   boxClicked =  true;
-
+  checklist={};
  token=localStorage.getItem('token')
  changeColor = localStorage.getItem('color');
  color;
-
+ inputArea=[];
+ checkBoxArray=[];
   constructor(private myHttpService:HttpService) { }
-  // message: boolean = false
   @Output() messageEvent = new EventEmitter();
   
 
   ngOnInit() {}
-
-  // newBoxClick(){
-  //   this.boxClicked =  true;
-  // }
-  // newNote() {
-  //   this.enterExpression = false;
-  // }
-
   finish(){
     if(!this.enterExpression){
       this.enterExpression=!this.enterExpression;
     }
     // else if(this.boxClicked){
       this.boxClicked = true;
-    // }
+    } 
 
-    }
-
-  
-    
     exit()
     { 
       console.log(this.color);
@@ -70,6 +58,19 @@ export class AddNotesComponent implements OnInit {
     ChangeColorNotes(event){
       console.log(event); 
       this.color= event;
+    }
+
+    onKeydown(event) {
+      if (event.key === "Enter" && event.key!= ""){
+      console.log(event);
+      this.checklist={
+        "textVal" :"",
+        "status":"open"
+      }
+      this.checkBoxArray.push(this.checklist);
+      
+      }
+      
     }
   }
 

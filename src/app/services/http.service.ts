@@ -196,6 +196,16 @@ delete(name,token){
 
 }
 
+get(name,token){
+  const httpOptions = {
+    headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': token
+  })
+}
+  return this.http.get(this.url + "/" + name,httpOptions);
+}
+
 
   
 }

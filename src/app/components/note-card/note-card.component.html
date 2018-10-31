@@ -44,8 +44,17 @@
           <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
 
         </div>
-
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
+        <div fxLayout="row" fxFlexAlign="end end">
+        <div *ngFor="let labelChip of note.noteLabels" >
+        <mat-chip-list>  <mat-chip >{{labelChip.label}}
+            <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
+        
+          </mat-chip>
+        </mat-chip-list>
+        </div>
+        </div>
+        
         <br><br>
         <span>
           <div class="iconInvisible">

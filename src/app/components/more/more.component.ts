@@ -7,12 +7,14 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./more.component.css']
 })
 export class MoreComponent implements OnInit {
-
+checkboxLabel = [];
   constructor(private myHttpService : HttpService) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
   ngOnInit() {
-   
+  
+    
+   this.getLabels();
   }
   token = localStorage.getItem("token");
 
@@ -30,4 +32,25 @@ export class MoreComponent implements OnInit {
       })
   }
 
+  getLabels() {
+  
+    this.myHttpService.get("noteLabels/getNoteLabelList", localStorage.getItem('token')).subscribe(
+      response => {
+        this.checkboxLabel = response['data']['details'];
+      })
+    }
+
+    selectLabel(id){
+        console.log("selected label is", id);
+        // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
+          console.log(id)
+          this.myHttpService.addNotes("/notes/" + this.noteDeleteCard.id + "/addLabelToNotes/" + id + "/add",{"noteId" : this.noteDeleteCard.id,
+        "lableId" : id}, localStorage.getItem('token'))
+            .subscribe(Response => {
+              console.log(Response);
+            }, error => {
+              console.log(error)
+            })
+          // }
+}
 }

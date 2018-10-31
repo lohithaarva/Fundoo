@@ -110,3 +110,8 @@ hr {
     border-style: inset;
     border-width: 1px;
 }
+.listItem{
+    margin-top: 4%;
+    border:none;
+    outline:none;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit, Input,EventEmitter, Output} from '@angular/core';
 import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 import {MatDialog} from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
+import { HttpService } from '../../services/http.service';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { DialogComponentComponent } from '../dialog-component/dialog-component.c
 })
 export class NoteCardComponent implements OnInit {
   messageDeleted:boolean;
-  constructor(public dialog: MatDialog) {}
+ 
+  constructor(public dialog: MatDialog, private myHttpService : HttpService) {}
   
 
   @Input() cardAdded;
@@ -39,6 +41,19 @@ export class NoteCardComponent implements OnInit {
       })
     });
   }
+
+  remove(labelId, noteId){
+    // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
+
+      this.myHttpService.addNotes("/notes/" + noteId + "/addLabelToNotes/" + labelId + "/remove",{"noteId" : noteId,
+    "lableId" :labelId}, localStorage.getItem('token'))
+        .subscribe(Response => {
+          console.log(Response);
+        }, error => {
+          console.log(error)
+        })
+      // }
+}
  
 
   ngOnInit() { 

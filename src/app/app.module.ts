@@ -43,6 +43,9 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+// import { SearchPipe } from './_pipe/search/search.pipe';
 
 
 @NgModule({
@@ -93,7 +96,9 @@ import { DialogComponentComponent } from './components/dialog-component/dialog-c
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    MatChipsModule
   
   ],
   

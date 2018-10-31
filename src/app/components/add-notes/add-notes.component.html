@@ -18,7 +18,7 @@
         <div class="hiddenDiv">
           <span>
             <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-            <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title" #title></div>
+            <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title"></div>
           </span>
         </div>
 
@@ -27,14 +27,16 @@
        
         <div *ngIf="!boxClicked">
            <hr>
-           <div>
-                <span>
-            <mat-icon class="addIcon">add</mat-icon>
+           <!-- <div  > -->
+           <div fxLayoutAlign="start start">
+            <!-- <mat-icon class="addIcon">add</mat-icon> -->
+            <div >
             <mat-icon>check_box_outline_blank</mat-icon>
-            <input (click)="enterList=!enterList"class="listItem" placeholder="List Item">
-                </span>
-                    </div>
+            <input (click)="enterList=!enterList"  class="listItem" placeholder="List Item" (keydown)="onKeydown($event)">
+            </div>
+            </div>
             <hr>
+            <!-- </div> -->
         </div>
        
  

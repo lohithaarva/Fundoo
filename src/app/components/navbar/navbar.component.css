@@ -108,7 +108,8 @@ input:focus{
 .createLabelIcon{
   opacity:1;
   font-size: 166%;
-    margin-left: 5%;
+  margin-left: 5%;
+  cursor: pointer
 }
 .editLabel{
   margin-top: 2%;

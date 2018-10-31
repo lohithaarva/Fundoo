@@ -12,7 +12,7 @@ import { NullAstVisitor } from '@angular/compiler';
 })
 export class LabelsComponent implements OnInit {
 
-  public show;
+  public show = true;
   constructor(private myHttpService: HttpService) { }
   value1: any = [];
   @ViewChild('newLabel') newLabel: ElementRef;
@@ -45,6 +45,7 @@ export class LabelsComponent implements OnInit {
   }
 
   labelDelete(val) {
+    this.show = true;
     this.myHttpService.deleteLabel('/noteLabels/' + val + '/deleteNoteLabel', {
       "label": this.newLabel.nativeElement.innerHTML
     }).subscribe(
@@ -75,6 +76,7 @@ export class LabelsComponent implements OnInit {
   }
 
   edit(val) {
+    this.show = true;
     this.myHttpService.addNotes('/noteLabels/' + val + '/updateNoteLabel',
       {
         "label": this.myLabel.nativeElement.innerHTML,
@@ -92,12 +94,14 @@ export class LabelsComponent implements OnInit {
         })
   }
   edit2(id) {
+    this.show = true;
     this.show = id;
   }
 
   close()
   {
      this.newLabel.nativeElement.innerHTML = ' ';
+
   }
 }
 
