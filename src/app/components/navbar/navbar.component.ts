@@ -6,8 +6,7 @@ import { HttpService } from '../../services/http.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
-
-
+import { DataService } from "../../services/data.service";
 
 
 @Component({
@@ -21,8 +20,10 @@ export class NavbarComponent {
     .pipe(
       map(result => result.matches)
     );
+ 
     
   constructor(private breakpointObserver: BreakpointObserver,
+    private data: DataService,
     public dialog: MatDialog,
     private myHttpService: HttpService,
     private router:Router,
@@ -33,28 +34,37 @@ export class NavbarComponent {
      lastName;
      email;
      value= [];
+     globalSearch:any;
   
   ngOnInit() {
+     
+    this.noteCard();
 
-       this.firstName= localStorage.getItem("firstName");
-      console.log(this.firstName)
-      this.lastName = localStorage.getItem("lastname");
-      this.email = localStorage.getItem("email");
-      this.myHttpService.getNotes("noteLabels/getNoteLabelList",this.accessToken)
-      .subscribe(response=>{
-        console.log("accessToken",this.accessToken)
-      console.log(" Get label successfull",response);
-      for(var i =0; i< response['data']['details'].length; i++){
-        if(response['data']['details'][i].isDeleted == false){
-          this.value.push(response['data']['details'][i]);
-        }
-      }
-      console.log(response);
-      console.log(this.value);
+     
+  }
+  noteCard(){
+    var note=[];
+  // this.firstName= localStorage.getItem("firstName");
+  // console.log(this.firstName)
+  // this.lastName = localStorage.getItem("lastname");
+  // this.email = localStorage.getItem("email");
+  this.myHttpService.getNotes("noteLabels/getNoteLabelList",this.accessToken)
+  .subscribe(response=>{
+    console.log("accessToken",this.accessToken)
+  console.log(" Get label successfull",response);
+  for(var i =0; i< response['data']['details'].length; i++){
+    if(response['data']['details'][i].isDeleted == false){
+      note.push(response['data']['details'][i]);
+    }
+  }
+  this.value = note;
 
-    },error=>{
-      console.log("failed",error)
-    })
+  console.log(response);
+  console.log(this.value);
+
+},error=>{
+  console.log("failed",error)
+})
   }
 
   signout(){
@@ -77,15 +87,19 @@ export class NavbarComponent {
           });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.noteCard();
       console.log('The dialog was closed');
      
     });
   }
 
-  // openLabelHeader(){
-   
+  keySearch(){
+    this.data.changeMessage(this.globalSearch);
 
-  // }
+  }
 
+  navigate(){
+    this.router.navigate(['home/search']);
+  }
 }
 

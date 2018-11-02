@@ -1,39 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-// import { AddNotesComponent } from '../add-notes/add-notes.component';
 import { HttpService } from '../../services/http.service';
-import { AuthService } from './../../services/auth.service';
+import { DataService } from "../../services/data.service";
 
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class NotesComponent implements OnInit {
-  notes = [];
-  access_token = localStorage.getItem("token");
-  message: boolean;
-  first = [];
-  second = [];
-  third = [];
+export class SearchComponent implements OnInit {
+
+  constructor( private myHttpService: HttpService,public data:DataService) { }
   main = [];
+  notes = [];
+  globalSearch:any;
+  access_token = localStorage.getItem('token');
 
-
-  constructor(private myHttpService: HttpService, private auth: AuthService) {
-    this.getCardsList();
-
-   }
   ngOnInit() {
-    // this.getCardsList();
-  }
-
-  receiveMessage(event) {
-    console.log("i m here")
-    this.message = event;
-    if (event) {
+    this.data.currentMessage.subscribe(message=>{
+      this.globalSearch = message;
+      console.log("searching note cards");
       
-      this.getCardsList();
-    }
+    })
+    this.getCardsList();
   }
 
   getCardsList() {
@@ -47,9 +36,9 @@ export class NotesComponent implements OnInit {
           }
         }
         console.log("array", this.notes)
-        this.first=[];
-        this.second=[];
-        this.third=[];
+        // this.first=[];
+        // this.second=[];
+        // this.third=[];
         this.main=[];
         for(var index=0; index<(this.notes.length) ; index++)
         {
@@ -80,8 +69,6 @@ export class NotesComponent implements OnInit {
         
       })
   }
-
-
 
 
 }

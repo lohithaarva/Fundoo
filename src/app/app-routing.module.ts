@@ -12,6 +12,8 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AuthGuard } from './auth.guard';
+import { SearchComponent } from './components/search/search.component';
+import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 
 const routes : Routes =[
   { path: 'login', component: LoginComponent},
@@ -22,8 +24,10 @@ const routes : Routes =[
               { path: 'notes', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
+              { path: 'label-notes/labelName', component: LabelNotesComponent},
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
+              { path: 'search', component: SearchComponent},
               { path: 'settings', component:SettingsComponent},
               { path:'', redirectTo:'notes',pathMatch:'full'},
   ]},

@@ -7,6 +7,8 @@
     cursor: pointer;
     display: inline-block;
     outline: none!important;
-    
+}
+.mat-checkbox{
+    margin-left: 6%;
 
 }

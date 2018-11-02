@@ -3,7 +3,7 @@ import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 import {MatDialog} from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
 import { HttpService } from '../../services/http.service';
-
+import { DataService } from "../../services/data.service";
 
 @Component({
   selector: 'app-note-card',
@@ -13,9 +13,17 @@ import { HttpService } from '../../services/http.service';
 export class NoteCardComponent implements OnInit {
   messageDeleted:boolean;
  
-  constructor(public dialog: MatDialog, private myHttpService : HttpService) {}
+  constructor(public dialog: MatDialog, private myHttpService : HttpService,private data: DataService) {
+    this.data.currentDelete.subscribe(message=>{
+      console.log("deleting labels from dialog to sidenav ");
+      if(message){
+        this.eventEmit.emit({
+        })
+      }
+    })
+  }
   
-
+  @Input() globalSearch;
   @Input() cardAdded;
   @Input() first=[];
   @Input() second=[];
@@ -26,7 +34,6 @@ export class NoteCardComponent implements OnInit {
     console.log("i m here for deleting the card")
     this.eventEmit.emit({
     })
-    // this.eventEmit = event;
   }
 
   openDialog(note): void {
@@ -40,24 +47,23 @@ export class NoteCardComponent implements OnInit {
       this.eventEmit.emit({
       })
     });
-  }
+  } 
 
   remove(labelId, noteId){
     // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
-
       this.myHttpService.addNotes("/notes/" + noteId + "/addLabelToNotes/" + labelId + "/remove",{"noteId" : noteId,
     "lableId" :labelId}, localStorage.getItem('token'))
         .subscribe(Response => {
           console.log(Response);
+          this.eventEmit.emit({})
         }, error => {
           console.log(error)
         })
       // }
 }
- 
 
   ngOnInit() { 
-  }
-    
+   
+  } 
 }
   

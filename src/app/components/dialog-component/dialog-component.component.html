@@ -11,6 +11,17 @@
     </div>
     <div class="inputNote" id="notesId" contenteditable="true" 
     data-text="" [innerHTML]="data.description"></div>
+
+    <div fxLayout="row" fxFlexAlign="end end">
+        <div *ngFor="let labelChip of data.noteLabels" >
+        <mat-chip-list>  <mat-chip >{{labelChip.label}}
+            <mat-icon matChipRemove (click)="remove(labelChip.id, data.id)">cancel</mat-icon>
+        
+          </mat-chip>
+        </mat-chip-list>
+        </div>
+        </div>
+        
     <span class="iconInvisible">
       <div class="dialogIcons">
         <app-remind></app-remind>

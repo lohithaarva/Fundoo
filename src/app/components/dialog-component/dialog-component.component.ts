@@ -22,7 +22,9 @@ export interface DialogData {
 })
 export class DialogComponentComponent implements OnInit {
 token = localStorage.getItem('token')
-@Output() updateEvent = new EventEmitter()
+@Output() updateEvent = new EventEmitter();
+@Output() eventEmit=new EventEmitter();
+
 
   constructor( public dialogRef: MatDialogRef<NoteCardComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private myHttpService: HttpService) {}
@@ -42,6 +44,21 @@ token = localStorage.getItem('token')
           })
           this.dialogRef.close();
     }
+
+    remove(labelId, noteId){
+      // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
+  
+        this.myHttpService.addNotes("/notes/" + noteId + "/addLabelToNotes/" + labelId + "/remove",{"noteId" : noteId,
+      "lableId" :labelId}, localStorage.getItem('token'))
+          .subscribe(Response => {
+            console.log(Response);
+            this.eventEmit.emit({})
+          }, error => {
+            console.log(error)
+          })
+        // }
+  }
+   
   
 
 

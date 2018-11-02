@@ -27,16 +27,14 @@
        
         <div *ngIf="!boxClicked">
            <hr>
-           <!-- <div  > -->
            <div fxLayoutAlign="start start">
             <!-- <mat-icon class="addIcon">add</mat-icon> -->
-            <div >
-            <mat-icon>check_box_outline_blank</mat-icon>
-            <input (click)="enterList=!enterList"  class="listItem" placeholder="List Item" (keydown)="onKeydown($event)">
+            <div>
+                <mat-checkbox></mat-checkbox>
+            <input  class="listItem" placeholder="List Item" (keydown)="onKeydown($event)">
             </div>
             </div>
             <hr>
-            <!-- </div> -->
         </div>
        
  

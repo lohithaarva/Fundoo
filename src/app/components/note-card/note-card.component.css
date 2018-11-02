@@ -10,26 +10,13 @@
 }
 
 .note-card{
-    width:245px;
+    width:213px;
     cursor: pointer;
     border-radius:3%;
 }
 .note-card:hover .iconInvisible {
     visibility: visible;
 }
-    /* .hiddentakeNotes {
-        width:290px;
-       border-radius:2px;
-        position: relative;
-        left: 0;
-        right: 0;
-        margin: auto;
-        margin-top: -50px;
-        padding: 5px;
-        margin-bottom: 5px; 
-        margin-left: initial; 
-     }  */
-    
   .hiddenDiv {
     padding: 10px;
 }
@@ -66,3 +53,15 @@
     margin-top: 3%;
 
 }
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin:-10px;
+    width:500px;
+  /* flex-flow: row wrap; */
+}
+
+/* .flex-container>* {
+    flex: 1 1 160px;
+    margin: 10px;
+  } */

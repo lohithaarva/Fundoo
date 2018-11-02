@@ -56,7 +56,7 @@
         </div>
         <div fxLayout="column" class="labelList">
           <a mat-list-item>
-            <div *ngFor="let val of value1">
+            <div *ngFor="let val of value1; trackBy:val?.id">
               <div *ngIf="show != val.id">
                 <mat-icon fxFlex="15" matTooltip="Delete Label" (click)="labelDelete(val.id)">label_outline</mat-icon>
                 <span fxFlex="70" contenteditable="false" class="name" id="label" [innerHTML]="val.label"></span>

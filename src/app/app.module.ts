@@ -45,8 +45,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { LabelfilterPipe } from './pipes/labelfilter.pipe';
+import { SearchComponent } from './components/search/search.component';
+import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 // import { SearchPipe } from './_pipe/search/search.pipe';
-
 
 @NgModule({
   declarations: [
@@ -73,7 +75,10 @@ import { MatChipsModule } from '@angular/material/chips';
     MoreComponent,
     AddNotesComponent,
     NoteCardComponent,
-    DialogComponentComponent
+    DialogComponentComponent,
+    LabelfilterPipe,
+    SearchComponent,
+    LabelNotesComponent
     
     
   ],

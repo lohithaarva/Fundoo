@@ -1,43 +1,7 @@
+<div fxFlex="column" fxFlex="5"></div>
 
-<div fxFlex="row"></div>
-
-
-
-<div fxFlex="row" fxLayoutAlign="center start" style="align-self: center" fxLayoutGap="30px" style="margin-top:6vh;padding-bottom: 5%;">
-
-
-
-  <div fxFlex="column">
-    <!-- <div *ngFor="let note of first"> -->
-      <!-- <div> -->
-      <mat-card *ngFor="let note of first" (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
-        <div>
-          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
-          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-
-        </div>
-
-        <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
-        <br><br>
-        <span>
-          <div fxFlex="row" fxLayout-gap="3%" class="iconInvisible">
-            <app-remind></app-remind>
-            <app-collaborator></app-collaborator>
-            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image></app-add-image>
-            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
-            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
-          </div>
-        </span>
-      </mat-card>
-      <!-- </div> -->
-    <!-- </div> -->
-  </div>
-
-
-  <div fxFlex="column">
-    <div *ngFor="let note of second">
-      <!-- <div> -->
+<div class="flex-container" fxFlexAlign="center center" fxFlex="row" fxLayoutGap="20px" style="margin-top:6vh;padding-bottom:5%;width:500px;align-self: center">
+    <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
       <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
         <div>
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
@@ -47,11 +11,12 @@
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
         <div fxLayout="row" fxFlexAlign="end end">
         <div *ngFor="let labelChip of note.noteLabels" >
-        <mat-chip-list>  <mat-chip >{{labelChip.label}}
+          <div *ngIf = "labelChip.isDeleted == false">
+        <mat-chip-list >  <mat-chip >{{labelChip.label}}
             <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
-        
           </mat-chip>
         </mat-chip-list>
+      </div>
         </div>
         </div>
         
@@ -67,40 +32,14 @@
           </div>
         </span>
       </mat-card>
-      <!-- </div> -->
+     
     </div>
-  </div>
-
-
-  <div fxFlex="column">
-    <div *ngFor="let note of third">
-      <!-- <div> -->
-      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
-        <div>
-          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
-          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-
-        </div>
-
-        <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
-        <br><br>
-        <span>
-          <div class="iconInvisible">
-            <app-remind></app-remind>
-            <app-collaborator></app-collaborator>
-            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image></app-add-image>
-            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
-            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
-          </div>
-        </span>
-      </mat-card>
-      <!-- </div> -->
     </div>
-  </div>
-  <!-- <mat-card class="centerdiv"></mat-card> -->
-</div>
 
 
 
-<div fxFlex="row"></div>
+<div fxFlex="column" fxFlex="5"></div>
+
+<!-- 
+    style="align-self: center"
+    style="margin-top:6vh;padding-bottom: 50%;"  fxLayoutGap="30px" -->

@@ -1,9 +1,9 @@
-import { AfterViewInit,Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit,Component, OnInit, Inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { Response } from 'selenium-webdriver/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogData } from '../dialog-component/dialog-component.component';
-import { NullAstVisitor } from '@angular/compiler';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-labels',
@@ -13,11 +13,13 @@ import { NullAstVisitor } from '@angular/compiler';
 export class LabelsComponent implements OnInit {
 
   public show = true;
-  constructor(private myHttpService: HttpService) { }
+  constructor(private myHttpService: HttpService, private data: DataService,) { }
   value1: any = [];
+  @Output() updateLabel = new EventEmitter()
   @ViewChild('newLabel') newLabel: ElementRef;
   @ViewChild('myLabel') myLabel: ElementRef;
   clear : any;
+  globalLabelDelete: any;
 
   onNoClick(): void {
   }
@@ -36,8 +38,8 @@ export class LabelsComponent implements OnInit {
     }, this.token).subscribe(
       (data) => {
         console.log("POST Request is successful ", data);
-        // this.onNewEntryAdded.emit({
-        // })
+        this.delete();
+       
       },
       error => {
         console.log("Error", error);
@@ -51,6 +53,7 @@ export class LabelsComponent implements OnInit {
     }).subscribe(
       (data) => {
         console.log("DELETE Request is successful ", data);
+        this.data.changeDelete(true);
         // this.onNewEntryAdded.emit({
         // })
       },
@@ -60,15 +63,19 @@ export class LabelsComponent implements OnInit {
   }
 
   delete() {
+    var array=[];
     this.myHttpService.getNotes('/noteLabels/getNoteLabelList', this.token).subscribe(
       (data) => {
         console.log("GET Request is successful ", data);
         for (var i = 0; i < data['data']['details'].length; i++) {
           if (data['data']['details'][i].isDeleted == false) {
-            this.value1.push(data['data']['details'][i])
+            array.push(data['data']['details'][i])
           }
         }
+        this.value1 = array;
         console.log(this.value1);
+        this.value1.filter()
+        
       },
       error => {
         console.log("Error", error);
@@ -104,6 +111,3 @@ export class LabelsComponent implements OnInit {
 
   }
 }
-
-
- 

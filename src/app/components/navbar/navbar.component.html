@@ -9,7 +9,7 @@
         <span class="title"><b>Fundoo</b>Notes</span>
         <div class="searchBar" fxLayout="row">
           <i class="material-icons">search </i>
-          <input class="search" type="input" placeholder="search">
+          <input class="search" type="input" [(ngModel)]="globalSearch" (keydown)="keySearch()" (click)="navigate()" name="searchClick" placeholder="search">
         </div>
         <div class="icons" fxLayout="row" fxFlex="1 1 auto" fxLayoutAlign="space-around">
           <i class="material-icons">refresh </i>
@@ -29,7 +29,7 @@
             <a mat-list-item routerLink="/home/remainders"><img src="../../../assets/images/remainders.svg">Remainders</a>
             <hr>
             <p >LABELS</p>
-            <div *ngFor="let result of value">
+            <div *ngFor="let result of value; trackBy:result?.id">
               <a mat-list-item>
                 <mat-icon>label_outline</mat-icon>
                 <div class = "response">{{result.label}}</div>

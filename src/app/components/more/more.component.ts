@@ -8,6 +8,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class MoreComponent implements OnInit {
 checkboxLabel = [];
+search : any;
   constructor(private myHttpService : HttpService) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
@@ -48,6 +49,7 @@ checkboxLabel = [];
         "lableId" : id}, localStorage.getItem('token'))
             .subscribe(Response => {
               console.log(Response);
+              this.delete.emit({})
             }, error => {
               console.log(error)
             })
