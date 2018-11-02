@@ -30,6 +30,20 @@ export class LabelsComponent implements OnInit {
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token');
   addLabel() {
+    // debugger;
+
+    // var duplicateLabel = this.newLabel.nativeElement.innerHTML;
+    // console.log(duplicateLabel)
+    // console.log(this.value1);
+    // for(var i = 0; i < this.value1; i++)
+    // {
+    //   if(this.value1['data']['details'][i].label == duplicateLabel)
+    //   {
+    //     console.log(duplicateLabel);
+    //     alert('duplicateLabel data');
+    //     return false;
+    //   } 
+    // }
     this.myHttpService.addNotes('/noteLabels', {
       "label": this.newLabel.nativeElement.innerHTML,
       "isDeleted": false,
@@ -38,6 +52,8 @@ export class LabelsComponent implements OnInit {
     }, this.token).subscribe(
       (data) => {
         console.log("POST Request is successful ", data);
+        // this.updateLabel.emit({
+        // })
         this.delete();
        
       },
@@ -53,9 +69,9 @@ export class LabelsComponent implements OnInit {
     }).subscribe(
       (data) => {
         console.log("DELETE Request is successful ", data);
+        this.updateLabel.emit({
+        })
         this.data.changeDelete(true);
-        // this.onNewEntryAdded.emit({
-        // })
       },
       error => {
         console.log("Error", error);
@@ -67,6 +83,8 @@ export class LabelsComponent implements OnInit {
     this.myHttpService.getNotes('/noteLabels/getNoteLabelList', this.token).subscribe(
       (data) => {
         console.log("GET Request is successful ", data);
+        this.updateLabel.emit({
+        })
         for (var i = 0; i < data['data']['details'].length; i++) {
           if (data['data']['details'][i].isDeleted == false) {
             array.push(data['data']['details'][i])
@@ -74,7 +92,7 @@ export class LabelsComponent implements OnInit {
         }
         this.value1 = array;
         console.log(this.value1);
-        this.value1.filter()
+        // this.value1.filter()
         
       },
       error => {
@@ -94,6 +112,8 @@ export class LabelsComponent implements OnInit {
       this.token).subscribe(
         (data) => {
           console.log("UPDATE Request is successful ", data);
+           this.updateLabel.emit({
+        })
           console.log(data);
         },
         error => {

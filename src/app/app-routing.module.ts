@@ -24,7 +24,7 @@ const routes : Routes =[
               { path: 'notes', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
-              { path: 'label-notes/labelName', component: LabelNotesComponent},
+              { path: 'labelNotes/:labelName', component: LabelNotesComponent},
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
               { path: 'search', component: SearchComponent},

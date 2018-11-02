@@ -17,6 +17,10 @@ export class AddNotesComponent implements OnInit {
  color;
  inputArea=[];
  checkBoxArray=[];
+ labelChipName=[];
+ labelChipId=[];
+ 
+ 
   constructor(private myHttpService:HttpService) { }
   @Output() messageEvent = new EventEmitter();
   
@@ -37,7 +41,7 @@ export class AddNotesComponent implements OnInit {
       .addNotes('notes/addNotes', {
         'title'	:document.getElementById('titleId').innerHTML,
         'description':document.getElementById('notesId').innerHTML,
-        'labelIdList':'',
+        'labelIdList': JSON.stringify(this.labelChipId),
         'checklist':'',
         'isPined':false,
         'color':this.color
@@ -71,6 +75,21 @@ export class AddNotesComponent implements OnInit {
       
       }
       
+    }
+
+    addLabel(event){
+      if(this.labelChipName.indexOf(event)<0){
+        this.labelChipId.push(event.id);
+        this.labelChipName.push(event);
+        console.log(this.labelChipName);
+        console.log(this.labelChipId);
+      }
+      else{
+        this.labelChipId.splice(this.labelChipId.indexOf(event),1);
+        this.labelChipName.splice(this.labelChipName.indexOf(event),1);
+
+      }
+
     }
   }
 

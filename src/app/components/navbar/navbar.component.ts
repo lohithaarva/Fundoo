@@ -35,6 +35,7 @@ export class NavbarComponent {
      email;
      value= [];
      globalSearch:any;
+     public labelPageNames;
   
   ngOnInit() {
      
@@ -100,6 +101,13 @@ export class NavbarComponent {
 
   navigate(){
     this.router.navigate(['home/search']);
+  }
+
+  labelPage(result){
+    var labelName = result.label;
+    this.router.navigate(['home/labelNotes/'+labelName]);
+    console.log("here");
+    
   }
 }
 

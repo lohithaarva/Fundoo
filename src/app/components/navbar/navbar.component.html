@@ -16,8 +16,7 @@
           <i class="material-icons">view_agenda</i>
           <i class="material-icons">notifications</i>
 
-          <button mat-mini-fab (click)="clicked=!clicked" style="background-color: bisque; color: black;"> {{ firstName |
-            slice:0:1}}</button>
+          <button mat-mini-fab (click)="clicked=!clicked" style="background-color: bisque; color: black;"> {{ firstName | slice:0:1}}</button>
         </div>
       </mat-toolbar>
       <mat-sidenav-container class="sidenav-container">
@@ -29,7 +28,7 @@
             <a mat-list-item routerLink="/home/remainders"><img src="../../../assets/images/remainders.svg">Remainders</a>
             <hr>
             <p >LABELS</p>
-            <div *ngFor="let result of value; trackBy:result?.id">
+            <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
               <a mat-list-item>
                 <mat-icon>label_outline</mat-icon>
                 <div class = "response">{{result.label}}</div>

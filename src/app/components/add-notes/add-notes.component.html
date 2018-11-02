@@ -22,9 +22,7 @@
           </span>
         </div>
 
-
-      
-       
+    
         <div *ngIf="!boxClicked">
            <hr>
            <div fxLayoutAlign="start start">
@@ -37,12 +35,19 @@
             <hr>
         </div>
        
- 
-
-
-
-
         <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" #description></div>
+
+
+<div fxLayout="row" fxFlexAlign="end end">
+        <div *ngFor="let labelChip of labelChipName">
+              <mat-chip-list >  <mat-chip >{{labelChip.label}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+              </div>
+              </div>
+
+
         <span>
         <div class="noteCardIcon">
         <app-remind></app-remind>
@@ -50,7 +55,7 @@
         <app-color (emitColorNotes)= "ChangeColorNotes($event)"></app-color>
         <app-add-image></app-add-image>
         <app-add-archive></app-add-archive>
-        <app-more></app-more>
+        <app-more (labelEvent)=addLabel($event)></app-more>
         <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
         </div>
         </span>

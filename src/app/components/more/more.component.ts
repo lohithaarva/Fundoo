@@ -12,6 +12,8 @@ search : any;
   constructor(private myHttpService : HttpService) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
+  @Output() labelEvent = new EventEmitter();
+  
   ngOnInit() {
   
     
@@ -42,11 +44,14 @@ search : any;
     }
 
     selectLabel(id){
+      this.labelEvent.emit(id);
         console.log("selected label is", id);
+        console.log( 'Id is here', id.label);
+        
         // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
           console.log(id)
-          this.myHttpService.addNotes("/notes/" + this.noteDeleteCard.id + "/addLabelToNotes/" + id + "/add",{"noteId" : this.noteDeleteCard.id,
-        "lableId" : id}, localStorage.getItem('token'))
+          this.myHttpService.addNotes("/notes/" + this.noteDeleteCard.id + "/addLabelToNotes/" + id.id + "/add",{"noteId" : this.noteDeleteCard.id,
+        "lableId" : id.id}, localStorage.getItem('token'))
             .subscribe(Response => {
               console.log(Response);
               this.delete.emit({})

@@ -11,6 +11,6 @@
         <input placeholder="Enter label" fxFlex="85%" [(ngModel)]="search" class="searchLabel"> 
       </div>
        <div *ngFor="let boxLabel of checkboxLabel | LockFilter:search"> 
-         <mat-checkbox class="checkBox"  (click)="$event.stopPropagation(); selectLabel(boxLabel.id)">{{boxLabel.label}}</mat-checkbox>
+         <mat-checkbox class="checkBox"  (click)="$event.stopPropagation(); selectLabel(boxLabel)">{{boxLabel.label}}</mat-checkbox>
        </div>
     </mat-menu>
