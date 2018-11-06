@@ -1,4 +1,3 @@
-<!-- Message: {{message}} -->
 <app-add-notes (messageEvent)="receiveMessage($event)"></app-add-notes>
-<app-note-card [cardAdded] = "notes" [first]="first" [second]="second" [third]="third" (eventEmit)="receiveMessage($event)"></app-note-card>
+<app-note-card [cardAdded] = "notes" (eventEmit)="receiveMessage($event)"></app-note-card>
 

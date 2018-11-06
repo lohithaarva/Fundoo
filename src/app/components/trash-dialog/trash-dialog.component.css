@@ -1,0 +1,9 @@
+.trashDialog{
+    width: 516px;
+    height: 82px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.trashButtons{
+    float: right;
+}

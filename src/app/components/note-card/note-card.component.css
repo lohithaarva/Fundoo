@@ -1,5 +1,3 @@
-
-
 .pinIcon {
     float: right;
     opacity: 0.5;
@@ -8,9 +6,7 @@
     margin-top: -14%;
     margin-right: -7%;
 }
-
 .note-card{
-    width:213px;
     cursor: pointer;
     border-radius:3%;
 }
@@ -60,8 +56,22 @@
     width:500px;
   /* flex-flow: row wrap; */
 }
+.collectionCards{
+  margin-top:6vh;
+  padding-bottom:5%;
+  width:500px;
+  align-self: center;
+}
+  .grid{
+      width: 245px;
+  }
+  .list{
+      width:100%;
+     
+  }
+  .list .pinIcon{
+    margin-top: -8%;
+    margin-right: -3%;
 
-/* .flex-container>* {
-    flex: 1 1 160px;
-    margin: 10px;
-  } */
+  }
+  

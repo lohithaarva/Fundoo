@@ -206,6 +206,20 @@ get(name,token){
   return this.http.get(this.url + "/" + name,httpOptions);
 }
 
+httpAddImage(nexturl,body,token){
+  console.log(token);
+  var httpOptions={
+    headers:new HttpHeaders({
+     
+     'Authorization':token
+    })
+  };
+  return this.http.post(this.url+"/"+nexturl,body,httpOptions)
+}
+Reply
+Forward
+
+
 
   
 }

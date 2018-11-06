@@ -19,7 +19,7 @@ const routes : Routes =[
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'home', component:HomeComponent , canActivate: [AuthGuard], children  :[
+  { path: 'home', component:HomeComponent , children  :[
 
               { path: 'notes', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },

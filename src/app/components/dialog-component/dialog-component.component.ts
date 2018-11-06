@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NoteCardComponent } from '../note-card/note-card.component';
 import { HttpService } from '../../services/http.service';
@@ -14,16 +14,14 @@ export interface DialogData {
   selector: 'app-dialog-component',
   templateUrl: './dialog-component.component.html',
   styleUrls: ['./dialog-component.component.css'],
-  // styles: [`
-  //   .note-card {
-  //     background: green;
-  //   }
-  // `],
+
 })
 export class DialogComponentComponent implements OnInit {
 token = localStorage.getItem('token')
 @Output() updateEvent = new EventEmitter();
 @Output() eventEmit=new EventEmitter();
+// @Input() deleteNotesInDialog;
+
 
 
   constructor( public dialogRef: MatDialogRef<NoteCardComponent>,

@@ -36,6 +36,7 @@ export class AddNotesComponent implements OnInit {
 
     exit()
     { 
+    
       console.log(this.color);
       this.myHttpService
       .addNotes('notes/addNotes', {
@@ -64,18 +65,18 @@ export class AddNotesComponent implements OnInit {
       this.color= event;
     }
 
-    onKeydown(event) {
-      if (event.key === "Enter" && event.key!= ""){
-      console.log(event);
-      this.checklist={
-        "textVal" :"",
-        "status":"open"
-      }
-      this.checkBoxArray.push(this.checklist);
+    // onKeydown(event) {
+    //   if (event.key === "Enter" && event.key!= ""){
+    //   console.log(event);
+    //   this.checklist={
+    //     "textVal" :"",
+    //     "status":"open"
+    //   }
+    //   this.checkBoxArray.push(this.checklist);
       
-      }
+    //   }
       
-    }
+    
 
     addLabel(event){
       if(this.labelChipName.indexOf(event)<0){
@@ -91,6 +92,47 @@ export class AddNotesComponent implements OnInit {
       }
 
     }
+
+    public i=0;
+    data;
+    dataarray=[];
+enter(){
+  this.i++;
+  if(this.data!=null){
+    console.log(event,"keydown");
+    var obj={
+      "index":this.i,
+      "data":this.data
+    }
+    this.dataarray.push(obj);
+    this.data=null
+    
+  }
+}
+ondelete(deletedObj){
+  console.log("ondelete function runnig");
+  for(var i=0;i<this.dataarray.length;i++){
+    if(deletedObj.index==this.dataarray[i].index){
+      this.dataarray.splice(i,1);
+      break;
+    }
+  }
+  console.log(this.dataarray);
+}
+
+editing(event,edited){
+
+  if(event.code=="Enter"){
+    console.log("enter pressed");
+    for(var i=0;i<this.dataarray.length;i++){
+      if(edited.index==this.dataarray[i].index){
+        this.dataarray[i].data==edited.data
+      }
+    }
+    console.log(this.dataarray);
+    
+  }
+}
   }
 
 

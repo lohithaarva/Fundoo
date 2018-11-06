@@ -61,6 +61,7 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
           localStorage.setItem("lastname",data["lastName"]);
           localStorage.setItem("email",data["email"]);
           localStorage.setItem("userId",data["userId"]);
+          localStorage.setItem("imageUrl",data["imageUrl"])
           this.router.navigateByUrl('home')
         },
         error => {

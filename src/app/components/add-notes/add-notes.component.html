@@ -1,63 +1,69 @@
-<div class="flex-container" fxFlex fxLayout="column" fxlayoutalign="center" >
+<div class="flex-container" fxFlex fxLayout="column" fxlayoutalign="center">
     <div style="margin-top:10vh;height: 100%; align-items: center">
-    <mat-card *ngIf="enterExpression" class="takeNotes">
-        <mat-card-title class="notesTitle">
-            <div>
-                <span><input (click)="enterExpression=!enterExpression" class="inputTitle" placeholder="Take a note..."></span>
+        <mat-card *ngIf="enterExpression" class="takeNotes">
+            <mat-card-title class="notesTitle">
+                <div>
+                    <span><input (click)="enterExpression=!enterExpression" 
+                        class="inputTitle" placeholder="Take a note..."></span>
                 </div>
                 <div>
-                     <mat-icon class="icons" matTooltip="New note with Drawing" matTooltipPosition="above">create</mat-icon>
+                    <mat-icon class="icons" matTooltip="New note with Drawing" 
+                              matTooltipPosition="above">create</mat-icon>
                     <i class="material-icons icons"> image </i>
-                    <i class="material-icons icons" (click)="enterExpression=!enterExpression"  (click)="boxClicked=!boxClicked"> <mat-icon>check_box</mat-icon></i>
+                    <i class="material-icons icons" (click)="enterExpression=!enterExpression" 
+                       (click)="boxClicked=!boxClicked"> <mat-icon>check_box</mat-icon></i>
                 </div>
-           
-        </mat-card-title>
-    </mat-card>
+
+            </mat-card-title>
+        </mat-card>
     </div>
-<mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes" >
+    <mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes">
         <div class="hiddenDiv">
-          <span>
-            <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-            <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title"></div>
-          </span>
+            <span>
+                <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+                <div class="inputTitleNote" contenteditable="true" id="titleId" 
+                     data-text="Title"></div>
+            </span>
         </div>
-
     
-        <div *ngIf="!boxClicked">
-           <hr>
-           <div fxLayoutAlign="start start">
-            <!-- <mat-icon class="addIcon">add</mat-icon> -->
-            <div>
-                <mat-checkbox></mat-checkbox>
-            <input  class="listItem" placeholder="List Item" (keydown)="onKeydown($event)">
+         <div *ngIf="!boxClicked"  id="title"  autofocus #description>
+                <div class="check" *ngFor="let data of dataarray" id="note" fxLayout="row">
+
+                <mat-checkbox fxFlex="5%"></mat-checkbox>
+                <input fxFlex="90" *ngIf="!boxClicked" class="inputNote1"  id="note" [(ngModel)]=data.data (keydown)="editing($event.data)">
+       <mat-icon fxFlex="4%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
             </div>
-            </div>
-            <hr>
+            <mat-divider></mat-divider>
+
+        <div class="check" fxLayout="row" id="title" id="note" autofocus #description>
+            <mat-icon fxFlex="5%">add</mat-icon>
+            <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" [(ngModel)]=data.data placeholder="list item" (keydown.enter)="enter()">
         </div>
-       
-        <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" #description></div>
+        <mat-divider></mat-divider>
 
+        </div>
 
-<div fxLayout="row" fxFlexAlign="end end">
-        <div *ngFor="let labelChip of labelChipName">
-              <mat-chip-list >  <mat-chip >{{labelChip.label}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-              </div>
-              </div>
-
-
+        <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" 
+        data-text="Take a note" #description></div>
+        <div fxLayout="row" fxFlexAlign="end end">
+            <div *ngFor="let labelChip of labelChipName">
+                <mat-chip-list>
+                    <mat-chip>{{labelChip.label}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
         <span>
-        <div class="noteCardIcon">
-        <app-remind></app-remind>
-        <app-collaborator></app-collaborator>
-        <app-color (emitColorNotes)= "ChangeColorNotes($event)"></app-color>
-        <app-add-image></app-add-image>
-        <app-add-archive></app-add-archive>
-        <app-more (labelEvent)=addLabel($event)></app-more>
-        <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
-        </div>
+            <div class="noteCardIcon">
+                <app-remind></app-remind>
+                <app-collaborator></app-collaborator>
+                <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
+                <app-add-image></app-add-image>
+                <app-add-archive></app-add-archive>
+                <app-more (labelEvent)=addLabel($event)></app-more>
+                <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
+            </div>
         </span>
-</mat-card>
+    </mat-card>
 </div>

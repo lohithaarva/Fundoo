@@ -1,13 +1,11 @@
 <div fxFlex="column" fxFlex="5"></div>
-
-<div class="flex-container" fxFlexAlign="center center" fxFlex="row" fxLayoutGap="20px" style="margin-top:6vh;padding-bottom:5%;width:500px;align-self: center">
-    <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
-      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
-        <div>
+<div class="collectionCards" fxFlex="row-wrap" fxFlex="row" fxLayoutGap="20px">
+  <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
+    <div [ngClass]="{ 'grid':condition, 'list': !condition }">
+      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" 
+            class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
           <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-
-        </div>
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
         <div fxLayout="row" fxFlexAlign="end end">
         <div *ngFor="let labelChip of note.noteLabels" >
@@ -18,25 +16,25 @@
         </mat-chip-list>
       </div>
         </div>
-        </div>
-        
+        </div>       
         <br><br>
         <span>
           <div class="iconInvisible">
-            <app-remind></app-remind>
-            <app-collaborator></app-collaborator>
-            <app-color [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image></app-add-image>
-            <app-add-archive [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
-            <app-more [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
+            <app-remind *ngIf="deleteNotesForever == delete"></app-remind>
+            <app-collaborator *ngIf="deleteNotesForever == delete" ></app-collaborator>
+            <app-color *ngIf="deleteNotesForever == delete" 
+                [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
+            <app-add-image *ngIf="deleteNotesForever == delete" ></app-add-image>
+            <app-add-archive *ngIf="deleteNotesForever == delete" 
+                [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-more [deleteNotesForever]="deleteNotesForever" 
+                [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>
         </span>
       </mat-card>
-     
     </div>
     </div>
-
-
+    </div>
 
 <div fxFlex="column" fxFlex="5"></div>
 

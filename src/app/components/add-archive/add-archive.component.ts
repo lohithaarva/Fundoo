@@ -8,28 +8,27 @@ import { HttpService } from '../../services/http.service';
 })
 export class AddArchiveComponent implements OnInit {
 
-  constructor(private myHttpService : HttpService) { }
-@Input() noteArchiveCard
-@Output() emitArchive = new EventEmitter()
-token = localStorage.getItem('token')
+  constructor(private myHttpService: HttpService) { }
+  @Input() noteArchiveCard
+  @Output() emitArchive = new EventEmitter()
+  token = localStorage.getItem('token')
   ngOnInit() {
   }
-  cardArchive(archive)
-  {
+  cardArchive(archive) {
     this.myHttpService.postArchive('/notes/archiveNotes',
-  {
-      "isArchived" : true,
-      "noteIdList" : [this.noteArchiveCard.id]
-  },this.token).subscribe(data => {
-    console.log("Archive successful",data);
-    this.emitArchive.emit({
+      {
+        "isArchived": true,
+        "noteIdList": [this.noteArchiveCard.id]
+      }, this.token).subscribe(data => {
+        console.log("Archive successful", data);
+        this.emitArchive.emit({
 
-    });
-  },
-  error => {
-    console.log("Error",error);
-  }
-)
+        });
+      },
+        error => {
+          console.log("Error", error);
+        }
+      )
   }
 
 

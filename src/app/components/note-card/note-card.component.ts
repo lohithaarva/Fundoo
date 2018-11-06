@@ -12,6 +12,7 @@ import { DataService } from "../../services/data.service";
 })
 export class NoteCardComponent implements OnInit {
   messageDeleted:boolean;
+ condition=true;
  
   constructor(public dialog: MatDialog, private myHttpService : HttpService,private data: DataService) {
     this.data.currentDelete.subscribe(message=>{
@@ -21,8 +22,16 @@ export class NoteCardComponent implements OnInit {
         })
       }
     })
+    
+    this.data.currentView.subscribe(message=>{
+      console.log("switching from grid view to list view");
+     this.condition = message;
+    })
+   
+   
+    
   }
-  
+  @Input() deleteNotesForever;
   @Input() globalSearch;
   @Input() cardAdded;
   @Input() first=[];
@@ -47,7 +56,9 @@ export class NoteCardComponent implements OnInit {
       this.eventEmit.emit({
       })
     });
-  } 
+  }
+  
+  
 
   remove(labelId, noteId){
     // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    

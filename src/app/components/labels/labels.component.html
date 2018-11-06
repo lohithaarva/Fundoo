@@ -1,76 +1,38 @@
-<!-- <app-addnotes></app-addnotes>  -->
-<!-- <div style="padding:10px ">
-        <div class="marg1">Edit labels</div>
-        <div class="marg2" fxLayout="row" fxLayoutAlign="space-around center">
-
-                <div fxFlex="15">
-                        <mat-icon (click)=cancelIcon() >close</mat-icon>
-                </div>
-                <div fxFlex="70" contenteditable="true" placeholder="Create new Label" class="content" id="labelId" placeholder="Create new Label"
-                        #myDiv></div>
-                <div fxFlex="15">
-                        <mat-icon>check</mat-icon>
-                </div>
-        </div>
-        <div fxayout="column" class="labelList">
-                <a mat-list-item>
-                        <div *ngFor="let result of data.labelDialog">
-                                <div fxFlex="15">
-                                        <mat-icon (click)="labelDelete(result.id)">delete</mat-icon>
-                                </div>
-                                <div fxFlex="70"><span contenteditable="true" class="name" id="labelId" [innerHTML]="result.label"></span></div>
-
-                                <div fxFlex="15">
-                                        <div fxFlex="80%" [innerHTML]="result.result" class="label" *ngIf="!editable || result.result!=editLabel"></div>
-                                        <div fxFlex="80%" [innerHTML]="result.result" class="label" contenteditable="true" *ngIf="editable && result.result==editLabel"
-                                                #editDiv></div>
-                                        <mat-icon (click)=edit(result) *ngIf="editDoneIcon || result.id!=editId" class="create">create</mat-icon>
-                                        <mat-icon (click)=editDone(result) *ngIf="editClick && result.id == editId">done</mat-icon>
-                                </div>
-
-                        </div>
-                </a>
-        </div>
-
-        <div class="footer"></div>
-
-
-        <button class="flot" (click)="labelCLose()" mat-button>Done</button>
-</div> -->
-
 <div style="padding:10px ">
         <div class="marg1">Edit labels</div>
-          <div class="marg2" fxLayout="row" fxLayoutAlign="space-around center">
-
+        <div class="marg2" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="15">
                         <mat-icon (click)="close()">close</mat-icon>
                 </div>
-                <div fxFlex="70" contenteditable="true" placeholder="Create new Label" class="content" placeholder="Create new Label"
-                        #newLabel></div>
+                <div fxFlex="70" contenteditable="true" placeholder="Create new Label" 
+                class="content" placeholder="Create new Label" #newLabel></div>
                 <div fxFlex="15">
-                        <mat-icon matTooltip="Done" (click) = "addLabel()">check</mat-icon>
+                        <mat-icon matTooltip="Done" (click)="addLabel()">check</mat-icon>
                 </div>
         </div>
-
-
-        </div>
-        <div fxLayout="column" class="labelList">
-          <a mat-list-item>
-            <div *ngFor="let val of value1; trackBy:val?.id">
-              <div *ngIf="show != val.id">
-                <mat-icon fxFlex="15" matTooltip="Delete Label" (click)="labelDelete(val.id)">label_outline</mat-icon>
-                <span fxFlex="70" contenteditable="false" class="name" id="label" [innerHTML]="val.label"></span>
-                <mat-icon fxFlex="15" matTooltip="Edit Label" (click)="edit2(val.id)" class="create">create</mat-icon>
-              </div>
-              <div *ngIf="show == val.id">
-                <mat-icon fxFlex="15" matTooltip="Delete Label" (click)="labelDelete(val.id)">delete</mat-icon>
-                <span fxFlex="70" contenteditable="true" class="name" [innerHTML]="val.label" #myLabel></span>
-                <mat-icon fxFlex="15" matTooltip="Edit Label" (click)="edit(val.id)" class="create">done</mat-icon>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div>
-          <button class="flot" mat-button (click)="addLabel()">Done</button>
-        </div>
-      
+</div>
+<div fxLayout="column" class="labelList">
+        <a mat-list-item>
+                <div *ngFor="let val of value1; trackBy:val?.id">
+                        <div *ngIf="show != val.id">
+                                <mat-icon fxFlex="15" matTooltip="Delete Label" 
+                                (click)="labelDelete(val.id)">label_outline</mat-icon>
+                                <span fxFlex="70" contenteditable="false" class="name" id="label" 
+                                        [innerHTML]="val.label"></span>
+                                <mat-icon fxFlex="15" matTooltip="Edit Label" (click)="edit2(val.id)" 
+                                          class="create">create</mat-icon>
+                        </div>
+                        <div *ngIf="show == val.id">
+                                <mat-icon fxFlex="15" matTooltip="Delete Label" 
+                                        (click)="labelDelete(val.id)">delete</mat-icon>
+                                <span fxFlex="70" contenteditable="true" class="name" 
+                                [innerHTML]="val.label" #myLabel></span>
+                                <mat-icon fxFlex="15" matTooltip="Edit Label" 
+                                (click)="edit(val.id)" class="create">done</mat-icon>
+                        </div>
+                </div>
+        </a>
+</div>
+<div>
+        <button class="flot" mat-button (click)="addLabel()">Done</button>
+</div>

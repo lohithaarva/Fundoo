@@ -14,6 +14,7 @@ import { DataService } from "../../services/data.service";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -33,9 +34,16 @@ export class NavbarComponent {
      firstName;
      lastName;
      email;
+     imageUrl;
      value= [];
      globalSearch:any;
      public labelPageNames;
+     listClick = true;
+     gridView = true;
+     public grid = 0;
+     selectedFile = null;
+     profilePath;
+
   
   ngOnInit() {
      
@@ -44,14 +52,15 @@ export class NavbarComponent {
      
   }
   noteCard(){
-    var note=[];
-  // this.firstName= localStorage.getItem("firstName");
-  // console.log(this.firstName)
-  // this.lastName = localStorage.getItem("lastname");
-  // this.email = localStorage.getItem("email");
+  var note=[];
+  this.firstName= localStorage.getItem("firstName");
+  console.log(this.firstName)
+  this.lastName = localStorage.getItem("lastname");
+  this.email = localStorage.getItem("email");
+  // this.imageUrl = localStorage.getItem("imageUrl")
   this.myHttpService.getNotes("noteLabels/getNoteLabelList",this.accessToken)
   .subscribe(response=>{
-    console.log("accessToken",this.accessToken)
+  console.log("accessToken",this.accessToken)
   console.log(" Get label successfull",response);
   for(var i =0; i< response['data']['details'].length; i++){
     if(response['data']['details'][i].isDeleted == false){
@@ -109,5 +118,40 @@ export class NavbarComponent {
     console.log("here");
     
   }
+  
+  cardsInList(){
+    this.grid =1;
+    this.data.changeView(false);
+
+  }
+
+  cardsInGrid(){
+    this.grid = 0;
+    this.data.changeView(true);
+  }
+  public image2=localStorage.getItem('imageUrl');
+  img="http://34.213.106.173/"+this.image2;
+ token=localStorage.getItem('token');
+ onFileSelected(event){
+this.selectedFile=event.path[0].files[0];
+// console.log(event.target.value);
+// this.profilePath=event.target.value;
+// console.log(this.selectedFile.name);
+const uploadData = new FormData();
+  uploadData.append('file', this.selectedFile, this.selectedFile.name);
+   this.myHttpService.httpAddImage('user/uploadProfileImage',uploadData,this.token).subscribe(res=>{
+     console.log("url: ", res['status'].imageUrl )
+     this.img="http://34.213.106.173/"+res['status'].imageUrl;
+     
+   
+   },error=>{
+     console.log(error);
+     
+   })
+ }
+ image={};
+
+
+     
 }
 

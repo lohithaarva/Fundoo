@@ -9,12 +9,23 @@ import { HttpService } from '../../services/http.service';
 export class TrashComponent implements OnInit {
   notes = [];
   access_token = localStorage.getItem("token");
+  deleteNotesForever = "delete";
+  // deleteNotesInDialog = "deleteDialog";
   constructor(private myHttpService: HttpService) { }
 
   ngOnInit() {
+    this.deleteNotes();
 
+  }
+
+  receiveMessage($event){
+    this.deleteNotes();
+  }
+
+  deleteNotes() {
     this.myHttpService.trashNotes("notes/getTrashNotesList", this.access_token).subscribe(
       data => {
+        this.notes=[];
         console.log("successful", data['data'].data);
         for (var i = data['data'].data.length - 1; i >= 0; i--) {
           if (data['data'].data[i].isDeleted == true) {
@@ -25,4 +36,5 @@ export class TrashComponent implements OnInit {
       })
   }
 
+ 
 }

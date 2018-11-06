@@ -50,3 +50,7 @@
 .take{
     margin-top: 13px;
 }
+::ng-deep.more{
+    margin-top: 7%;
+    cursor: pointer;
+}

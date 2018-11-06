@@ -1,5 +1,8 @@
 import { Component, OnInit,Input, EventEmitter, Output } from '@angular/core';
 import { HttpService } from '../../services/http.service';
+import { TrashDialogComponent } from '../trash-dialog/trash-dialog.component';
+import {MatDialog} from '@angular/material';
+
 
 @Component({
   selector: 'app-more',
@@ -7,19 +10,37 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./more.component.css']
 })
 export class MoreComponent implements OnInit {
+  close: string;
 checkboxLabel = [];
 search : any;
-  constructor(private myHttpService : HttpService) { }
+  constructor(private myHttpService : HttpService,public dialog: MatDialog) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
   @Output() labelEvent = new EventEmitter();
+  @Input() deleteNotesForever;
   
   ngOnInit() {
-  
-    
-   this.getLabels();
-  }
+              console.log(this.deleteNotesForever); 
+              this.getLabels();
+              }
+
   token = localStorage.getItem("token");
+  openTrashDialog(): void {
+    const dialogRef = this.dialog.open(TrashDialogComponent, { 
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result == true){
+        this.deleteForEver();
+        this.delete.emit({})
+      }
+      console.log('The dialog was closed');
+      this.close = result;  
+    });
+
+  }
+
 
   deleteCard(id){
     console.log(this.noteDeleteCard);
@@ -60,4 +81,30 @@ search : any;
             })
           // }
 }
+deleteForEver(){
+    this.myHttpService.deleteNotes("/notes/deleteForeverNotes", {
+      "isDeleted": true,
+      "noteIdList": [this.noteDeleteCard.id]
+    }, this.token).subscribe(
+      data => {
+        console.log("delete forever successfull", data);
+        this.delete.emit({})
+       
+
+      }) 
+    }
+
+restore(){
+      this.myHttpService.deleteNotes("/notes/trashNotes", {
+        "isDeleted": false,
+        "noteIdList": [this.noteDeleteCard.id]
+      }, this.token).subscribe(
+        data => {
+          console.log("delete forever successfull", data);
+          this.delete.emit({})
+         
+  
+        })
+      }
+  
 }

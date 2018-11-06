@@ -48,6 +48,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { LabelfilterPipe } from './pipes/labelfilter.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { TrashDialogComponent } from './components/trash-dialog/trash-dialog.component';
+
 // import { SearchPipe } from './_pipe/search/search.pipe';
 
 @NgModule({
@@ -78,7 +81,8 @@ import { LabelNotesComponent } from './components/label-notes/label-notes.compon
     DialogComponentComponent,
     LabelfilterPipe,
     SearchComponent,
-    LabelNotesComponent
+    LabelNotesComponent,
+    TrashDialogComponent
     
     
   ],
@@ -103,13 +107,14 @@ import { LabelNotesComponent } from './components/label-notes/label-notes.compon
     MatMenuModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule
   
   ],
   
 
   providers: [HttpService, AuthGuard , AuthService],
-  entryComponents :[DialogComponentComponent],
+  entryComponents :[DialogComponentComponent , TrashDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

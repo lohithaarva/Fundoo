@@ -1,31 +1,41 @@
 <div fxFlex>
   <div fxlayout="column wrap">
     <div>
-      
       <mat-toolbar class="toolbar">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button 
+                (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span class="title"><b>Fundoo</b>Notes</span>
         <div class="searchBar" fxLayout="row">
           <i class="material-icons">search </i>
-          <input class="search" type="input" [(ngModel)]="globalSearch" (keydown)="keySearch()" (click)="navigate()" name="searchClick" placeholder="search">
+          <input class="search" type="input" [(ngModel)]="globalSearch" (keydown)="keySearch()" 
+                 (click)="navigate()" name="searchClick" placeholder="search">
         </div>
         <div class="icons" fxLayout="row" fxFlex="1 1 auto" fxLayoutAlign="space-around">
-          <i class="material-icons">refresh </i>
-          <i class="material-icons">view_agenda</i>
+          <i class="material-icons">refresh </i>    
+
+          <button mat-icon-button matToolTip="listView" (click)="cardsInList()" 
+                  *ngIf = "grid == 0"><mat-icon >view_stream</mat-icon></button>
+          <button mat-icon-button matToolTip="gridView"(click)="cardsInGrid()" 
+                  *ngIf = "grid == 1"><mat-icon >apps</mat-icon></button>
           <i class="material-icons">notifications</i>
 
-          <button mat-mini-fab (click)="clicked=!clicked" style="background-color: bisque; color: black;"> {{ firstName | slice:0:1}}</button>
+         <button mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" 
+         (click)="clicked=!clicked ;" 
+        style="background-color: bisque; color: black;"> {{ firstName | slice:0:1}}</button>
         </div>
       </mat-toolbar>
       <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        <mat-sidenav #drawer class="sidenav" fixedInViewport="true" 
+                    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
           [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
           <mat-nav-list>
             <br>
-            <a mat-list-item routerLink='/home/notes'><img src="../../../assets/images/notes.svg">Notes</a>
-            <a mat-list-item routerLink="/home/remainders"><img src="../../../assets/images/remainders.svg">Remainders</a>
+            <a mat-list-item routerLink='/home/notes'><img 
+                src="../../../assets/images/notes.svg">Notes</a>
+            <a mat-list-item routerLink="/home/remainders"><img 
+                src="../../../assets/images/remainders.svg">Remainders</a>
             <hr>
             <p >LABELS</p>
             <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
@@ -34,35 +44,38 @@
                 <div class = "response">{{result.label}}</div>
               </a>
             </div>
-            <a (click)=" openDialog()"><mat-icon class="createLabelIcon">create</mat-icon>Edit Labels</a>
+            <a (click)=" openDialog()"><mat-icon class="createLabelIcon">
+                create</mat-icon>Edit Labels</a>
             <hr>
-            <a mat-list-item routerLink="/home/archive"><img src="../../../assets/images/archive.svg">Archive</a>
-            <a mat-list-item routerLink="/home/trash"><img src="../../../assets/images/trash.svg">Trash</a>
+            <a mat-list-item routerLink="/home/archive">
+               <img src="../../../assets/images/archive.svg">Archive</a>
+            <a mat-list-item routerLink="/home/trash">
+              <img src="../../../assets/images/trash.svg">Trash</a>
             <hr>
-            <a mat-list-item routerLink="/home/settings"><img src="../../../assets/images/settings.svg">Settings</a>
+            <a mat-list-item routerLink="/home/settings">
+              <img src="../../../assets/images/settings.svg">Settings</a>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-          <router-outlet>
-            <!-- Add contents here -->
-          </router-outlet>
+          <router-outlet></router-outlet>
         </mat-sidenav-content>
-      </mat-sidenav-container>
-     
+      </mat-sidenav-container> 
     </div>
+
 
     <div *ngIf="clicked" class="basic">
       <mat-card class="sign-out-card">
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image">
-            <button mat-mini-fab style="background-color: bisque; color: black; box-shadow: 4%;"> {{ firstName | slice:0:1}}</button>
+          <div  mat-card-avatar (click)="selectImage.click()" class="example-header-image">
+            <button  mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" style="background-color: bisque; color: black; box-shadow: 4%;"> 
+                    {{ firstName | slice:0:1}}</button>
           </div>
+          <input (click)="$event.stopPropagation();" 
+          style="display:none" type="file" (change)="onFileSelected($event)" #selectImage>
           <mat-card-title> <b>{{firstName}} {{lastName}}</b></mat-card-title>
           <mat-card-subtitle><b>{{email}}</b></mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content>
-          
-        </mat-card-content>
+        <mat-card-content></mat-card-content>
         <hr>
         <mat-card-actions fxLayoutAlign="space-between">
           <button mat-button routerLink="/registration">Add Account</button>

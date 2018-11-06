@@ -10,64 +10,68 @@
                     <div>O</div>
                     <div>O</div>
                 </div>
-                <mat-card-subtitle>Create your Fundoo Account </mat-card-subtitle>
-                <mat-card-content>Continue to Fundoo</mat-card-content>
-
-                <!-- <div class="image" >
-                    <img mat-card-image= "../../../assets/images/logo.png" alt="image not found" >
-            </div> -->
-
-                <div class="name-container" fxLayout="row">
-                    <mat-form-field class="firstname">
-                        <input matInput placeholder="Firstname" [(ngModel)]="info.firstName" minlength="3" [formControl]="firstName" required>
-                        <mat-error *ngIf="firstName.invalid">{{getErrorMessagefirstName()}}</mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="lastname">
-                        <input matInput placeholder="Lastname" [(ngModel)]="info.lastName" minlength="3" [formControl]="lastName" required>
-                        <mat-error *ngIf="lastName.invalid">{{getErrorMessagelastName()}}</mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div fxLayout="row">
-                    <mat-form-field class="email">
-                        <input matInput placeholder="Enter your email" [(ngModel)]="info.email" [formControl]="email" required>
-                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div class="password-container">
-                    <div class="password">
-                        <mat-form-field>
-                            <input matInput placeholder="Enter your password" minlength="6" [formControl]="password" [(ngModel)]="info.password" required
-                                [type]="hide ? 'password' : 'text'" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
-                            <mat-error *ngIf="password.invalid">{{getErrorMessagepassword()}}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <mat-form-field>
-                        <input matInput placeholder="Confirm password" minlength="6" [formControl]="confirmPassword" [(ngModel)]="info.confirmPassword"
-                            [type]="hide ? 'password' : 'text'">
-                        <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessageconfirmPassword()}}</mat-error>
-                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                    </mat-form-field>
-                </div>
-                <br>
-                <div class="footer"> Use 6 or more characters, with atleast one upper case, one special character, one number</div><br>
-                <mat-card-subtitle> Subscribe</mat-card-subtitle>
-                <div flexLayout="row" fxFlexLayout="center" fxLayoutGap="-100px" class="cards">
-                    <div fxFlex.lg="50" *ngFor="let data of card">
-                        <mat-card mat-button (click)=" displayCards(data)" [ngClass]="data.choose? 'choose': 'notchosen'">
-                            <mat-card-title fxLayout="row" class=" card-title "> {{data.name}}</mat-card-title>
-                            <mat-card-content class="description">{{data.description}}</mat-card-content>
-                        </mat-card>
-                    </div>
-                </div>
-                <br><br>
-                <div class="signup-lastrow" fxLayout="row" fxLayoutGap="230px">
-                    <a href="/login">Sign in instead</a>
-                    <button mat-raised-button color='primary' (click)="next()">Next</button>
-                </div><br>
-            </form>
-        </mat-card>
-
+<mat-card-subtitle>Create your Fundoo Account </mat-card-subtitle>
+<mat-card-content>Continue to Fundoo</mat-card-content>
+<div class="name-container" fxLayout="row">
+<mat-form-field class="firstname">
+    <input matInput placeholder="Firstname" 
+        [(ngModel)]="info.firstName" minlength="3" [formControl]="firstName" required>
+    <mat-error *ngIf="firstName.invalid"> {{getErrorMessagefirstName()}}</mat-error>
+</mat-form-field>
+<mat-form-field class="lastname">
+    <input matInput placeholder="Lastname" 
+        [(ngModel)]="info.lastName" minlength="3" [formControl]="lastName" required>
+    <mat-error *ngIf="lastName.invalid"> {{getErrorMessagelastName()}}</mat-error>
+</mat-form-field>
+</div>
+<div fxLayout="row">
+<mat-form-field class="email">
+    <input matInput placeholder="Enter your email" 
+        [(ngModel)]="info.email" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
+</div>
+<div class="password-container">
+<div class="password">
+<mat-form-field>
+    <input matInput placeholder="Enter your password" 
+        minlength="6" [formControl]="password" [(ngModel)]="info.password" required
+        [type]="hide ? 'password' : 'text'" 
+        pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
+    <mat-error *ngIf="password.invalid"> {{getErrorMessagepassword()}}</mat-error>
+</mat-form-field>
+</div>
+<mat-form-field>
+    <input matInput placeholder="Confirm password" 
+        minlength="6" [formControl]="confirmPassword" [(ngModel)]="info.confirmPassword"
+        [type]="hide ? 'password' : 'text'">
+    <mat-error *ngIf="confirmPassword.invalid"> 
+                {{getErrorMessageconfirmPassword()}}</mat-error>
+    <mat-icon matSuffix (click)="hide = !hide"> 
+                {{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+</mat-form-field>
+</div>
+<br>
+<div class="footer"> Use 6 or more characters, with atleast one upper case, 
+                     one special character, one number</div><br>
+<mat-card-subtitle> Subscribe</mat-card-subtitle>
+<div flexLayout="row" fxFlexLayout="center" fxLayoutGap="-100px" class="cards">
+<div fxFlex.lg="50" *ngFor="let data of card">
+<mat-card mat-button (click)=" displayCards(data)" 
+          [ngClass]="data.choose? 'choose': 'notchosen'">
+<mat-card-title fxLayout="row" class=" card-title "> 
+                {{data.name}}</mat-card-title>
+<mat-card-content class="description">
+                {{data.description}}</mat-card-content>
+</mat-card>
+</div>
+</div>
+<br><br>
+<div class="signup-lastrow" fxLayout="row" fxLayoutGap="230px">
+    <a href="/login">Sign in instead</a>
+    <button mat-raised-button color='primary' (click)="next()">Next</button>
+    </div><br>
+    </form>
+    </mat-card>
     </div>
 </div>

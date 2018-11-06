@@ -1,17 +1,15 @@
- <div class="mat-dialog-container" display="flex" fxLayout="row wrap" fxLayoutAlign="space-around" (mouseover)="hover=true">
-   
-  <div [style.backgroundColor]="data.color">
+ <div class="mat-dialog-container" display="flex" fxLayout="row wrap" 
+      fxLayoutAlign="space-around" (mouseover)="hover=true">
+ <div [style.backgroundColor]="data.color">
     <div>
     <div> 
-        <mat-dialog-content class="mat-typography" class="inputTitleNote" contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
-
+        <mat-dialog-content class="mat-typography" class="inputTitleNote" 
+        contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
         </mat-dialog-content> </div>
-   
     <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
     </div>
     <div class="inputNote" id="notesId" contenteditable="true" 
     data-text="" [innerHTML]="data.description"></div>
-
     <div fxLayout="row" fxFlexAlign="end end">
         <div *ngFor="let labelChip of data.noteLabels" >
         <mat-chip-list>  <mat-chip >{{labelChip.label}}
@@ -21,15 +19,14 @@
         </mat-chip-list>
         </div>
         </div>
-        
-    <span class="iconInvisible">
+      <span class="iconInvisible">
       <div class="dialogIcons">
         <app-remind></app-remind>
         <app-collaborator></app-collaborator>
         <app-color [noteColorCard]="data" (emitColor)="messageDelete($event)"></app-color>
         <app-add-image></app-add-image>
         <app-add-archive></app-add-archive>
-        <app-more></app-more>
+        <app-more [noteDeleteCard]= "data"></app-more>
         <button mat-button class="closeButton" (click)="onNoClick(data.id)">CLOSE</button>
 
       </div>
