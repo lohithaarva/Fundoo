@@ -81,6 +81,7 @@ search : any;
             })
           // }
 }
+/******************** delete notes permanentely ***************/
 deleteForEver(){
     this.myHttpService.deleteNotes("/notes/deleteForeverNotes", {
       "isDeleted": true,
@@ -93,7 +94,7 @@ deleteForEver(){
 
       }) 
     }
-
+/******************** unarchive **************************/ 
 restore(){
       this.myHttpService.deleteNotes("/notes/trashNotes", {
         "isDeleted": false,

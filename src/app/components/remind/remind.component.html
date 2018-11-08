@@ -3,13 +3,26 @@
   <div matTooltip="Remind Me" class="space" [matMenuTriggerFor]="menu">
     <i class="material-icons">touch_app</i></div>
   <mat-menu #menu="matMenu" class="menu">
-    <div class="reminder" >Reminder:</div>
-    <hr>
-    <div><button mat-menu-item (click)="remindMe()">Later Today<span class="code">20:00</span>
+    <div class="reminder" >Reminder :</div>
+    
+    <div class="laterToday"><button mat-menu-item (click)="remindMe()">Later today<span class="code">20:00</span>
       </button></div>
     <div><button mat-menu-item (click)="addTomorrowReminder()">Tomorrow<span class="code">08:00</span>
       </button></div>
     <div><button mat-menu-item (click)="addWeeklyReminder()" >Next Week<span class="coding">Mon,08:00</span>
       </button></div>
+      <div>
+        <span>
+                <button [matMenuTriggerFor]="dateTime" mat-menu-item (click)="pickDateAndTime()">
+                  <mat-icon>access_time</mat-icon>Pick date & time
+                </button>
+        </span>
+    </div>    
   </mat-menu>
+
+  <mat-menu #dateTime="matMenu">
+      <div><button mat-menu-item>Pick date & time
+      </button></div>
+  </mat-menu>
+
 </div>

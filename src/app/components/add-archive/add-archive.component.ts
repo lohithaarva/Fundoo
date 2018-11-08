@@ -15,6 +15,8 @@ export class AddArchiveComponent implements OnInit {
   ngOnInit() {
   }
   cardArchive(archive) {
+    console.log(archive);
+    
     this.myHttpService.postArchive('/notes/archiveNotes',
       {
         "isArchived": true,

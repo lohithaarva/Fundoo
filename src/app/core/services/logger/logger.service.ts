@@ -5,19 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class LoggerService {
 
-  static log(msg: string, obj = {}): void {
+  static log(msg: any, obj = {}): void {
 
-    console.log(msg,obj);
-    
-    }
+    console.log(msg, obj);
 
-    static error(msg: string, obj = {}): void {
+  }
 
-      console.error(msg,obj);
-      
-      }
-      
-      
+  static error(msg: any, obj = {}): void {
+
+    console.error(msg, obj);
+
+  }
+
+
 
   constructor() { }
 }

@@ -44,7 +44,7 @@ import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
          MatDialogModule, MatSnackBarModule} from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
-
+  
 @NgModule({
   declarations: [
     AppComponent,

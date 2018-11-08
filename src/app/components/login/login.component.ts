@@ -45,7 +45,7 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
   changeDivState(){
     // console.log(this.info.email);
     // console.log(this.info.password); 
-    // LoggerService.log(this.info.email); 
+    LoggerService.log(this.info.email); 
     this.myHttpService
       .postlogin('user/login', {
         "email": this.info.email,
