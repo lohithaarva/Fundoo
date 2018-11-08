@@ -12,7 +12,7 @@ import { DataService } from "../../services/data.service";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 
 export class NavbarComponent {
@@ -129,19 +129,18 @@ export class NavbarComponent {
     this.grid = 0;
     this.data.changeView(true);
   }
-  public image2=localStorage.getItem('imageUrl');
-  img="http://34.213.106.173/"+this.image2;
- token=localStorage.getItem('token');
- onFileSelected(event){
+
+public newimage2=localStorage.getItem('imageUrl');
+img="http://34.213.106.173/"+this.newimage2;
+token=localStorage.getItem('token');
+onFileSelected(event){
 this.selectedFile=event.path[0].files[0];
-// console.log(event.target.value);
-// this.profilePath=event.target.value;
-// console.log(this.selectedFile.name);
 const uploadData = new FormData();
-  uploadData.append('file', this.selectedFile, this.selectedFile.name);
-   this.myHttpService.httpAddImage('user/uploadProfileImage',uploadData,this.token).subscribe(res=>{
-     console.log("url: ", res['status'].imageUrl )
-     this.img="http://34.213.106.173/"+res['status'].imageUrl;
+uploadData.append('file', this.selectedFile, this.selectedFile.name);
+this.myHttpService.httpAddImage('user/uploadProfileImage',uploadData,this.token)
+.subscribe(res=>{
+console.log("url: ", res['status'].imageUrl )
+this.img="http://34.213.106.173/"+res['status'].imageUrl;
      
    
    },error=>{

@@ -2,13 +2,14 @@
     float: right;
     opacity: 0.5;
     padding-left: 450px;
-    padding-top: 5px;
-    margin-top: -14%;
+    padding-top: 9px;
+    margin-top: -38%;
     margin-right: -7%;
 }
 .note-card{
     cursor: pointer;
     border-radius:3%;
+   
 }
 .note-card:hover .iconInvisible {
     visibility: visible;
@@ -40,7 +41,7 @@
 }
 .iconInvisible{
     visibility: hidden;
-    padding-left:10px;
+    /* padding-left:10px; */
 }
 .centerdiv{
     width:784px;
@@ -65,13 +66,18 @@
   .grid{
       width: 245px;
   }
-  .list{
-      width:100%;
+  .list[_ngcontent-c12] .note-card[_ngcontent-c12] {
+    flex:column; 
+    -lg-flex-item-align:center stretch;
+      width:1000px;
      
   }
-  .list .pinIcon{
-    margin-top: -8%;
+  .list[_ngcontent-c12] .pinIcon[_ngcontent-c12] {
+    margin-top: -7%;
     margin-right: -3%;
-
+  }
+  .noteCards{
+    margin-top: 20px; 
+    margin-bottom: 20px;
   }
   

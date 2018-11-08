@@ -25,7 +25,7 @@
                      data-text="Title"></div>
             </span>
         </div>
-    
+    <!-------------------------- Checklist start---------------------------->
          <div *ngIf="!boxClicked"  id="title"  autofocus #description>
                 <div class="check" *ngFor="let data of dataarray" id="note" fxLayout="row">
 
@@ -40,8 +40,9 @@
             <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" [(ngModel)]=data.data placeholder="list item" (keydown.enter)="enter()">
         </div>
         <mat-divider></mat-divider>
-
         </div>
+
+    <!-------------------------- Checklist stop---------------------------->
 
         <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" 
         data-text="Take a note" #description></div>

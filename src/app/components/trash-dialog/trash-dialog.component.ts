@@ -8,7 +8,7 @@ import { DialogData } from '../dialog-component/dialog-component.component';
 @Component({
   selector: 'app-trash-dialog',
   templateUrl: './trash-dialog.component.html',
-  styleUrls: ['./trash-dialog.component.css']
+  styleUrls: ['./trash-dialog.component.scss']
 })
 export class TrashDialogComponent implements OnInit {
 

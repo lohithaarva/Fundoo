@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {LoggerService} from '../app/core/services/logger/logger.service'
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -113,7 +114,7 @@ import { TrashDialogComponent } from './components/trash-dialog/trash-dialog.com
   ],
   
 
-  providers: [HttpService, AuthGuard , AuthService],
+  providers: [HttpService, AuthGuard , AuthService, LoggerService],
   entryComponents :[DialogComponentComponent , TrashDialogComponent],
   bootstrap: [AppComponent]
 })

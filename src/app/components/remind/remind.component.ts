@@ -1,15 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-remind',
   templateUrl: './remind.component.html',
-  styleUrls: ['./remind.component.css']
+  styleUrls: ['./remind.component.scss']
 })
 export class RemindComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myHttpService: HttpService) { }
+  @Input() reminder;
+  @Output() remindEmit = new EventEmitter;
+  accessToken = localStorage.getItem('token');
+  currentDate = new Date();
 
   ngOnInit() {
   }
+  
 
+    remindMe() {
+      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
+      {
+      "noteIdList": [this.reminder.id],
+      "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
+      this.currentDate.getDate(), 8, 0, 0, 0)
+      }, this.accessToken).subscribe(data => {
+      console.log('Post is successfull ', data);
+      this.remindEmit.emit({
+      })
+      })
+      }
+
+      addTomorrowReminder() {
+      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
+      {
+      "noteIdList": [this.reminder.id],
+      "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
+      this.currentDate.getDate() + 1, 8, 0, 0, 0)
+      }, this.accessToken).subscribe(data => {
+      console.log('Post is successfull ', data);
+      this.remindEmit.emit({
+      })
+      })
+      }
+      addWeeklyReminder() {
+      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
+      {
+      "noteIdList": [this.reminder.id],
+      "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
+      this.currentDate.getDate() + 7, 8, 0, 0, 0)
+      }, this.accessToken).subscribe(data => {
+      console.log('Post is successfull ', data);
+      this.remindEmit.emit({
+      })
+      })
+      }
+      
 }

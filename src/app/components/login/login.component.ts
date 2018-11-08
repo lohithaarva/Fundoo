@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup , Validators} from '@angular/forms'
 import { HttpService } from '../../services/http.service';
+import {LoggerService} from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 
 
@@ -42,8 +43,9 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
     }
   }
   changeDivState(){
-    console.log(this.info.email);
-    console.log(this.info.password);        
+    // console.log(this.info.email);
+    // console.log(this.info.password); 
+    // LoggerService.log(this.info.email); 
     this.myHttpService
       .postlogin('user/login', {
         "email": this.info.email,
@@ -51,11 +53,12 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
           
       }).subscribe(
         (data) => {
-          console.log("POST Request is successful ", data);
+          // console.log("POST Request is successful ", data);
+          LoggerService.log("POST Request is successful" , data) 
           this.snackBar.open("login successful", " ", {
             duration: 2000
           })
-          console.log(data['id']);
+          // console.log(data['id']);
           localStorage.setItem('token',data['id'])
           localStorage.setItem("firstName",data["firstName"]);
           localStorage.setItem("lastname",data["lastName"]);

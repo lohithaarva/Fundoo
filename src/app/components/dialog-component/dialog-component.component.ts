@@ -13,7 +13,7 @@ export interface DialogData {
 @Component({
   selector: 'app-dialog-component',
   templateUrl: './dialog-component.component.html',
-  styleUrls: ['./dialog-component.component.css'],
+  styleUrls: ['./dialog-component.component.scss'],
 
 })
 export class DialogComponentComponent implements OnInit {

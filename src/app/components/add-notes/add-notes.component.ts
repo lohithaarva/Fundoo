@@ -6,7 +6,7 @@ import { ColorComponent } from '../color/color.component';
 @Component({
   selector: 'app-add-notes',
   templateUrl: './add-notes.component.html',
-  styleUrls: ['./add-notes.component.css']
+  styleUrls: ['./add-notes.component.scss']
 })
 export class AddNotesComponent implements OnInit {
   enterExpression = true;

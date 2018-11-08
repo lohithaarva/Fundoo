@@ -1,3 +1,4 @@
+<!----------------------------------- Toolbar Starts----------------------------------->
 <div fxFlex>
   <div fxlayout="column wrap">
     <div>
@@ -23,7 +24,7 @@
 
          <button mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" 
          (click)="clicked=!clicked ;" 
-        style="background-color: bisque; color: black;"> {{ firstName | slice:0:1}}</button>
+        style="background-color: bisque; color: black;"></button>
         </div>
       </mat-toolbar>
       <mat-sidenav-container class="sidenav-container">
@@ -31,7 +32,7 @@
                     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
           [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
           <mat-nav-list>
-            <br>
+            <br> 
             <a mat-list-item routerLink='/home/notes'><img 
                 src="../../../assets/images/notes.svg">Notes</a>
             <a mat-list-item routerLink="/home/remainders"><img 
@@ -62,13 +63,14 @@
       </mat-sidenav-container> 
     </div>
 
-
+<!----------------------------- Profile image start---------------------------->
     <div *ngIf="clicked" class="basic">
       <mat-card class="sign-out-card">
         <mat-card-header>
           <div  mat-card-avatar (click)="selectImage.click()" class="example-header-image">
-            <button  mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" style="background-color: bisque; color: black; box-shadow: 4%;"> 
-                    {{ firstName | slice:0:1}}</button>
+            <button  mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" 
+            style="background-color: bisque; color: black; box-shadow: 4%;"> 
+                   </button>
           </div>
           <input (click)="$event.stopPropagation();" 
           style="display:none" type="file" (change)="onFileSelected($event)" #selectImage>
@@ -83,5 +85,8 @@
         </mat-card-actions>
       </mat-card>
     </div>
+
+    <!----------------------------- Profile image stop ---------------------------->
   </div>
 </div>
+<!--------------------------- Toolbar ends ------------------------------>

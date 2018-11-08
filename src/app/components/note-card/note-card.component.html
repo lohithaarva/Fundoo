@@ -1,9 +1,11 @@
+<!--                  displaying notecards                        -->
 <div fxFlex="column" fxFlex="5"></div>
-<div class="collectionCards" fxFlex="row-wrap" fxFlex="row" fxLayoutGap="20px">
-  <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
+<div fxFlex="column" fxFlex="0"class="noteCards" fxLayout="row wrap" fxLayoutGap="20px" 
+    fxLayoutAlign="center center" flex-direction="row">
+  <div fxFlex="0 1 calc(30% - 32px)" *ngFor="let note of cardAdded | LockFilter:globalSearch">
     <div [ngClass]="{ 'grid':condition, 'list': !condition }">
-      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" 
-            class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
+      <mat-card  (updateEvent)="messageDelete($event)" 
+      fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
           <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
@@ -18,9 +20,11 @@
         </div>
         </div>       
         <br><br>
+        <!---------------  displaying icons   ------------------->
         <span>
           <div class="iconInvisible">
-            <app-remind *ngIf="deleteNotesForever == delete"></app-remind>
+            <app-remind [reminder]="note"
+                *ngIf="deleteNotesForever == delete"></app-remind>
             <app-collaborator *ngIf="deleteNotesForever == delete" ></app-collaborator>
             <app-color *ngIf="deleteNotesForever == delete" 
                 [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
@@ -36,7 +40,9 @@
     </div>
     </div>
 
+
 <div fxFlex="column" fxFlex="5"></div>
+
 
 <!-- 
     style="align-self: center"

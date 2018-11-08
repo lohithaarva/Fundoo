@@ -6,7 +6,7 @@ import { HttpService } from '../../services/http.service';
 @Component({
   selector: 'app-label-notes',
   templateUrl: './label-notes.component.html',
-  styleUrls: ['./label-notes.component.css']
+  styleUrls: ['./label-notes.component.scss']
 })
 export class LabelNotesComponent implements OnInit {
 

@@ -1,10 +1,16 @@
-.add-archive{
+.more{
     background-position: center;
-    opacity: .54;;
+    opacity: .54;
     height: 30px;
+    /* margin: 0 8px; */
     width: 30px;
     cursor: pointer;
     display: inline-block;
     outline: none!important;
+    margin-right: 6px;
+
+}
+.mat-checkbox{
+    margin-left: 6%;
 
 }

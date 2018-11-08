@@ -4,7 +4,7 @@ import { HttpService } from '../../services/http.service';
 @Component({
   selector: 'app-add-archive',
   templateUrl: './add-archive.component.html',
-  styleUrls: ['./add-archive.component.css']
+  styleUrls: ['./add-archive.component.scss']
 })
 export class AddArchiveComponent implements OnInit {
 

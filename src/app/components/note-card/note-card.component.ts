@@ -8,7 +8,7 @@ import { DataService } from "../../services/data.service";
 @Component({
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
-  styleUrls: ['./note-card.component.css']
+  styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit {
   messageDeleted:boolean;
