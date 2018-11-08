@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MoreComponent } from '../more/more.component';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import { DialogData } from '../dialog-component/dialog-component.component';
 
 

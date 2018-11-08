@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
-import { DataService } from "../../services/data.service";
+import { DataService } from "../../core/services/dataservice/data.service";
 
 
 @Component({

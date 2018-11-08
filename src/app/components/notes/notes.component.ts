@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { AddNotesComponent } from '../add-notes/add-notes.component';
-import { HttpService } from '../../services/http.service';
-import { AuthService } from './../../services/auth.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
+import { AuthService } from '../../core/services/authguard/auth.service';
 
 
 @Component({

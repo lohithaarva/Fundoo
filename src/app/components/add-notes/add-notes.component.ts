@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import { CoreModule } from '@angular/flex-layout';
 import { ColorComponent } from '../color/color.component';
 

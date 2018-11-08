@@ -2,8 +2,8 @@ import { Component, OnInit, Input,EventEmitter, Output} from '@angular/core';
 import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 import {MatDialog} from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
-import { HttpService } from '../../services/http.service';
-import { DataService } from "../../services/data.service";
+import { HttpService } from '../../core/services/httpservice/http.service';
+import { DataService } from "../../core/services/dataservice/data.service";
 
 @Component({
   selector: 'app-note-card',

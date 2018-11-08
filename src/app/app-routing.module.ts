@@ -11,7 +11,7 @@ import { LabelsComponent } from './components/labels/labels.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 

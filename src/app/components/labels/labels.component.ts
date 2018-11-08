@@ -1,9 +1,9 @@
 import { AfterViewInit,Component, OnInit, Inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import { Response } from 'selenium-webdriver/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogData } from '../dialog-component/dialog-component.component';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../core/services/dataservice/data.service';
 
 @Component({
   selector: 'app-labels',

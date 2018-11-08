@@ -1,5 +1,5 @@
 import { Component, OnInit,Input, EventEmitter, Output } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import { TrashDialogComponent } from '../trash-dialog/trash-dialog.component';
 import {MatDialog} from '@angular/material';
 

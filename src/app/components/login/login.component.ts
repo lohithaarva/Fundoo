@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup , Validators} from '@angular/forms'
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 import {LoggerService} from '../../core/services/logger/logger.service';
 
 @Component({

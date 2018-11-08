@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NoteCardComponent } from '../note-card/note-card.component';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/httpservice/http.service';
 
 
 export interface DialogData {
