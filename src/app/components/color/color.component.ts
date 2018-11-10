@@ -13,15 +13,15 @@ export class ColorComponent implements OnInit {
   @Output() emitColor = new EventEmitter;
   @Output() emitColorNotes = new EventEmitter<string>()
   token = localStorage.getItem("token");
-  colorArray=['#fafafa','#ff8a80','#ffd180','#ffff8d','#ccff90','#a7ffeb','#80d8ff','#82b1ff','#b388ff','#f8bbd0','#d7ccc8','#cfd8dc'];
+  colorArray=[['#fafafa','#ff8a80','#ffd180','#ffff8d'],['#ccff90','#a7ffeb','#80d8ff','#82b1ff'],['#b388ff','#f8bbd0','#d7ccc8','#cfd8dc']];
   ngOnInit() {
   }
 
   changeColor(colorcode){
-    this.emitColorNotes.emit(this.colorArray[colorcode])
+    this.emitColorNotes.emit(colorcode)
     if(this.noteColorCard != undefined){
       this.myHttpService.setColors('/notes/changesColorNotes',{
-        "color":this.colorArray[colorcode],
+        "color":colorcode,
       "noteIdList":[this.noteColorCard.id]
       },this.token).subscribe(
         (data) =>{

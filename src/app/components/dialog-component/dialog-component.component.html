@@ -10,6 +10,24 @@
     </div>
     <div class="inputNote" id="notesId" contenteditable="true" 
     data-text="" [innerHTML]="data.description"></div>
+
+     <!------------------- chiplist of remainders start ----------------------->
+     <div fxLayout="row" >
+        <div *ngFor="let remainderChip of data.reminder" >
+          <div>
+        <mat-chip-list > 
+          <mat-chip >{{remainderChip | date }}
+            <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+        </div>
+        </div>
+       <!------------------- chiplist of remainders stops ------------------------>
+
+
+
+    <!---------------------- labels chiplist starts ------------------------>
     <div fxLayout="row" fxFlexAlign="end end">
         <div *ngFor="let labelChip of data.noteLabels" >
         <mat-chip-list>  <mat-chip >{{labelChip.label}}
@@ -19,6 +37,7 @@
         </mat-chip-list>
         </div>
         </div>
+    <!----------------------- labels chiplisr ends ---------------------->
       <span class="iconInvisible">
       <div class="dialogIcons">
         <app-remind></app-remind>

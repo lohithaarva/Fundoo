@@ -16,22 +16,54 @@
     margin-top: -3px;
     margin-right: 6px;
 }
-.laterToday{
-    margin-top: 15px;
+// .laterToday{
+//     margin-top: 15px;
+// }
+// .reminder
+// {
+//     margin-left: 10px;
+// }
+// .code
+// {
+//     float: right;
+// }
+
+// .coding
+// {
+//     margin-left: 95px;
+// }
+// ::ng-deep.mat-menu-content:not(:empty) {
+//     width: 207px;
+// }
+
+// .dateInput{
+//     padding-left: 30px;
+// }
+// ::ng-deep.mat-menu-panel{
+//     overflow:hidden
+// }
+// .increase{
+//     width: 207px;
+// }
+.reminderHeader{
+    padding:15px;
 }
-.reminder
-{
-    margin-left: 10px;
+// .todayTime{
+//     padding-left: 50px;
+// }
+::ng-deep.mat-menu-content:not(:empty) {
+    width: 100% !important;
 }
-.code
-{
-    float: right;
-}
-.menu
-{
-    width: 300px;
-}
-.coding
-{
-    margin-left: 95px;
+// .firstMenu{
+//     width: 250px; 
+// }
+// 
+// ::ng-deep .mat-menu-panel{
+//     width:250px;
+// }
+// ::ng-deep.mat-menu-content{
+//     width:245px;
+// }
+::ng-deep .reminderMenu{
+    width:240px;
 }

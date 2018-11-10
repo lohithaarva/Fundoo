@@ -1,31 +1,40 @@
 <!----------------------- Labels start----------------------->
-<div style="padding:10px ">
+<div class="universal" style="padding:10px ">
         <div class="marg1">Edit labels</div>
         <div class="marg2" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="15">
                         <mat-icon (click)="close()">close</mat-icon>
                 </div>
                 <div fxFlex="70" contenteditable="true" placeholder="Create new Label" 
-                class="content" placeholder="Create new Label" #newLabel></div>
+                        class="content" placeholder="Create new Label" #newLabel></div>
                 <div fxFlex="15">
                         <mat-icon matTooltip="Done" (click)="addLabel()">check</mat-icon>
-                </div>
+                </div>    
         </div>
+        <div style="color:red" fxLayoutAlign="center center"> 
+                        <span>{{alertMessage}}</span>
+                </div>
 </div>
-<div fxLayout="column" class="labelList">
+<div  fxLayout="column" class="labelList">
         <a mat-list-item>
                 <div *ngFor="let val of value1; trackBy:val?.id">
                         <div *ngIf="show != val.id">
-                                <mat-icon fxFlex="15" matTooltip="Delete Label" 
-                                (click)="labelDelete(val.id)">label_outline</mat-icon>
-                                <span fxFlex="70" contenteditable="false" class="name" id="label" 
-                                        [innerHTML]="val.label"></span>
-                                <mat-icon fxFlex="15" matTooltip="Edit Label" (click)="edit2(val.id)" 
-                                          class="create">create</mat-icon>
+                                <div class="lock">
+                                        <mat-icon fxFlex="15" matTooltip="Delete Label" 
+                                        class="icon-unlock">label_outline</mat-icon>
+                                        <mat-icon matTooltip="Delete Label" class="icon-lock" 
+                                        (click)="labelDelete(val.id);">delete</mat-icon>
+                                </div>
+                                <span fxFlex="70" contenteditable="false" class="name" 
+                                        id="label" [innerHTML]="val.label"></span>
+                                <mat-icon fxFlex="15" matTooltip="Edit Label" 
+                                        (click)="edit2(val.id)" 
+                                        class="create">create</mat-icon>
                         </div>
+
                         <div *ngIf="show == val.id">
                                 <mat-icon fxFlex="15" matTooltip="Delete Label" 
-                                        (click)="labelDelete(val.id)">delete</mat-icon>
+                                (click)="labelDelete(val.id)">delete</mat-icon>
                                 <span fxFlex="70" contenteditable="true" class="name" 
                                 [innerHTML]="val.label" #myLabel></span>
                                 <mat-icon fxFlex="15" matTooltip="Edit Label" 
@@ -35,7 +44,7 @@
         </a>
 </div>
 <div>
-        <button class="flot" mat-button (click)="addLabel()">Done</button>
+        <button [mat-dialog-close]=close class="flot" mat-button >Done</button>
 </div>
 
 <!----------------------- Labels stop----------------------->

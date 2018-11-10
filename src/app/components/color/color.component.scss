@@ -32,15 +32,7 @@
     display:flex;
     }
     
-    .firstColor{
-        
+    ::ng-deep.mat-menu-content:not(:empty) {
+        width: 165px;
     }
-/* {
-    background-color: #fafafa;
-     width:26px;
-      height:26px; 
-      margin-right: 5px;
-       margin-bottom: 3px;
-       margin-left: 3px;
-}
-     */
+   

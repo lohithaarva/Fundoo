@@ -20,7 +20,7 @@ search : any;
   @Input() deleteNotesForever;
   
   ngOnInit() {
-              console.log(this.deleteNotesForever); 
+             
               this.getLabels();
               }
 

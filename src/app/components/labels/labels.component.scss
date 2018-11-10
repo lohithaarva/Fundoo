@@ -25,11 +25,9 @@
 }
 .flot
 {
-    
+    cursor: pointer;
     float: right;
 }
-
-
 .content
 {
      border: none; 
@@ -42,6 +40,17 @@
 }
 .labelList{
     margin-top: 4%;
+    cursor: pointer;
+}
+.lock:hover .icon-unlock,
+.lock .icon-lock {
+    display: none;
+}
+.lock:hover .icon-lock {
+    display: inline;
+}
+.universal{
+    cursor: pointer;
 }
 
 /* 

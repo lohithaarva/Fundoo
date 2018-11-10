@@ -7,10 +7,7 @@
                         class="inputTitle" placeholder="Take a note..."></span>
                 </div>
                 <div>
-                    <mat-icon class="icons" matTooltip="New note with Drawing" 
-                              matTooltipPosition="above">create</mat-icon>
-                    <i class="material-icons icons"> image </i>
-                    <i class="material-icons icons" (click)="enterExpression=!enterExpression" 
+                <i class="material-icons icons" (click)="enterExpression=!enterExpression" 
                        (click)="boxClicked=!boxClicked"> <mat-icon>check_box</mat-icon></i>
                 </div>
 
@@ -43,6 +40,7 @@
         </div>
 
     <!-------------------------- Checklist stop---------------------------->
+    <!------------------------- Label chips start -------------------------->
 
         <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" 
         data-text="Take a note" #description></div>
@@ -55,6 +53,8 @@
                 </mat-chip-list>
             </div>
         </div>
+    <!--------------------------Label chip stop --------------------------->    
+    
         <span>
             <div class="noteCardIcon">
                 <app-remind></app-remind>

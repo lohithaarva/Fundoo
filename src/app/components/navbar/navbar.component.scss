@@ -1,4 +1,4 @@
-.sidenav-container {
+ .sidenav-container {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -45,6 +45,17 @@ padding-right: 32px;
   color: black;
   border-radius: 5px; 
 }
+.hideSearch{
+    height: 41px;
+    width: 243px;
+    margin-left: -235px;
+    color: black;
+    opacity: 1;
+    background-color: #ebae16;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 20px;
+  }
 input:focus{
   background-color: white;
 }
@@ -71,7 +82,6 @@ input:focus{
 /***************************************************************************************/
 .toolbar{
   background:#fb0 ;  
-  display: flex; 
 }
 .title{
   padding-right: 50px;
@@ -109,7 +119,7 @@ input:focus{
   opacity:1;
   font-size: 166%;
   margin-left: 5%;
-  cursor: pointer
+  cursor: pointer;
 }
 .editLabel{
   margin-top: 2%;
@@ -120,4 +130,6 @@ input:focus{
 button.active {
   color: green;
  }
+ 
+
  

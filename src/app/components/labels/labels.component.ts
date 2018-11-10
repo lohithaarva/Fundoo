@@ -1,9 +1,10 @@
-import { AfterViewInit,Component, OnInit, Inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
 import { Response } from 'selenium-webdriver/http';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogData } from '../dialog-component/dialog-component.component';
 import { DataService } from '../../core/services/dataservice/data.service';
+import { LabelTrashDialogComponent } from '../label-trash-dialog/label-trash-dialog.component';
 
 @Component({
   selector: 'app-labels',
@@ -13,13 +14,15 @@ import { DataService } from '../../core/services/dataservice/data.service';
 export class LabelsComponent implements OnInit {
 
   public show = true;
-  constructor(private myHttpService: HttpService, private data: DataService,) { }
+  constructor(private myHttpService: HttpService,
+    private data: DataService, public dialog: MatDialog) { }
   value1: any = [];
   @Output() updateLabel = new EventEmitter()
   @ViewChild('newLabel') newLabel: ElementRef;
   @ViewChild('myLabel') myLabel: ElementRef;
-  clear : any;
+  clear: any;
   globalLabelDelete: any;
+  alertMessage;
 
   onNoClick(): void {
   }
@@ -30,20 +33,13 @@ export class LabelsComponent implements OnInit {
   id = localStorage.getItem('userId')
   token = localStorage.getItem('token');
   addLabel() {
-    // debugger;
-
-    // var duplicateLabel = this.newLabel.nativeElement.innerHTML;
-    // console.log(duplicateLabel)
-    // console.log(this.value1);
-    // for(var i = 0; i < this.value1; i++)
-    // {
-    //   if(this.value1['data']['details'][i].label == duplicateLabel)
-    //   {
-    //     console.log(duplicateLabel);
-    //     alert('duplicateLabel data');
-    //     return false;
-    //   } 
-    // }
+    var label = this.newLabel.nativeElement.innerHTML
+    for (var i = 0; i < this.value1.length; i++) {
+      if (this.value1[i].label == label) {
+        this.alertMessage='Label already exists'
+        return false;
+      }
+    }
     this.myHttpService.addNotes('/noteLabels', {
       "label": this.newLabel.nativeElement.innerHTML,
       "isDeleted": false,
@@ -52,10 +48,10 @@ export class LabelsComponent implements OnInit {
     }, this.token).subscribe(
       (data) => {
         console.log("POST Request is successful ", data);
-        // this.updateLabel.emit({
-        // })
+        this.updateLabel.emit({
+        })
         this.delete();
-       
+
       },
       error => {
         console.log("Error", error);
@@ -63,23 +59,11 @@ export class LabelsComponent implements OnInit {
   }
 
   labelDelete(val) {
-    this.show = true;
-    this.myHttpService.deleteLabel('/noteLabels/' + val + '/deleteNoteLabel', {
-      "label": this.newLabel.nativeElement.innerHTML
-    }).subscribe(
-      (data) => {
-        console.log("DELETE Request is successful ", data);
-        this.updateLabel.emit({
-        })
-        this.data.changeDelete(true);
-      },
-      error => {
-        console.log("Error", error);
-      })
+    this.openLabelDialog(val)
   }
 
   delete() {
-    var array=[];
+    var array = [];
     this.myHttpService.getNotes('/noteLabels/getNoteLabelList', this.token).subscribe(
       (data) => {
         console.log("GET Request is successful ", data);
@@ -93,7 +77,7 @@ export class LabelsComponent implements OnInit {
         this.value1 = array;
         console.log(this.value1);
         // this.value1.filter()
-        
+
       },
       error => {
         console.log("Error", error);
@@ -112,8 +96,8 @@ export class LabelsComponent implements OnInit {
       this.token).subscribe(
         (data) => {
           console.log("UPDATE Request is successful ", data);
-           this.updateLabel.emit({
-        })
+          this.updateLabel.emit({
+          })
           console.log(data);
         },
         error => {
@@ -125,9 +109,34 @@ export class LabelsComponent implements OnInit {
     this.show = id;
   }
 
-  close()
-  {
-     this.newLabel.nativeElement.innerHTML = ' ';
+  close() {
+    this.newLabel.nativeElement.innerHTML = ' ';
+  }
+  openLabelDialog(val): void {
+    const dialogRef = this.dialog.open(LabelTrashDialogComponent, {
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result == true) {
+        // this.updateLabel.emit({
+        // })
+
+        this.show = true;
+        this.myHttpService.deleteLabel('/noteLabels/' + val + '/deleteNoteLabel', {
+          "label": this.newLabel.nativeElement.innerHTML
+        }).subscribe(
+          (data) => {
+            console.log("DELETE Request is successful ", data);
+            this.delete();
+            // this.data.changeDelete(true);
+          },
+          error => {
+            console.log("Error", error);
+          })
+      }
+      console.log('The dialog was closed');
+      this.close = result;
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,13 @@ export class DataService {
 
   changeView(message:boolean){
     this.gridToList.next(message);
+  }
+
+  private msgSource = new BehaviorSubject(false);
+  currentMsg = this.msgSource.asObservable();
+
+  changeMsg(message: boolean) {
+  this.msgSource.next(message);
   }
 
 }

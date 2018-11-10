@@ -9,8 +9,8 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 export class RemindComponent implements OnInit {
 
   constructor(private myHttpService: HttpService) { }
-  @Input() reminder;
-  @Output() remindEmit = new EventEmitter;
+  @Input() noteRemindeCard;
+  @Output() remindEmit = new EventEmitter();
   accessToken = localStorage.getItem('token');
   currentDate = new Date();
 
@@ -21,7 +21,7 @@ export class RemindComponent implements OnInit {
     remindMe() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
-      "noteIdList": [this.reminder.id],
+      "noteIdList": [this.noteRemindeCard.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate(), 8, 0, 0, 0)
       }, this.accessToken).subscribe(data => {
@@ -34,7 +34,7 @@ export class RemindComponent implements OnInit {
       addTomorrowReminder() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
-      "noteIdList": [this.reminder.id],
+      "noteIdList": [this.noteRemindeCard.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate() + 1, 8, 0, 0, 0)
       }, this.accessToken).subscribe(data => {
@@ -46,7 +46,7 @@ export class RemindComponent implements OnInit {
       addWeeklyReminder() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
-      "noteIdList": [this.reminder.id],
+      "noteIdList": [this.noteRemindeCard.id],
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate() + 7, 8, 0, 0, 0)
       }, this.accessToken).subscribe(data => {

@@ -1,6 +1,6 @@
 <!--                  displaying notecards                        -->
-<div fxFlex="column" fxFlex="5"></div>
-<div fxFlex="column" fxFlex="0"class="noteCards" fxLayout="row wrap" fxLayoutGap="20px" 
+<!-- <div fxFlex="column" fxFlex="5"></div> -->
+ <div fxFlex="column" fxFlex="0"class="noteCards" fxLayout="row wrap" fxLayoutGap="20px" 
     fxLayoutAlign="center center" flex-direction="row">
   <div fxFlex="0 1 calc(30% - 32px)" *ngFor="let note of cardAdded | LockFilter:globalSearch">
     <div [ngClass]="{ 'grid':condition, 'list': !condition }">
@@ -9,21 +9,38 @@
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
           <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
-        <div fxLayout="row" fxFlexAlign="end end">
-        <div *ngFor="let labelChip of note.noteLabels" >
-          <div *ngIf = "labelChip.isDeleted == false">
-        <mat-chip-list >  <mat-chip >{{labelChip.label}}
-            <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
+
+          <!----------------- chiplist of labels start----------------------------->
+          <div fxLayout="row">
+              <div *ngFor="let labelChip of note.noteLabels" >
+                <div *ngIf = "labelChip.isDeleted == false">
+              <mat-chip-list >  <mat-chip >{{labelChip.label}}
+                  <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+              </div>
+              </div>
+        <!------------------- chiplist of labels end ------------------------------>
+        
+          <!------------------- chiplist of remainders start ----------------------->
+          <div fxLayout="row" >
+        <div *ngFor="let remainderChip of note.reminder" >
+          <div>
+        <mat-chip-list > 
+          <mat-chip >{{remainderChip | date }}
+            <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>
       </div>
         </div>
-        </div>       
-        <br><br>
-        <!---------------  displaying icons   ------------------->
+        </div>
+       <!------------------- chiplist of remainders stops ------------------------>
+      <br><br>
+        <!-------------  displaying icons   ------------------->
         <span>
           <div class="iconInvisible">
-            <app-remind [reminder]="note"
+            <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"
                 *ngIf="deleteNotesForever == delete"></app-remind>
             <app-collaborator *ngIf="deleteNotesForever == delete" ></app-collaborator>
             <app-color *ngIf="deleteNotesForever == delete" 
@@ -38,10 +55,10 @@
       </mat-card>
     </div>
     </div>
-    </div>
+    </div> 
 
 
-<div fxFlex="column" fxFlex="5"></div>
+<!-- <div fxFlex="column" fxFlex="5"></div> -->
 
 
 <!-- 

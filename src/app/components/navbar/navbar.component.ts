@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from "../../core/services/dataservice/data.service";
+import { environment } from 'src/environments/environment';
+import { CropImageComponent } from '../crop-image/crop-image.component';
 
 
 @Component({
@@ -43,14 +45,19 @@ export class NavbarComponent {
      public grid = 0;
      selectedFile = null;
      profilePath;
+     color;
+     show: boolean = false;
+     public pic;
+
+     
 
   
   ngOnInit() {
      
-    this.noteCard();
-
-     
+    this.noteCard();   
   }
+
+  
   noteCard(){
   var note=[];
   this.firstName= localStorage.getItem("firstName");
@@ -115,7 +122,7 @@ export class NavbarComponent {
   labelPage(result){
     var labelName = result.label;
     this.router.navigate(['home/labelNotes/'+labelName]);
-    console.log("here");
+    
     
   }
   
@@ -133,22 +140,38 @@ export class NavbarComponent {
 public newimage2=localStorage.getItem('imageUrl');
 img="http://34.213.106.173/"+this.newimage2;
 token=localStorage.getItem('token');
-onFileSelected(event){
-this.selectedFile=event.path[0].files[0];
-const uploadData = new FormData();
-uploadData.append('file', this.selectedFile, this.selectedFile.name);
-this.myHttpService.httpAddImage('user/uploadProfileImage',uploadData,this.token)
-.subscribe(res=>{
-console.log("url: ", res['status'].imageUrl )
-this.img="http://34.213.106.173/"+res['status'].imageUrl;
-     
-   
-   },error=>{
-     console.log(error);
-     
-   })
- }
- image={};
+onFileSelected(event) {
+  var token = localStorage.getItem('token');
+  this.profileCropOpen(event);
+  
+  this.selectedFile = event.path[0].files[0];
+  const uploadData = new FormData();
+  uploadData.append('file', this.selectedFile, this.selectedFile.name);
+  }
+  image = {};
+  
+  clickLabel(labelsList) {
+  var labelsList = labelsList.label;
+  this.router.navigate(['/home/label/' + labelsList])
+  }
+  profileCropOpen(data): void { //Function for the dialog box
+  const dialogRefPic = this.dialog.open(CropImageComponent, {
+  width: '450px',
+  data: data
+  });
+  
+  dialogRefPic.afterClosed().subscribe(result => {
+  console.log('The dialog was closed');
+  this.data.currentMsg.subscribe(message => this.pic = message)
+  console.log("pic", this.pic);
+  if (this.pic == true) {
+  this.newimage2 = localStorage.getItem('imageUrl');
+  this.img = environment.apiUrl + this.newimage2;
+  }
+  
+  });
+  }
+ 
 
 
      

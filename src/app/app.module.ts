@@ -41,8 +41,12 @@ import { LabelfilterPipe } from '../app/core/pipes/labelfilter.pipe';
 import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
          MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule,
          MatMenuModule, MatChipsModule, MatGridListModule, MatCheckboxModule,
-         MatDialogModule, MatSnackBarModule} from '@angular/material';
+         MatDialogModule, MatSnackBarModule, MatDatepickerModule,
+         MatNativeDateModule, } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { CropImageComponent } from './components/crop-image/crop-image.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { LabelTrashDialogComponent } from './components/label-trash-dialog/label-trash-dialog.component'
 
   
 @NgModule({
@@ -74,7 +78,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     LabelfilterPipe,
     SearchComponent,
     LabelNotesComponent,
-    TrashDialogComponent
+    TrashDialogComponent,
+    CropImageComponent,
+    LabelTrashDialogComponent
     
     
   ],
@@ -100,13 +106,17 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ImageCropperModule 
   
   ],
   
 
   providers: [HttpService, AuthGuard , AuthService, LoggerService],
-  entryComponents :[DialogComponentComponent , TrashDialogComponent],
+  entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
+                    LabelTrashDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

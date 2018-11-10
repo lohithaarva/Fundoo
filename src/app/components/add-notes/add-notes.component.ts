@@ -65,18 +65,7 @@ export class AddNotesComponent implements OnInit {
       this.color= event;
     }
 
-    // onKeydown(event) {
-    //   if (event.key === "Enter" && event.key!= ""){
-    //   console.log(event);
-    //   this.checklist={
-    //     "textVal" :"",
-    //     "status":"open"
-    //   }
-    //   this.checkBoxArray.push(this.checklist);
-      
-    //   }
-      
-    
+  
 
     addLabel(event){
       if(this.labelChipName.indexOf(event)<0){
@@ -96,7 +85,7 @@ export class AddNotesComponent implements OnInit {
     public i=0;
     data;
     dataarray=[];
-enter(){
+   enter(){
   this.i++;
   if(this.data!=null){
     console.log(event,"keydown");
