@@ -17,24 +17,35 @@
     <mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes">
         <div class="hiddenDiv">
             <span>
-                <div><img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+                <div><img (eventEmit)="pinEvent()"
+                    class="pinIcon" src="../../../assets/images/pin.svg" alt="">
+                </div>
+                
                 <div class="inputTitleNote" contenteditable="true" id="titleId" 
                      data-text="Title"></div>
             </span>
         </div>
+         <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" 
+        data-text="Take a note"  (click) = "checked = false" #description></div>
+        
     <!-------------------------- Checklist start---------------------------->
          <div *ngIf="!boxClicked"  id="title"  autofocus #description>
-                <div class="check" *ngFor="let data of dataarray" id="note" fxLayout="row">
+                <div class="check" *ngFor="let data of dataArray" id="note" fxLayout="row">
 
-                <mat-checkbox fxFlex="5%"></mat-checkbox>
-                <input fxFlex="90" *ngIf="!boxClicked" class="inputNote1"  id="note" [(ngModel)]=data.data (keydown)="editing($event.data)">
-       <mat-icon fxFlex="4%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
-            </div>
+                <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked></mat-checkbox>
+                <input fxFlex="90"  class="inputNote1" 
+                 id="note" [(ngModel)]=data.data (keydown)="editing($event.data)">
+            <mat-icon class="cancel" fxFlex="5%" (click)=ondelete(data) 
+                      matTooltip="delete">cancel</mat-icon>
+            </div> 
+
             <mat-divider></mat-divider>
 
         <div class="check" fxLayout="row" id="title" id="note" autofocus #description>
-            <mat-icon fxFlex="5%">add</mat-icon>
-            <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" [(ngModel)]=data.data placeholder="list item" (keydown.enter)="enter()">
+            <mat-icon class="cancel" fxFlex="5%">add</mat-icon>
+            <input id="note" [(ngModel)]=data fxFlex="95%" 
+            class="inputNote" (click) = "checked = true"
+            [(ngModel)]=data.data placeholder="list item" (keydown)="enter($event)">
         </div>
         <mat-divider></mat-divider>
         </div>
@@ -42,8 +53,7 @@
     <!-------------------------- Checklist stop---------------------------->
     <!------------------------- Label chips start -------------------------->
 
-        <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" 
-        data-text="Take a note" #description></div>
+       
         <div fxLayout="row" fxFlexAlign="end end">
             <div *ngFor="let labelChip of labelChipName">
                 <mat-chip-list>
@@ -68,3 +78,8 @@
         </span>
     </mat-card>
 </div>
+
+<!---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------->
+

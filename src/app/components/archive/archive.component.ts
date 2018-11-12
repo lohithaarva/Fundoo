@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-archive',
@@ -8,21 +9,33 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor(private myHttpService : HttpService) { }
-  card = [];
+  constructor(private myHttpService: HttpService) { }
+  notes = [];
   token = localStorage.getItem('token');
+  @Output() emitArchive = new EventEmitter();
+  @Input() noteArchiveCard
+
+
   ngOnInit() {
+    this.archiveNotes();
+  }
+  archiveNotes(){
     this.myHttpService.getArchive('/notes/getArchiveNotesList', this.token).subscribe(
       (data) => {
+        this.notes = [];
         console.log("GET Request is successful ", data);
         for (var i = data['data']['data'].length - 1; i >= 0; i--) {
-          // if (data['data']['data'][i].isArchive == false) {
-          this.card.push(data['data']['data'][i]);
-          // }
+          this.notes.push(data['data']['data'][i]);
         }
       },
       error => {
         console.log("Error", error);
       })
   }
+
+  eventEmitarchive(event) {
+    this.archiveNotes();
+  }
+
 }
+

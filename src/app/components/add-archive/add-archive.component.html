@@ -1,2 +1,17 @@
-<span (click)="cardArchive(noteArchiveCard.id)" class="add-archive" matTooltip="Archive">
+<span *ngIf="noteArchiveCard.isArchived == false"
+      (click)="cardArchive()" class="add-archive" matTooltip="Archive">
   <i class="material-icons">archive</i></span>
+
+  <span *ngIf="noteArchiveCard.isArchived == true" (click)="unarchiveNotes()">
+    <i class="material-icons">unarchive</i></span>
+
+ <!-- <mat-icon  class="innerIcon"  *ngIf="archiveNotesArray.isArchived == false"
+  (click)="archiveNotes()" aria-label="false"  
+  mat-icon-button  matTooltip="Archive" >
+archive
+</mat-icon>
+<mat-icon  class="innerIcon" *ngIf="archiveNotesArray.isArchived == true" 
+ (click)="unarchiveNotes()" aria-label="false" 
+ mat-icon-button  matTooltip="unarchive" >
+unarchive
+</mat-icon>  -->

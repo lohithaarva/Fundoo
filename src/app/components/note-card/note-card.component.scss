@@ -81,4 +81,26 @@
     margin-bottom: 20px;
     
   }
-  
+  .iconCheckBox{
+      margin-left: -8px;
+  }
+  .note{
+    outline: none;
+    border: none;
+    margin-left: 10px;
+  }
+  .mat-checkbox-inner-container-no-side-margin {
+    margin-left: 10px;
+  }
+  ::ng-deep.element.style {
+    margin-left: 9px;
+}
+// ::ng-deep.mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+//     /* margin: 4px; */
+//     margin-top: 9px;
+//     margin-bottom: 11px;
+// }
+.chipListLabels{
+    margin-top: 9px;
+    margin-bottom: 10px;
+}

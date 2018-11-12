@@ -13,9 +13,6 @@ export class NotesComponent implements OnInit {
   notes = [];
   access_token = localStorage.getItem("token");
   message: boolean;
-  first = [];
-  second = [];
-  third = [];
   main = [];
 
 
@@ -47,9 +44,6 @@ export class NotesComponent implements OnInit {
           }
         }
         console.log("array", this.notes)
-        this.first=[];
-        this.second=[];
-        this.third=[];
         this.main=[];
         for(var index=0; index<(this.notes.length) ; index++)
         {

@@ -14,6 +14,9 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 export class NoteCardComponent implements OnInit {
   messageDeleted: boolean;
   condition = true;
+  public checkArray=[];
+  public modifiedCheckList;
+  
 
   constructor(public dialog: MatDialog, private myHttpService: HttpService, private data: DataService) {
     this.data.currentDelete.subscribe(message => {
@@ -32,9 +35,7 @@ export class NoteCardComponent implements OnInit {
   @Input() deleteNotesForever;
   @Input() globalSearch;
   @Input() cardAdded;
-  @Input() first = [];
-  @Input() second = [];
-  @Input() third = [];
+  // @Input() unarchiveEvent;
   @Output() eventEmit = new EventEmitter();
 
   messageDelete(event) {
@@ -45,7 +46,6 @@ export class NoteCardComponent implements OnInit {
 
   openDialog(note): void {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
-      // width: '550px', 
       data: note
     });
 
@@ -88,8 +88,29 @@ export class NoteCardComponent implements OnInit {
         })
   }
 
-  ngOnInit() {
+  checkBox(checkList,note) {
 
+    if (checkList.status == "open") {
+      checkList.status = "close"
+    }
+    else {
+      checkList.status = "open"
+    }
+    console.log(checkList);
+    this.modifiedCheckList = checkList;
+  }
+  archiveEvent(event){
+    this.eventEmit.emit({
+    })
+
+  }
+
+  unarchiveEvent(event){
+    this.eventEmit.emit({})
+  }
+
+  ngOnInit() {
+    
   }
 }
 

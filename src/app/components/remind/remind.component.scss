@@ -1,12 +1,3 @@
-/* .remind{
-    background-position: center;
-    height: 30px;
-    opacity: .54;
-    width: 30px;
-    cursor: pointer;
-    display: inline-block;
-    outline: none!important;
-} */
 .remind 
 {
     opacity: .54;
@@ -14,56 +5,37 @@
     cursor: pointer;
     margin-left: -5px;
     margin-top: -3px;
-    margin-right: 6px;
+    margin-right: 2px;
 }
-// .laterToday{
-//     margin-top: 15px;
-// }
-// .reminder
-// {
-//     margin-left: 10px;
-// }
-// .code
-// {
-//     float: right;
-// }
-
-// .coding
-// {
-//     margin-left: 95px;
-// }
-// ::ng-deep.mat-menu-content:not(:empty) {
-//     width: 207px;
-// }
-
-// .dateInput{
-//     padding-left: 30px;
-// }
-// ::ng-deep.mat-menu-panel{
-//     overflow:hidden
-// }
-// .increase{
-//     width: 207px;
-// }
 .reminderHeader{
     padding:15px;
 }
-// .todayTime{
-//     padding-left: 50px;
-// }
+.pickHeader{
+    padding:15px;
+}
+.dateHeader{
+    padding-left: 15px;
+}
 ::ng-deep.mat-menu-content:not(:empty) {
     width: 100% !important;
 }
-// .firstMenu{
-//     width: 250px; 
-// }
-// 
-// ::ng-deep .mat-menu-panel{
-//     width:250px;
-// }
-// ::ng-deep.mat-menu-content{
-//     width:245px;
-// }
 ::ng-deep .reminderMenu{
-    width:240px;
+    width:269px;
+}
+::ng-deep.calenderMenu{
+    width:232px;
+    padding:15px;
+}
+.time{
+    margin-right: 2px;
+}
+::ng-deep.saveButton{
+    float: right
+}
+.mat-form-field-flex {
+    display: inline-flex;
+    align-items: baseline;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 20px;
 }

@@ -13,12 +13,20 @@ export class RemindComponent implements OnInit {
   @Output() remindEmit = new EventEmitter();
   accessToken = localStorage.getItem('token');
   currentDate = new Date();
+   show;
 
   ngOnInit() {
   }
   
+  datePickReminder(){
+    this.show = false;
+  }
+  backPressDatepicker(){
+    this.show = true;
+  }
 
-    remindMe() {
+
+  addRemindeToday() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
       "noteIdList": [this.noteRemindeCard.id],
@@ -31,7 +39,7 @@ export class RemindComponent implements OnInit {
       })
       }
 
-      addTomorrowReminder() {
+      addRemindTomorrow() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
       "noteIdList": [this.noteRemindeCard.id],
@@ -43,7 +51,7 @@ export class RemindComponent implements OnInit {
       })
       })
       }
-      addWeeklyReminder() {
+      addRemindNextWeek() {
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
       "noteIdList": [this.noteRemindeCard.id],

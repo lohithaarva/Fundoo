@@ -10,7 +10,6 @@ export class TrashComponent implements OnInit {
   notes = [];
   access_token = localStorage.getItem("token");
   deleteNotesForever = "delete";
-  // deleteNotesInDialog = "deleteDialog";
   constructor(private myHttpService: HttpService) { }
 
   ngOnInit() {

@@ -46,7 +46,8 @@ import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
 import { LayoutModule } from '@angular/cdk/layout';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { LabelTrashDialogComponent } from './components/label-trash-dialog/label-trash-dialog.component'
+import { LabelTrashDialogComponent } from './components/label-trash-dialog/label-trash-dialog.component';
+import { PinComponent } from './components/pin/pin.component'
 
   
 @NgModule({
@@ -80,7 +81,8 @@ import { LabelTrashDialogComponent } from './components/label-trash-dialog/label
     LabelNotesComponent,
     TrashDialogComponent,
     CropImageComponent,
-    LabelTrashDialogComponent
+    LabelTrashDialogComponent,
+    PinComponent
     
     
   ],

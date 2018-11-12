@@ -7,14 +7,35 @@
       <mat-card  (updateEvent)="messageDelete($event)" 
       fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
-          <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+          <!-- <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div> -->
+          <app-pin class="pinIcon" [notePinCard]="note"></app-pin>
+
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
 
+        <!-------------------checklist starts ------------------------------------>
+        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" > 
+          <mat-checkbox class="iconCheckBox" fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" 
+          (click)="checkBox(checklist,note); openDialog(note)"></mat-checkbox>
+          <input *ngIf="!checklist.isDeleted && checklist.status=='open' " 
+          [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
+            (click)="open(note)" [style.backgroundColor]="note.color">
+         </div>
+        
+          <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
+          <mat-checkbox class="iconCheckBox" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
+           (click)="checkBox(checklist,note) ;openDialog(note)"></mat-checkbox>
+          <del *ngIf="!checklist.isDeleted && checklist.status=='close'"
+           (click)="open(note)">{{checklist.itemName}}</del>
+        </div>
+      
+
+        <!------------------- checklist ends -------------------------------------->
+
           <!----------------- chiplist of labels start----------------------------->
-          <div fxLayout="row">
+          <div class="chipListLabels"fxLayout="row" >
               <div *ngFor="let labelChip of note.noteLabels" >
                 <div *ngIf = "labelChip.isDeleted == false">
-              <mat-chip-list >  <mat-chip >{{labelChip.label}}
+              <mat-chip-list>  <mat-chip fxLayoutGap="20px">{{labelChip.label}}
                   <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
                 </mat-chip>
               </mat-chip-list>
@@ -22,9 +43,9 @@
               </div>
               </div>
         <!------------------- chiplist of labels end ------------------------------>
-        
+              
           <!------------------- chiplist of remainders start ----------------------->
-          <div fxLayout="row" >
+          <div fxLayout="row">
         <div *ngFor="let remainderChip of note.reminder" >
           <div>
         <mat-chip-list > 
@@ -40,14 +61,15 @@
         <!-------------  displaying icons   ------------------->
         <span>
           <div class="iconInvisible">
-            <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"
+            <app-remind  [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"
                 *ngIf="deleteNotesForever == delete"></app-remind>
-            <app-collaborator *ngIf="deleteNotesForever == delete" ></app-collaborator>
-            <app-color *ngIf="deleteNotesForever == delete" 
+            <app-collaborator  *ngIf="deleteNotesForever == delete" ></app-collaborator>
+            <app-color  *ngIf="deleteNotesForever == delete" 
                 [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image *ngIf="deleteNotesForever == delete" ></app-add-image>
-            <app-add-archive *ngIf="deleteNotesForever == delete" 
-                [noteArchiveCard]="note" (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-add-image  *ngIf="deleteNotesForever == delete" ></app-add-image>
+            <app-add-archive  *ngIf="deleteNotesForever == delete" 
+                [noteArchiveCard]="note" (archiveEvent)="archiveEvent($event)" 
+                (unarchiveEvent)="unarchiveEvent($event)" (emitArchive)="messageDelete($event)"></app-add-archive>
             <app-more [deleteNotesForever]="deleteNotesForever" 
                 [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>

@@ -1,55 +1,89 @@
- <div class="mat-dialog-container" display="flex" fxLayout="row wrap" 
-      fxLayoutAlign="space-around" (mouseover)="hover=true">
- <div [style.backgroundColor]="data.color">
+<div class="mat-dialog-container" display="flex" fxLayout="row wrap" fxLayoutAlign="space-around" (mouseover)="hover=true">
+  <div [style.backgroundColor]="data.color">
     <div>
-    <div> 
-        <mat-dialog-content class="mat-typography" class="inputTitleNote" 
-        contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
-        </mat-dialog-content> </div>
-    <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
-    </div>
-    <div class="inputNote" id="notesId" contenteditable="true" 
-    data-text="" [innerHTML]="data.description"></div>
-
-     <!------------------- chiplist of remainders start ----------------------->
-     <div fxLayout="row" >
-        <div *ngFor="let remainderChip of data.reminder" >
-          <div>
-        <mat-chip-list > 
-          <mat-chip >{{remainderChip | date }}
-            <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
+      <div>
+        <mat-dialog-content class="mat-typography" class="inputTitleNote" contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
+        </mat-dialog-content>
       </div>
-        </div>
-        </div>
-       <!------------------- chiplist of remainders stops ------------------------>
+      <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+    </div>
+    <div class="inputNote" id="notesId" contenteditable="true" data-text="" [innerHTML]="data.description"></div>
+
+   <!------------------------ Checklist start--------------------------->
+         
+<div class="note" *ngFor="let check of data.noteCheckLists" fxLayout="row">
+    
+  <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" 
+  (click)=checkBox(check)></mat-checkbox>
+  <input [(ngModel)]=check.itemName fxFlex="80%" class="note" (keydown)=editing(check,$event)
+  [ngStyle]="{'background-color':data.color}" *ngIf="!check.isDeleted && check.status=='open'">
+  <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) 
+  *ngIf="!check.isDeleted && check.status=='open'">clear</mat-icon>
+</div>
+
+  <mat-divider *ngIf="checklist"></mat-divider>
+  <div fxLayout="row" *ngIf="checklist">
+    <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
+    <mat-checkbox class="iconCheck" *ngIf="adding" [(ngModel)]=addCheck  color="primary"></mat-checkbox>
+    <input class="note"  fxFlex="95%" class="note" placeholder="List Item" 
+    [ngStyle]="{'background-color':data.color}" [(ngModel)]=newList (keydown)=addList($event)/>
+  </div>
+  <mat-divider *ngIf="checklist"></mat-divider>
+ 
+  <div class="note" *ngFor="let check of data.noteCheckLists" fxLayout="row">
+    <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted"
+     (click)=checkBox(check)></mat-checkbox>
+    <input class="note" [(ngModel)]=check.itemName class="note" style="text-decoration: line-through;"
+     fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
+    [ngStyle]="{'background-color':data.color}"  (keydown)=editing(check,$event)>
+    <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check)
+     *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
+</div>
+
+    <!-------------------------- Checklist stop-------------------------->
 
 
 
     <!---------------------- labels chiplist starts ------------------------>
     <div fxLayout="row" fxFlexAlign="end end">
-        <div *ngFor="let labelChip of data.noteLabels" >
-        <mat-chip-list>  <mat-chip >{{labelChip.label}}
+      <div *ngFor="let labelChip of data.noteLabels">
+        <mat-chip-list>
+          <mat-chip>{{labelChip.label}}
             <mat-icon matChipRemove (click)="remove(labelChip.id, data.id)">cancel</mat-icon>
-        
+
           </mat-chip>
         </mat-chip-list>
-        </div>
-        </div>
+      </div>
+    </div>
     <!----------------------- labels chiplisr ends ---------------------->
-      <span class="iconInvisible">
+
+    <!------------------- chiplist of remainders start ----------------------->
+    <div fxLayout="row">
+      <div *ngFor="let remainderChip of data.reminder">
+        <div>
+          <mat-chip-list>
+            <mat-chip>{{remainderChip | date }}
+              <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+    <!------------------- chiplist of remainders stops ------------------------>
+
+
+    <span class="iconInvisible">
       <div class="dialogIcons">
         <app-remind></app-remind>
         <app-collaborator></app-collaborator>
         <app-color [noteColorCard]="data" (emitColor)="messageDelete($event)"></app-color>
         <app-add-image></app-add-image>
-        <app-add-archive></app-add-archive>
-        <app-more [noteDeleteCard]= "data"></app-more>
+        <app-add-archive [noteArchiveCard]="data"></app-add-archive>
+        <app-more [noteDeleteCard]="data"></app-more>
         <button mat-button class="closeButton" (click)="onNoClick(data.id)">CLOSE</button>
 
       </div>
-   
-  </span>
+
+    </span>
   </div>
-</div> 
+</div>
