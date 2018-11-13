@@ -64,18 +64,26 @@
   align-self: center;
 }
   .grid{
-      width: 245px;
+    margin-top: 20px;
+    width:320px;
+    word-wrap: break-word;
   }
-  .list[_ngcontent-c12] .note-card[_ngcontent-c12] {
-    flex:column; 
-    -lg-flex-item-align:center stretch;
-      width:1000px;
+//   .list[_ngcontent-c12] .note-card[_ngcontent-c12] {
+//     flex:column; 
+//     -lg-flex-item-align:center stretch;
+//       width:1000px;
      
+//   }
+  .list 
+  {
+    margin-top: 20px;
+    width:900px;
   }
-  .list[_ngcontent-c12] .pinIcon[_ngcontent-c12] {
-    margin-top: -7%;
-    margin-right: -3%;
-  }
+  
+//   .list[_ngcontent-c12] .pinIcon[_ngcontent-c12] {
+//     margin-top: -7%;
+//     margin-right: -3%;
+//   }
   .noteCards{
     margin-top: 20px; 
     margin-bottom: 20px;
@@ -103,4 +111,10 @@
 .chipListLabels{
     margin-top: 9px;
     margin-bottom: 10px;
+}
+
+.containerCard
+{
+    display: flex;
+    overflow: auto;
 }

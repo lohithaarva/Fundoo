@@ -42,7 +42,7 @@
         <div *ngIf="!show" class="reminderMenu">
             <button mat-icon-button (click)="$event.stopPropagation(); backPressDatepicker()">
                 <mat-icon class="pickHeader">keyboard_backspace</mat-icon>Pick Date and Time
-            </button>
+            </button> 
             <hr>
             <mat-form-field class="dateHeader">
                 <input matInput [matDatepicker]="picker" placeholder="Choose a date">
