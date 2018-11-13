@@ -1,3 +1,10 @@
 <app-add-notes (messageEvent)="receiveMessage($event)"></app-add-notes>
-<app-note-card [cardAdded] = "notes" (eventEmit)="receiveMessage($event)"></app-note-card>
+<div>
+    <h5 class="headerTitle">PINNED</h5>
+    <app-note-card [cardAdded]="pinNotes" (eventEmit)="receiveMessage($event)"></app-note-card>
+</div>
+<div>
+    <h5 class="headerTitle">OTHERS</h5>
+    <app-note-card [cardAdded]="notes" (eventEmit)="receiveMessage($event)"></app-note-card>
 
+</div>  

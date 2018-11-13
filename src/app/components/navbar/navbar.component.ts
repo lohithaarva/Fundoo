@@ -33,6 +33,7 @@ export class NavbarComponent {
     public route:ActivatedRoute,) {}
     public accessToken = localStorage.getItem("token")
     public clicked= false;
+    header;
      firstName;
      lastName;
      email;
@@ -55,6 +56,12 @@ export class NavbarComponent {
   ngOnInit() {
      
     this.noteCard();   
+  }
+
+
+  changeHeader(header){
+    this.header = header
+
   }
 
   

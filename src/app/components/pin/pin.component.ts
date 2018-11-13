@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./pin.component.scss']
 })
 export class PinComponent implements OnInit {
-  @Output() eventEmit = new EventEmitter();
+  @Output() pinEventEmit = new EventEmitter();
   @Input() notePinCard;
   public isDeleted = false;
   public isPinned = false;
@@ -26,14 +26,15 @@ export class PinComponent implements OnInit {
     }
   }
 
-  pin(){
-    this.eventEmit.emit({});
+  pin() {
+
+    this.pinEventEmit.emit({});
     if (this.notePinCard !== undefined) {
       if (this.notePinCard.isPined == true) {
         this.apiPinned = false;
       }
       var arr = []
-      arr.push(this.notePinCard.id)
+      arr.push(this.notePinCard.id);
       console.log(arr);
       if (this.notePinCard.id != undefined) {
         this.myHttpService.postDel("/notes/pinUnpinNotes",
@@ -42,12 +43,19 @@ export class PinComponent implements OnInit {
           "noteIdList": arr
         
         }, this.token).subscribe((data)=>{
-          this.snackBar.open('pinned','success')
+          this.snackBar.open("pinned","success", {
+          duration: 1000,
+        }),
           LoggerService.log('data',data);
-          this.eventEmit.emit();
-        });
-      }
+          this.pinEventEmit.emit({});
+      },
+      error =>{
+        console.log("Error" , error);
+      })
     }
   }
 }
+}
+
+
 

@@ -34,7 +34,7 @@ import { MatSnackBar } from '@angular/material';
 
       });
       this.archiveEvent.emit();
-
+ 
     }),
       error => {
         console.log("Error", error);

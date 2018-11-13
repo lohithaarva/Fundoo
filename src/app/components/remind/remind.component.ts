@@ -13,11 +13,21 @@ export class RemindComponent implements OnInit {
   @Output() remindEmit = new EventEmitter();
   accessToken = localStorage.getItem('token');
   currentDate = new Date();
-   show;
+  public show;
+  
+  
 
   ngOnInit() {
   }
-  
+ 
+  reminders :any[]=[
+   
+    {value:"viewTime",viewPeriod:"Morning",viewTime:"8.00 AM"},
+    {value:"viewTime",viewPeriod:"Afternoon",viewTime:"1.00 PM"},
+    {value:"viewTime",viewPeriod:"Evening",viewTime:"6.00 PM"},
+    {value:"viewTime",viewPeriod:"Night",viewTime:"8.00 PM"}
+  ]
+
   datePickReminder(){
     this.show = false;
   }

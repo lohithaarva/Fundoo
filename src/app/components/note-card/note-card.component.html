@@ -8,7 +8,7 @@
       fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
           <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
           <!-- <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div> -->
-          <app-pin class="pinIcon" [notePinCard]="note"></app-pin>
+          <app-pin (pinEventEmit)="messageDelete($event)" class="pinIcon" [notePinCard]="note"></app-pin>
 
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
 

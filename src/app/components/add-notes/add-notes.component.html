@@ -50,6 +50,16 @@
         <mat-divider></mat-divider>
         </div>
 
+        <!-- <div class="note" *ngFor="let data of dataArray" fxLayout="row">
+            <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted"
+             (click)=checkBox(data)></mat-checkbox>
+            <input class="note" [(ngModel)]=check.itemName class="note" style="text-decoration: line-through;"
+             fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
+            [ngStyle]="{'background-color':data.color}"  (keydown)=editing(data,$event)>
+            <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check)
+             *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
+        </div> -->
+
     <!-------------------------- Checklist stop---------------------------->
     <!------------------------- Label chips start -------------------------->
 
@@ -71,7 +81,7 @@
                 <app-collaborator></app-collaborator>
                 <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
                 <app-add-image></app-add-image>
-                <app-add-archive></app-add-archive>
+                <app-add-archive [noteArchiveCard]="note"></app-add-archive>
                 <app-more (labelEvent)=addLabel($event)></app-more>
                 <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
             </div>

@@ -23,13 +23,17 @@ export class AddNotesComponent implements OnInit {
   public dataArray = [];
   public dataArrayCheck = [];
   public isChecked = false;
-  public addCheck = false
+  public addCheck = false;
+  public modifiedCheckList;
   checked;
   public status = "open";
   public i = 0;
   data;
   dataarray = [];
 
+  note = {
+    'isArchived' : false
+  }
 
   constructor(private myHttpService: HttpService) { }
   @Output() messageEvent = new EventEmitter();
@@ -166,6 +170,22 @@ export class AddNotesComponent implements OnInit {
 
     }
   }
+
+  // checkBox(checkList) {
+
+  //   if (checkList.status == "open") {
+  //     checkList.status = "close"
+  //   }
+  //   else {
+  //     checkList.status = "open"
+  //   }
+  //   console.log(checkList);
+  //   this.modifiedCheckList = checkList;
+  //   // this.update();
+  // }
+
+  
+
 }
 
 

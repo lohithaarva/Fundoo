@@ -42,7 +42,7 @@ import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
          MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule,
          MatMenuModule, MatChipsModule, MatGridListModule, MatCheckboxModule,
          MatDialogModule, MatSnackBarModule, MatDatepickerModule,
-         MatNativeDateModule, } from '@angular/material';
+         MatNativeDateModule, MatSelectModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -111,7 +111,8 @@ import { PinComponent } from './components/pin/pin.component'
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ImageCropperModule 
+    ImageCropperModule,
+    MatSelectModule 
   
   ],
   
