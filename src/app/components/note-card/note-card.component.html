@@ -48,7 +48,7 @@
         <div *ngFor="let remainderChip of note.reminder" >
           <div>
         <mat-chip-list > 
-          <mat-chip >{{remainderChip | date }}
+          <mat-chip > {{remainderChip | date:'medium'}}
             <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>

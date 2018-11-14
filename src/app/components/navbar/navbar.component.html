@@ -2,14 +2,15 @@
 
   <!-----------------------------mattoolbar starts --------------------------------->
   <!-- <div fxLayout="row" > -->
-  <mat-toolbar  fxLayout="row" fxLayout.xs="row" fxLayoutGap="30px" fxLayoutGap.xs="20px"  class="toolbar">
+  <mat-toolbar  fxLayout="row" fxLayout.xs="row" fxLayoutGap="30px" 
+  fxLayoutGap.xs="20px" class="toolbar">
 
     <!------------------ toggle and fundoo notes --------------->
     <button type="button" aria-label="Toggle sidenav" mat-icon-button 
             (click)="drawer.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <span class="title">{{header}}</span>
+    <span (click) = 'changeHeader("Fundoo Notes")' class="title">{{header}}</span>
     <!--------------------------------------------------------->
 
     <!-----------------------searchbar --------------------------->
@@ -65,7 +66,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
       <mat-nav-list>
         <br>
-        <a (click) = 'changeHeader("Fundoo Notes")' mat-list-item routerLink='/home/notes'>
+        <a class="mainTitle" (click) = 'changeHeader("Fundoo Notes")' mat-list-item routerLink='/home/notes'>
           <img src="../../../assets/images/notes.svg">Notes</a>
         <a (click) = 'changeHeader("Reminders")' mat-list-item routerLink="/home/remainders">
           <img src="../../../assets/images/remainders.svg">Remainders</a>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 export class RemaindersComponent implements OnInit {
  token=localStorage.getItem('token');
  reminderNotesArray:any=[];
+ @Output() reminderEmit = new EventEmitter();
+
 
   constructor(private myHttpService: HttpService) { }
 
@@ -20,6 +22,7 @@ export class RemaindersComponent implements OnInit {
     this.myHttpService.getNotes('/notes/getReminderNotesList', this.token).subscribe(
       (data) => {
         this.reminderNotesArray=data['data'].data;
+        this.reminderEmit.emit({});
       })
   }
 

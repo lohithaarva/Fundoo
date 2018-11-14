@@ -55,7 +55,8 @@ export class NavbarComponent {
   
   ngOnInit() {
      
-    this.noteCard();   
+    this.noteCard(); 
+    this.changeHeader(this.header);  
   }
 
 

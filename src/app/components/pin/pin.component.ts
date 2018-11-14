@@ -43,9 +43,9 @@ export class PinComponent implements OnInit {
           "noteIdList": arr
         
         }, this.token).subscribe((data)=>{
-          this.snackBar.open("pinned","success", {
-          duration: 1000,
-        }),
+        //   this.snackBar.open("pinned","success", {
+        //   duration: 1000,
+        // }),
           LoggerService.log('data',data);
           this.pinEventEmit.emit({});
       },

@@ -38,33 +38,62 @@
                 </div>
             </button>
         </div>
-
+        <!--------------------------------------------------------------------------------------------------------------------->
         <div *ngIf="!show" class="reminderMenu">
             <button mat-icon-button (click)="$event.stopPropagation(); backPressDatepicker()">
-                <mat-icon class="pickHeader">keyboard_backspace</mat-icon>Pick Date and Time
-            </button> 
+                <div fxFlex fxLayout="row">
+                    <div fxFlex=15>
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </div>
+                    <div fxFlex=15></div>
+                    <div fxFlex=70 style="font-size: 15px">Pick Date and Time</div>
+                </div>
+            </button>
             <hr>
             <mat-form-field class="dateHeader">
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="picker" (click)="$event.stopPropagation()"
+                 placeholder="Choose a date" [min]="minDate" [(ngModel)]="reminderBody.date.value">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
-            <div>
+
+            <div fxLayout="row">
                 <mat-form-field class="dateHeader" (click)="$event.stopPropagation()">
-                    <mat-select placeholder="Choose a time">
-                        <mat-option *ngFor="let time of reminders" [value]="time.viewTime">
-                            <div fxFlex="35">{{time.viewPeriod}}</div>
-                            <div fxFlex="40"></div>
-                            <div fxFlex="35"><span>{{time.viewTime}}</span></div>
-                        </mat-option>
-                    </mat-select>
+                    <div fxFlex fxLayout="row">
+                        <input matInput placeholder="Choose Time" (click)="$event.stopPropagation()"
+                         [matMenuTriggerFor]="timeMenu" [(ngModel)]="reminderBody.time">
+                        <button mat-icon-button class="down-button">
+                            <mat-icon mat-suffix class="down-icon" (click)="$event.stopPropagation()" 
+                            [matMenuTriggerFor]="timeMenu" class="timeSet">keyboard_arrow_down</mat-icon></button>
+                    </div>
                 </mat-form-field>
             </div>
-            <div class="saveButton"><button mat-button>Save</button></div>
+
+
+            <mat-menu class="dateHeader" #timeMenu [overlapTrigger]=false>
+                <div fxFlex fxLayout="column" fxLayoutAlign="center" class="timePick-menu" 
+                *ngFor="let timing of reminders">
+                    <button mat-button (click)="$event.stopPropagation()" 
+                    (click)="reminderBody.time = timing.viewTime">
+
+                        <div fxFlex="35">{{timing.viewPeriod}}</div>
+                        <div fxFlex="40"></div>
+                        <div fxFlex="35">{{timing.viewTime}}</div>
+
+                    </button>
+                </div>
+                <div fxFlex fxLayoutAlign="center">
+                    <button mat-button (click)="$event.stopPropagation()">Custom Time</button>
+                </div>
+            </mat-menu>
+
+            <div class="saveButton">
+                <button (click)="addRemindCustom(reminderBody.date.value,reminderBody.time)" mat-button>Save</button></div>
         </div>
     </mat-menu>
 
-        <!----------------------- Reminder menu closes ---------------------------->
+    <!----------------------- Reminder menu closes ---------------------------->
 </div>
-
