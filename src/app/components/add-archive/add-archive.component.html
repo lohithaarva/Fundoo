@@ -1,6 +1,8 @@
+<!------------------- Displaying archived initiate -------------------------------->
 <span *ngIf="noteArchiveCard.isArchived == false"
       (click)="cardArchive()" class="add-archive" matTooltip="Archive">
   <i class="material-icons">archive</i></span>
 
   <span *ngIf="noteArchiveCard.isArchived == true" (click)="unarchiveNotes()">
     <i class="material-icons">unarchive</i></span>
+<!--------------------- Archive notes cease --------------------------------------->
