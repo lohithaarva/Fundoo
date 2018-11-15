@@ -108,7 +108,17 @@ export class NoteCardComponent implements OnInit {
   unarchiveEvent(event){
     this.eventEmit.emit({})
   }
+  remiderOff(cuttOff){
+    var currentReminderTime = new Date().getTime();
+    var timeValue = new Date(cuttOff).getTime();
+    if(timeValue > currentReminderTime){
+      return true;
+    } 
+    else{
+      return false;
+    }
 
+  }
   ngOnInit() {
     
   }

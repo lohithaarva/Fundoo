@@ -1,82 +1,85 @@
-<!--                  displaying notecards                        -->
+<!-- ----------------- displaying notecards --------------------->
 <!-- <div fxFlex="column" fxFlex="5"></div> -->
- <div class = "containerCard" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
-  <div *ngFor="let note of cardAdded | LockFilter:globalSearch" >
+<div class="containerCard" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+  <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
     <div [ngClass]="{ 'grid':condition, 'list': !condition }">
-      <mat-card  (updateEvent)="messageDelete($event)" 
-      fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
-      <app-pin (pinEventEmit)="messageDelete($event)" class="pinIcon" [notePinCard]="note"></app-pin>
-          <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
-          <!-- <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div> -->
+      <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;" [style.backgroundColor]="note.color">
+        <app-pin (pinEventEmit)="messageDelete($event)" class="pinIcon" [notePinCard]="note"></app-pin>
+        <b><div (click)="openDialog(note)" [innerHTML]="note.title"></div></b>
+        <!-- <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div> -->
 
         <div (click)="openDialog(note)" [innerHTML]="note.description"></div>
 
         <!-------------------checklist starts ------------------------------------>
-        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" > 
-          <mat-checkbox class="iconCheckBox" fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" 
-          (click)="checkBox(checklist,note); openDialog(note)"></mat-checkbox>
-          <input *ngIf="!checklist.isDeleted && checklist.status=='open' " 
-          [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
+        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
+          <mat-checkbox class="iconCheckBox" fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)="checkBox(checklist,note); openDialog(note)"></mat-checkbox>
+          <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
             (click)="open(note)" [style.backgroundColor]="note.color">
-         </div>
-        
-          <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-          <mat-checkbox class="iconCheckBox" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
-           (click)="checkBox(checklist,note) ;openDialog(note)"></mat-checkbox>
-          <del *ngIf="!checklist.isDeleted && checklist.status=='close'"
-           (click)="open(note)">{{checklist.itemName}}</del>
         </div>
-      
+
+        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
+          <mat-checkbox class="iconCheckBox" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)="checkBox(checklist,note) ;openDialog(note)"></mat-checkbox>
+          <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)">{{checklist.itemName}}</del>
+        </div>
+
 
         <!------------------- checklist ends -------------------------------------->
 
-          <!----------------- chiplist of labels start----------------------------->
-          <div class="chipListLabels"fxLayout="row" >
-              <div *ngFor="let labelChip of note.noteLabels" >
-                <div *ngIf = "labelChip.isDeleted == false">
-              <mat-chip-list>  <mat-chip fxLayoutGap="20px">{{labelChip.label}}
+        <!----------------- chiplist of labels start----------------------------->
+        <div class="chipListLabels" fxLayout="row">
+          <div *ngFor="let labelChip of note.noteLabels">
+            <div *ngIf="labelChip.isDeleted == false">
+              <mat-chip-list>
+                <mat-chip class="labelChipAlign" fxLayoutGap="20px">{{labelChip.label}}
                   <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
                 </mat-chip>
               </mat-chip-list>
             </div>
-              </div>
-              </div>
+          </div>
+        </div>
         <!------------------- chiplist of labels end ------------------------------>
-              
-          <!------------------- chiplist of remainders start ----------------------->
-          <div fxLayout="row">
-        <div *ngFor="let remainderChip of note.reminder" >
-          <div>
-        <mat-chip-list > 
-          <mat-chip > {{remainderChip | date:'medium'}}
-            <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-      </div>
+
+        <!------------------- chiplist of remainders start ----------------------->
+        <div *ngIf="remiderOff(note.reminder[0])" fxLayout="row">
+          <div *ngFor="let remainderChip of note.reminder">
+            <div>
+              <mat-chip-list>
+                <mat-chip> {{remainderChip | date:'medium'}}
+                  <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
         </div>
+        <div *ngIf="!remiderOff(note.reminder[0])" fxLayout="row">
+          <div *ngFor="let remainderChip of note.reminder">
+            <div>
+              <mat-chip-list>
+                <mat-chip> <del>{{remainderChip | date:'medium'}}</del>
+                  <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
         </div>
-       <!------------------- chiplist of remainders stops ------------------------>
-      <br><br>
-        <!-------------  displaying icons   ------------------->
+        <!------------------- chiplist of remainders stops ------------------------>
+        <br><br>
+        <!-------------------  displaying icons   --------------------------------->
         <span>
           <div class="iconInvisible">
-            <app-remind  [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"
-                *ngIf="deleteNotesForever == delete"></app-remind>
-            <app-collaborator  *ngIf="deleteNotesForever == delete" ></app-collaborator>
-            <app-color  *ngIf="deleteNotesForever == delete" 
-                [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image  *ngIf="deleteNotesForever == delete" ></app-add-image>
-            <app-add-archive  *ngIf="deleteNotesForever == delete" 
-                [noteArchiveCard]="note" (archiveEvent)="archiveEvent($event)" 
-                (unarchiveEvent)="unarchiveEvent($event)" (emitArchive)="messageDelete($event)"></app-add-archive>
-            <app-more [deleteNotesForever]="deleteNotesForever" 
-                [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
+            <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)" *ngIf="deleteNotesForever == delete"></app-remind>
+            <app-collaborator *ngIf="deleteNotesForever == delete"></app-collaborator>
+            <app-color *ngIf="deleteNotesForever == delete" [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
+            <app-add-image *ngIf="deleteNotesForever == delete"></app-add-image>
+            <app-add-archive *ngIf="deleteNotesForever == delete" [noteArchiveCard]="note" (archiveEvent)="archiveEvent($event)" (unarchiveEvent)="unarchiveEvent($event)"
+              (emitArchive)="messageDelete($event)"></app-add-archive>
+            <app-more [deleteNotesForever]="deleteNotesForever" [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>
         </span>
       </mat-card>
     </div>
-    </div>
-    </div> 
+  </div>
+</div>
 
 
 <!-- <div fxFlex="column" fxFlex="5"></div> -->

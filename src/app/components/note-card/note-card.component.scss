@@ -90,7 +90,7 @@
     
   }
   .iconCheckBox{
-      margin-left: -8px;
+      margin-left: 8px;
   }
   .note{
     outline: none;
@@ -103,11 +103,7 @@
   ::ng-deep.element.style {
     margin-left: 9px;
 }
-// ::ng-deep.mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
-//     /* margin: 4px; */
-//     margin-top: 9px;
-//     margin-bottom: 11px;
-// }
+
 .chipListLabels{
     margin-top: 9px;
     margin-bottom: 10px;
@@ -117,4 +113,7 @@
 {
     display: flex;
     
+}
+.labelChipAlign{
+  margin-right: 2px;
 }

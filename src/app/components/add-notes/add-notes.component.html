@@ -73,11 +73,40 @@
                 </mat-chip-list>
             </div>
         </div>
+
     <!--------------------------Label chip stop --------------------------->    
+
+    <!------------------------- reminder chip start ----------------------------->
+
+    <!-- <div fxLayout="row" fxFlexAlign="end end">
+            <div *ngFor="let remind of arrayRemind">
+                <mat-chip-list>
+                    <mat-chip>{{remind}}
+                         <mat-icon matChipRemove>cancel</mat-icon> 
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div> -->
+
+
+        <div fxLayout="row">
+                <div *ngFor="let remaind of arrayRemind" >
+                  <div>
+                <mat-chip-list > 
+                  <mat-chip> {{remaind| date:'medium'}}
+                    <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+                </div>
+                </div>
+
+    <!-------------------------- reminder chip stop ------------------------------->
+
     
         <span>
             <div class="noteCardIcon">
-                <app-remind></app-remind>
+                <app-remind [noteRemindeCard]="note" (eventValue)="newvalue($event)"></app-remind>
                 <app-collaborator></app-collaborator>
                 <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
                 <app-add-image></app-add-image>

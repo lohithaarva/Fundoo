@@ -22,12 +22,12 @@
       </div>
     </div>
     <!----------------- searchbar for smaller devices ------------------->
-    <div fxLayout="row" fxFlex="30" fxHide fxShow.sm fxShow.xs  class="smallSearchIcon">
+    <div fxLayout="row" fxFlex="10" fxHide fxShow.sm fxShow.xs  class="smallSearchIcon">
       <div (click)="show = !show">
-        <i class="material-icons">search </i>
+        <i  class="material-icons">search </i>
       </div>
 
-      <div class="smallSearch" *ngIf="show">
+      <div  *ngIf="show">
         <input class="hideSearch" type="input" [(ngModel)]="globalSearch" 
         (keydown)="keySearch()" (click)="navigate()" placeholder="search">
       </div>
@@ -44,7 +44,13 @@
       </div>
       <!----------------------- Profile pic icon -------------------------->
       <div>
-        <button mat-mini-fab 
+        <button *ngIf  = "newimage2 == ''" mat-mini-fab 
+            (click)="clicked=!clicked ;"
+          style="background-color: bisque; color: black;">
+          {{firstName | slice:0:1}}
+        </button>
+
+        <button *ngIf  = "newimage2 != ''" mat-mini-fab 
             [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" 
             (click)="clicked=!clicked ;"
           style="background-color: bisque; color: black;">
@@ -106,19 +112,30 @@
   <div *ngIf="clicked" class="basic">
     <mat-card class="sign-out-card">
       <mat-card-header>
-        <div mat-card-avatar (click)="selectImage.click()" class="example-header-image">
-          <button mat-mini-fab (click)="$event.stopPropagation()" 
+        <div mat-card-avatar (click)="selectImage.click()" >
+          <button class="profilePicIcocn" *ngIf  = "newimage2 != ''" mat-mini-fab (click)="$event.stopPropagation()" 
             [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
             (click)="selectFile.click()">
+            <div class="textInImage">
+               Change 
+            </div>
           </button>
+          <button *ngIf  = "newimage2 == ''" mat-mini-fab (click)="$event.stopPropagation()" 
+          (click)="selectFile.click()">
+          {{firstName | slice:0:1}}
+          <div class="textInImage">
+            Change 
+          </div>
+        </button>
           <input style="display:none" (click)="$event.stopPropagation()" 
             class="image" type="file" (change)="onFileSelected($event)"
             #selectFile>
+           
         </div>
         <input (click)="$event.stopPropagation();" style="display:none" 
           type="file" (change)="onFileSelected($event)" #selectImage>
-        <mat-card-title> <b>{{firstName}} {{lastName}}</b></mat-card-title>
-        <mat-card-subtitle><b>{{email}}</b></mat-card-subtitle>
+        <mat-card-title class="signOutCardTitle"> <b>{{firstName}} {{lastName}}</b></mat-card-title>
+        <mat-card-subtitle class="signOutCardTitle"><b>{{email}}</b></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content></mat-card-content>
       <hr>

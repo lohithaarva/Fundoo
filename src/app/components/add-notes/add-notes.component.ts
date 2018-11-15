@@ -32,7 +32,8 @@ export class AddNotesComponent implements OnInit {
   dataarray = [];
 
   note = {
-    'isArchived' : false
+    'isArchived' : false,
+    'id': ''
   }
 
   constructor(private myHttpService: HttpService) { }
@@ -56,7 +57,8 @@ export class AddNotesComponent implements OnInit {
           'labelIdList': JSON.stringify(this.labelChipId),
           'checklist': '',
           'isPined': false,
-          'color': this.color
+          'color': this.color,
+          'reminder':this.remind,
 
         }, this.token).subscribe(
           (data) => {
@@ -91,7 +93,9 @@ export class AddNotesComponent implements OnInit {
         'labelIdList': JSON.stringify(this.labelChipId),
         'checklist': JSON.stringify(this.dataArrayCheck),
         'isPined': 'false',
-        'color': this.color
+        'color': this.color,
+        'reminder':this.remind,
+
       }, this.token).subscribe(
         (data) => {
           LoggerService.log('POST successful', data);
@@ -156,6 +160,12 @@ export class AddNotesComponent implements OnInit {
     }
     console.log(this.dataArray);
   }
+  remind;
+  arrayRemind=[];
+  newvalue(event){
+this.remind=event;
+this.arrayRemind.push(event)
+  }
 
   editing(event, edited) {
 
@@ -170,6 +180,11 @@ export class AddNotesComponent implements OnInit {
 
     }
   }
+
+  reminderDelete(){
+    this.arrayRemind = [];
+  }
+  
 
   // checkBox(checkList) {
 

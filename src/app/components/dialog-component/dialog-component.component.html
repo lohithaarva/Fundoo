@@ -47,10 +47,9 @@
     <!---------------------- labels chiplist starts ------------------------>
     <div fxLayout="row" fxFlexAlign="end end">
       <div *ngFor="let labelChip of data.noteLabels">
-        <mat-chip-list>
-          <mat-chip>{{labelChip.label}}
+        <mat-chip-list >
+          <mat-chip class="reminderChipAlign">{{labelChip.label}}
             <mat-icon matChipRemove (click)="remove(labelChip.id, data.id)">cancel</mat-icon>
-
           </mat-chip>
         </mat-chip-list>
       </div>
@@ -58,11 +57,11 @@
     <!----------------------- labels chiplisr ends ---------------------->
 
     <!------------------- chiplist of remainders start ----------------------->
-    <div fxLayout="row">
+    <div  fxLayout="row">
       <div *ngFor="let remainderChip of data.reminder">
-        <div>
+        <div >
           <mat-chip-list>
-            <mat-chip>{{remainderChip | date }}
+            <mat-chip class="reminderChipAlign" >{{remainderChip | date:'medium' }}
               <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
             </mat-chip>
           </mat-chip-list>
