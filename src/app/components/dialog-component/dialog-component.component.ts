@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { NoteCardComponent } from '../note-card/note-card.component';
 import { HttpService } from '../../core/services/httpservice/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 
 export interface DialogData {
@@ -39,7 +40,7 @@ export class DialogComponentComponent implements OnInit {
       "title": document.getElementById('titleId').innerHTML,
       "description": document.getElementById('notesId').innerHTML
     }, this.token).subscribe(data => {
-      console.log('response', data);
+      LoggerService.log('response', data);
       this.dialogRef.close();
       this.updateEvent.emit({
       })
@@ -54,10 +55,10 @@ export class DialogComponentComponent implements OnInit {
       "lableId": labelId
     }, localStorage.getItem('token'))
       .subscribe(Response => {
-        console.log(Response);
+        LoggerService.log(Response);
         this.eventEmit.emit({})
       }, error => {
-        console.log(error)
+        LoggerService.log(error)
       })
     // }
   }
@@ -91,18 +92,18 @@ export class DialogComponentComponent implements OnInit {
       }
       var url = "notes/" + this.data['id'] + "/checklist/" + this.modifiedCheckList.id + "/update";
       this.myHttpService.postDel(url, JSON.stringify(apiData), this.token).subscribe(response => {
-        console.log(response);
+        LoggerService.log(response);
         this.eventEmit.emit({})
       })
     }
     error => {
-      console.log(error);
+      LoggerService.log(error);
     }
   }
 
   editing(editedList, event) {
 
-    console.log(editedList);
+    LoggerService.log(editedList);
     if (event.code == "Enter") {
       this.modifiedCheckList = editedList;
       this.update();
@@ -124,7 +125,7 @@ export class DialogComponentComponent implements OnInit {
 
   public removedList;
   removeList(checklist) {
-    console.log(checklist)
+    LoggerService.log(checklist)
     this.removedList = checklist;
     this.removeCheckList()
   }
@@ -132,7 +133,7 @@ export class DialogComponentComponent implements OnInit {
     var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
 
     this.myHttpService.postDel(url, null, this.token).subscribe((response) => {
-      console.log(response);
+      LoggerService.log(response);
       for (var i = 0; i < this.tempArray.length; i++) {
         if (this.tempArray[i].id == this.removedList.id) {
           this.tempArray.splice(i, 1)
@@ -165,19 +166,35 @@ export class DialogComponentComponent implements OnInit {
       var url = "notes/" + this.data['id'] + "/checklist/add";
       this.myHttpService.postDel(url, this.newData, this.token)
         .subscribe(response => {
-          console.log(response);
+          LoggerService.log(response);
           this.newList = null;
           this.addCheck = false;
           this.adding = false;
-          console.log(response['data'].details);
+          LoggerService.log(response['data'].details);
 
           this.tempArray.push(response['data'].details)
 
-          console.log(this.tempArray)
+          LoggerService.log(this.tempArray)
         })
     }
   }
 
+  reminderDelete(id) {
+    // var id = note.id;
+    LoggerService.log('reminder note id is', id);
+    this.myHttpService.postArchive('/notes/removeReminderNotes',
+      {
+        "noteIdList": [id]
+      },
+      localStorage.getItem('token')).subscribe(
+        (data) => {
+          LoggerService.log("POST Request is successful ", data);
+          this.eventEmit.emit({})
+        },
+        error => {
+          LoggerService.log("Error", error);
+        })
+  }
 
   ngOnInit() {
     if (this.data['noteCheckLists'].length > 0) {

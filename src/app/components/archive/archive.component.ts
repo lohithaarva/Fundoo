@@ -23,13 +23,13 @@ export class ArchiveComponent implements OnInit {
     this.myHttpService.getArchive('/notes/getArchiveNotesList', this.token).subscribe(
       (data) => {
         this.notes = [];
-        console.log("GET Request is successful ", data);
+        LoggerService.log("GET Request is successful ", data);
         for (var i = data['data']['data'].length - 1; i >= 0; i--) {
           this.notes.push(data['data']['data'][i]);
         }
       },
       error => {
-        console.log("Error", error);
+        LoggerService.log("Error", error);
       })
   }
 

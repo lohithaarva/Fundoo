@@ -24,15 +24,16 @@ export class RemindComponent implements OnInit {
 
   ngOnInit() {
   }
-
+ /** Displaying the default series */
   reminders: any[] = [
 
-    { value: "morning", viewPeriod: "Morning", viewTime: "8.00 AM" },
-    { value: "afternoon", viewPeriod: "Afternoon", viewTime: "1.00 PM" },
-    { value: "evening", viewPeriod: "Evening", viewTime: "6.00 PM" },
-    { value: "night", viewPeriod: "Night", viewTime: "8.00 PM" }
+    { value: "morning", viewPeriod: "Morning", viewTime: "08.00 AM" },
+    { value: "afternoon", viewPeriod: "Afternoon", viewTime: "01.00 PM" },
+    { value: "evening", viewPeriod: "Evening", viewTime: "06.00 PM" },
+    { value: "night", viewPeriod: "Night", viewTime: "08.00 PM" }
   ]
 
+  /** Hide and show method while moving on to other menu */
   datePickReminder() {
     this.show = !this.show;
   }
@@ -40,28 +41,29 @@ export class RemindComponent implements OnInit {
     this.show = true;
   }
 
+  /** To display the current date as defalut */
   reminderBody = {
     "date": new FormControl(new Date()),
     "time": ""
   }
 
-
+/** Method to display the present time and date */
   addRemindeToday() {
     var value = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
-      this.currentDate.getDate(), 8, 0, 0, 0)
+      this.currentDate.getDate(), 20, 0, 0, 0)
     this.eventValue.emit(value);
     this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
-          this.currentDate.getDate(), 8, 0, 0, 0)
+        "reminder": value,
       }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data);
+        console.log('Post is successfull ', data); //API Post successful
         this.remindEmit.emit({
         })
       })
   }
 
+  /** Method to display the date, after present date */
   addRemindTomorrow() {
     var valueTime1 = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate() + 1, 8, 0, 0, 0)
@@ -69,10 +71,9 @@ export class RemindComponent implements OnInit {
     this.myHttpService.postArchive('notes/addUpdateReminderNotes',
       {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
-          this.currentDate.getDate() + 1, 8, 0, 0, 0)
+        "reminder": valueTime1
       }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data);
+        console.log('Post is successfull ', data); //API Post successful
         this.remindEmit.emit({
         })
       })
@@ -87,13 +88,14 @@ export class RemindComponent implements OnInit {
         "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
           this.currentDate.getDate() + 7, 8, 0, 0, 0)
       }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data);
+        console.log('Post is successfull ', data); //API Post successful
         this.remindEmit.emit({
         })
       })
   }
 
   addRemindCustom(date, timing) {
+    /** Checking the validation for time format */
     timing.match('^[0-2][0-3]:[0-5][0-9]$');
     // debugger;
 
@@ -103,24 +105,21 @@ export class RemindComponent implements OnInit {
       this.eventValue.emit(valueTime4);
       this.body = {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(date.getFullYear(), date.getMonth(),
-          date.getDate(), 8, 0, 0, 0)
+        "reminder": valueTime4
       }
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
         localStorage.getItem('token'), this.body).subscribe((result) => {
-          console.log(result);
+          console.log(result);  
           this.remindEmit.emit();
-        })
+        })  //API Post successful
 
     } else if (timing == '1:00 PM') {
       var valueTime5 = new Date(date.getFullYear(), date.getMonth(),
         date.getDate(), 13, 0, 0, 0)
       this.eventValue.emit(valueTime5);
-
       this.body = {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(date.getFullYear(), date.getMonth(),
-          date.getDate(), 13, 0, 0, 0)
+        "reminder": valueTime5
       }
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
         localStorage.getItem('token'), this.body).subscribe((result) => {
@@ -134,8 +133,7 @@ export class RemindComponent implements OnInit {
 
       this.body = {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(date.getFullYear(), date.getMonth(),
-          date.getDate(), 18, 0, 0, 0)
+        "reminder": valueTime6
       }
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
         localStorage.getItem('token'), this.body).subscribe((result) => {
@@ -149,8 +147,7 @@ export class RemindComponent implements OnInit {
 
       this.body = {
         "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(date.getFullYear(), date.getMonth(),
-          date.getDate(), 21, 0, 0, 0)
+        "reminder": valueTime7
       }
       this.myHttpService.postArchive('notes/addUpdateReminderNotes',
         localStorage.getItem('token'), this.body).subscribe((result) => {
@@ -173,8 +170,7 @@ export class RemindComponent implements OnInit {
 
         this.body = {
           "noteIdList": [this.noteRemindeCard.id],
-          "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(),
-            hour, minute, 0, 0)
+          "reminder": valueTime8
         }
         this.myHttpService.postArchive('notes/addUpdateReminderNotes',
           localStorage.getItem('token'), this.body).subscribe((result) => {
@@ -187,8 +183,7 @@ export class RemindComponent implements OnInit {
         this.eventValue.emit(valueTime9);
         this.body = {
           "noteIdList": [this.noteRemindeCard.id],
-          "reminder": new Date(date.getFullYear(), date.getMonth(),
-            date.getDate(), hour + 12, minute, 0, 0)
+          "reminder": valueTime9
         }
         this.myHttpService.postArchive('/notes/addUpdateReminderNotes',
           this.body, this.accessToken).subscribe((data) => {

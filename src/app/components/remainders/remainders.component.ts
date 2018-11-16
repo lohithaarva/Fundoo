@@ -22,6 +22,9 @@ export class RemaindersComponent implements OnInit {
     this.myHttpService.getNotes('/notes/getReminderNotesList', this.token).subscribe(
       (data) => {
         this.reminderNotesArray=data['data'].data;
+        this.reminderNotesArray.sort((a: any, b: any) =>
+        new Date(a.reminder).getTime() - new Date(b.reminder).getTime()
+    );
         this.reminderEmit.emit({});
       })
   }

@@ -1,3 +1,4 @@
+<!-------------------- Displaying notes which are pinned as well as other notes ---------->
 <app-add-notes (messageEvent)="receiveMessage($event)"></app-add-notes>
 <div *ngIf ="pinNotes.length !=0">
     <h5 class="headerTitle">PINNED</h5>
@@ -5,7 +6,10 @@
     <h5 class="headerTitle">OTHERS</h5>
     <app-note-card [cardAdded]="notes" (eventEmit)="receiveMessage($event)"></app-note-card>
 </div>
+<!---------------------------------------------------------------------------------------->
+<!---------------------------------------- Displaying notes ------------------------------>
 <div *ngIf = "pinNotes.length ==0">
     <app-note-card [cardAdded]="pinNotes" (eventEmit)="receiveMessage($event)"></app-note-card>
     <app-note-card [cardAdded]="notes" (eventEmit)="receiveMessage($event)"></app-note-card>
 </div>
+<!----------------------------- End of displaying notes ------------------------------------>

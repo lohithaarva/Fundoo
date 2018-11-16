@@ -1,5 +1,6 @@
-<span class="color" [matMenuTriggerFor]="menu" matTooltip="Change color">
-    <i class="material-icons">palette</i></span>
+<!--------------------------------- displaying colors  ----------------------------->
+<div fxFlex="15" class="color" [matMenuTriggerFor]="menu" matTooltip="Change color">
+    <i class="material-icons">palette</i></div>
 <mat-menu class="menu" #menu="matMenu">
 <div fxLayout=row fxLayoutGap=10px style="margin-top:5px" 
      *ngFor='let colors of colorArray'>
@@ -9,3 +10,4 @@
     </div>
 </div>
 </mat-menu> 
+<!-------------------------------------------------------------------------------->

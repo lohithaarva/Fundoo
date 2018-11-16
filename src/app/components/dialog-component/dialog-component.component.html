@@ -1,4 +1,4 @@
-<div class="mat-dialog-container" display="flex" fxLayout="row wrap" fxLayoutAlign="space-around" (mouseover)="hover=true">
+<div class="mat-dialog-container"  (mouseover)="hover=true">
   <div [style.backgroundColor]="data.color">
     <div>
       <div>
@@ -72,7 +72,7 @@
 
 
     <span class="iconInvisible">
-      <div class="dialogIcons">
+      <div fxLayoutAlign="space-around center"  class="dialogIcons">
         <app-remind></app-remind>
         <app-collaborator></app-collaborator>
         <app-color [noteColorCard]="data" (emitColor)="messageDelete($event)"></app-color>

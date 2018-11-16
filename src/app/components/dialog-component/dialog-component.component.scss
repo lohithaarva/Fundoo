@@ -24,6 +24,7 @@
     font-size: 16px;
     padding-left: 10px;
     margin-left: 2%;
+    word-wrap: break-word;
 }
 .pinIcon {
     float: right;
@@ -47,9 +48,7 @@
 .closeButton{
     float:right;
 }
-.dialogIcons{
-   margin-top: 10%;
-}
+
 
 .iconCheck{
   margin-left: 9px;
@@ -61,4 +60,7 @@
 .reminderChipAlign{
   margin-left: 23px;
   margin-top: 14px;
+}
+.mat-dialog-container {
+  overflow: hidden;
 }

@@ -30,9 +30,13 @@ export class AddNotesComponent implements OnInit {
   public i = 0;
   data;
   dataarray = [];
+  public reminderAdd;
+  public remindToday = new Date();
+  public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
+    this.remindToday.getDate() + 1)
 
   note = {
-    'isArchived' : false,
+    'isArchived': false,
     'id': ''
   }
 
@@ -40,16 +44,21 @@ export class AddNotesComponent implements OnInit {
   @Output() messageEvent = new EventEmitter();
 
   ngOnInit() { }
+  /** Method to hide and show the notes */
   finish() {
     if (!this.enterExpression) {
       this.enterExpression = !this.enterExpression;
     }
     this.boxClicked = true;
   }
-
+  /** Method to add the notes *****/
   exit() {
+    this.reminderAdd = '';
+    if (this.remind != undefined) {
+      this.reminderAdd = this.remind
+    }
     if (this.checked == false) {
-      console.log(this.color);
+      LoggerService.log(this.color);
       this.myHttpService
         .addNotes('notes/addNotes', {
           'title': document.getElementById('titleId').innerHTML,
@@ -58,22 +67,36 @@ export class AddNotesComponent implements OnInit {
           'checklist': '',
           'isPined': false,
           'color': this.color,
-          'reminder':this.remind,
+          'reminder': this.reminderAdd,
 
         }, this.token).subscribe(
           (data) => {
-            console.log("POST Request is successful ", data);
+            LoggerService.log("POST Request is successful ", data);
+            this.dataArray = [];
+            this.labelChipName = [];
+            this.labelChipId = [];
+            this.reminderAdd = '';
+            this.remind = '';
             this.messageEvent.emit({
             })
             this.color = "#fafafa";
           },
           error => {
             console.log("Error", error);
+            this.dataArray = [];
+            this.labelChipName = [];
+            this.labelChipId = [];
+            this.reminderAdd = '';
+            this.remind = '';
           })
       this.color = "#fafafa";
     }
-
+    /** Method to add notes along with checklist ****8*/
     else {
+      this.reminderAdd = '';
+      if (this.remind != undefined) {
+        this.reminderAdd = this.remind
+      }
 
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
@@ -86,63 +109,79 @@ export class AddNotesComponent implements OnInit {
         this.dataArrayCheck.push(apiObj)
         this.status = "open"
       }
-      console.log(this.dataArrayCheck, "here is  datacheck array");
-      console.log(document.getElementById('titleId').innerHTML)
+      LoggerService.log(this.dataArrayCheck, "here is  datacheck array");
+      LoggerService.log(document.getElementById('titleId').innerHTML)
       this.myHttpService.addNotes('/notes/addNotes', {
         'title': document.getElementById('titleId').innerHTML,
         'labelIdList': JSON.stringify(this.labelChipId),
         'checklist': JSON.stringify(this.dataArrayCheck),
         'isPined': 'false',
         'color': this.color,
-        'reminder':this.remind,
+        'reminder': this.reminderAdd,
 
       }, this.token).subscribe(
         (data) => {
-          LoggerService.log('POST successful', data);
+          LoggerService.log('POST successful', data); /** Success api request */
           this.dataArray = [];
-          
+          this.labelChipName = [];
+          this.labelChipId = [];
+          this.reminderAdd = '';
+          this.remind = '';
           this.messageEvent.emit({
           })
+          this.color = "#fafafa";
         },
         error => {
           this.dataArray = [];
-          console.log("Error", error);
+          this.labelChipName = [];
+          this.labelChipId = [];
+          this.reminderAdd = '';
+          this.remind = '';
 
+          LoggerService.log("Error", error);   /** Unsucessfull api request */
         })
+      this.color = "#fafafa";
     }
-    this.dataArray=[];
+    this.dataArray = [];
+    this.arrayRemind = [];
+    this.labelChipName = [];
+    this.reminderAdd = '';
+    this.remind = '';
   }
 
+  /** Method to add color to notes  */
   ChangeColorNotes(event) {
-    console.log(event);
+    LoggerService.log(event);
     this.color = event;
   }
 
+  /** Method to add labels to notes  */
   addLabel(event) {
     if (this.labelChipName.indexOf(event) < 0) {
       this.labelChipId.push(event.id);
       this.labelChipName.push(event);
-      console.log(this.labelChipName);
-      console.log(this.labelChipId);
+      LoggerService.log(this.labelChipName);
+      LoggerService.log(this.labelChipId);
     }
     else {
       this.labelChipId.splice(this.labelChipId.indexOf(event), 1);
       this.labelChipName.splice(this.labelChipName.indexOf(event), 1);
     }
   }
-  
+
+  /** Method to add checklist to notes */
   enter(event) {
     this.i++;
     this.isChecked = this.addCheck
     if (this.data != null && event.code == "Enter") {
-      console.log(event, "keydown");
+      LoggerService.log(event, "keydown");
       var obj = {
         "index": this.i,
         "data": this.data,
         "isChecked": this.isChecked
       }
       this.dataArray.push(obj)
-      console.log(this.dataArray);
+      LoggerService.log(this.dataArray);
       this.data = null;
 
       this.isChecked = false;
@@ -150,6 +189,7 @@ export class AddNotesComponent implements OnInit {
     }
 
   }
+  /** Method to delete checklist */
   ondelete(deletedObj) {
     console.log("ondelete function runnig");
     for (var i = 0; i < this.dataArray.length; i++) {
@@ -158,33 +198,39 @@ export class AddNotesComponent implements OnInit {
         break;
       }
     }
-    console.log(this.dataArray);
-  }
-  remind;
-  arrayRemind=[];
-  newvalue(event){
-this.remind=event;
-this.arrayRemind.push(event)
+    LoggerService.log(this.dataArray);
   }
 
+  /** Method to add reminder */
+  remind;
+  arrayRemind = [];
+  newvalue(event) {
+    this.remind = event;
+    this.arrayRemind.push(event)
+  }
+
+  /** Method to edit checklist  */
   editing(event, edited) {
 
     if (event.code == "Enter") {
-      console.log("enter pressed");
+      LoggerService.log("enter pressed");
       for (var i = 0; i < this.dataArray.length; i++) {
         if (edited.index == this.dataArray[i].index) {
           this.dataArray[i].data == edited.data
         }
       }
-      console.log(this.dataArray);
+      LoggerService.log(this.dataArray);
 
     }
   }
-
-  reminderDelete(){
+  /** Method to delete reminder */
+  reminderDelete() {
     this.arrayRemind = [];
+    this.remind = '';
+    this.labelChipName = [];
+    this.labelChipId = [];
   }
-  
+
 
   // checkBox(checkList) {
 
@@ -199,7 +245,7 @@ this.arrayRemind.push(event)
   //   // this.update();
   // }
 
-  
+
 
 }
 

@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
     this.myHttpService.getNotes("notes/getNotesList", this.access_token).subscribe(
       data => {
         this.notes = [];
-        console.log("successful", data['data'].data);
+        // console.log("successful", data['data'].data);
         for (var i = data['data'].data.length - 1; i >= 0; i--) {
           if (data['data'].data[i].isDeleted == false && data['data'].data[i].isArchived == false) {
             this.notes.push(data['data'].data[i]);

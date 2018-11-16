@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
 import { MatSnackBar } from '@angular/material';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
     selector: 'app-add-archive',
@@ -14,7 +15,7 @@ import { MatSnackBar } from '@angular/material';
 
   constructor(public service: HttpService, public snackBar: MatSnackBar) { }
   ngOnInit() {
-   console.log(this.noteArchiveCard);
+  
     
   }
   token = localStorage.getItem('token')
@@ -28,7 +29,7 @@ import { MatSnackBar } from '@angular/material';
       "noteIdList": [this.noteArchiveCard.id]
     }
     this.service.postArchive("notes/archiveNotes", model, this.token).subscribe(data => {
-      console.log("archive note",data);
+      LoggerService.log("archive note",data);
       this.snackBar.open("note archived successfully,please check in archive", "archive", {
         duration: 10000,
 
@@ -37,7 +38,7 @@ import { MatSnackBar } from '@angular/material';
  
     }),
       error => {
-        console.log("Error", error);
+        LoggerService.log("Error", error);
 
       }
   }
@@ -49,7 +50,7 @@ import { MatSnackBar } from '@angular/material';
       "noteIdList": [this.noteArchiveCard.id]
     }
     this.service.postArchive("notes/archiveNotes", model, this.token).subscribe(data => {
-      console.log("unarchive note",data);
+      LoggerService.log("unarchive note",data);
       this.unarchiveEvent.emit();
       this.snackBar.open("note unarchived successfully,please check in notes", "notes", {
         duration: 10000,
@@ -59,7 +60,7 @@ import { MatSnackBar } from '@angular/material';
 
     }),
       error => {
-        console.log("Error", error);
+        LoggerService.log("Error", error);
 
       }
   }

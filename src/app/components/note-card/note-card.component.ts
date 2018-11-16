@@ -5,6 +5,8 @@ import { DialogComponentComponent } from '../dialog-component/dialog-component.c
 import { HttpService } from '../../core/services/httpservice/http.service';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-note-card',
@@ -14,13 +16,17 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 export class NoteCardComponent implements OnInit {
   messageDeleted: boolean;
   condition = true;
-  public checkArray=[];
+  public checkArray = [];
   public modifiedCheckList;
-  
+  public remindToday = new Date();
+  public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
+    this.remindToday.getDate() + 1)
 
-  constructor(public dialog: MatDialog, private myHttpService: HttpService, private data: DataService) {
+
+  constructor(public dialog: MatDialog, private myHttpService: HttpService,
+     private data: DataService,
+     private router: Router) {
     this.data.currentDelete.subscribe(message => {
-      console.log("deleting labels from dialog to sidenav ");
       if (message) {
         this.eventEmit.emit({
         })
@@ -28,7 +34,6 @@ export class NoteCardComponent implements OnInit {
     })
 
     this.data.currentView.subscribe(message => {
-      console.log("switching from grid view to list view");
       this.condition = message;
     })
   }
@@ -39,18 +44,19 @@ export class NoteCardComponent implements OnInit {
   @Output() eventEmit = new EventEmitter();
 
   messageDelete(event) {
-    console.log("i m here for deleting the card")
+    LoggerService.log("i m here for deleting the card")
     this.eventEmit.emit({
     })
   }
 
   openDialog(note): void {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
-      data: note
+      data: note,
+      width: '750px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      LoggerService.log(result);
       this.eventEmit.emit({
       })
     });
@@ -63,10 +69,10 @@ export class NoteCardComponent implements OnInit {
       "lableId": labelId
     }, localStorage.getItem('token'))
       .subscribe(Response => {
-        console.log(Response);
+        LoggerService.log(Response);
         this.eventEmit.emit({})
       }, error => {
-        console.log(error)
+        LoggerService.log(error)
       })
     // }
   }
@@ -80,15 +86,15 @@ export class NoteCardComponent implements OnInit {
       },
       localStorage.getItem('token')).subscribe(
         (data) => {
-          console.log("POST Request is successful ", data);
+          LoggerService.log("POST Request is successful ", data);
           this.eventEmit.emit({});
         },
         error => {
-          console.log("Error", error);
+          LoggerService.log("Error", error);
         })
   }
 
-  checkBox(checkList,note) {
+  checkBox(checkList, note) {
 
     if (checkList.status == "open") {
       checkList.status = "close"
@@ -96,31 +102,35 @@ export class NoteCardComponent implements OnInit {
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
+    LoggerService.log(checkList);
     this.modifiedCheckList = checkList;
   }
-  archiveEvent(event){
+  archiveEvent(event) {
     this.eventEmit.emit({
     })
 
   }
 
-  unarchiveEvent(event){
+  unarchiveEvent(event) {
     this.eventEmit.emit({})
   }
-  remiderOff(cuttOff){
+  reminderOff(cuttOff) {
     var currentReminderTime = new Date().getTime();
     var timeValue = new Date(cuttOff).getTime();
-    if(timeValue > currentReminderTime){
+    if (timeValue > currentReminderTime) {
       return true;
-    } 
-    else{
+    }
+    else {
       return false;
     }
+  }
 
+  labelPage(result) {
+    var labelName = result.label;
+    this.router.navigate(['home/labelNotes/' + labelName]);
   }
   ngOnInit() {
-    
+
   }
 }
 

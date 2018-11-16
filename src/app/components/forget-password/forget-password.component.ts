@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-forget-password',
@@ -28,14 +29,14 @@ export class ForgetPasswordComponent implements OnInit {
       })
       .subscribe(
         (data) => {
-          console.log("POST Request is successful ", data);
+          LoggerService.log("POST Request is successful ", data);
         },
         error => {
-          console.log("fill all the details")
+          // console.log("fill all the details")
           this.snackBar.open("Fill in all the details", "signup failed", {
             duration: 2000
           })
-          console.log("Error", error);
+          LoggerService.log("Error", error);
         })
   }
  

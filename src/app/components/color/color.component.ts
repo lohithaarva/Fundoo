@@ -1,5 +1,6 @@
 import { Component, OnInit,Input, Output, EventEmitter} from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-color',
@@ -25,12 +26,12 @@ export class ColorComponent implements OnInit {
       "noteIdList":[this.noteColorCard.id]
       },this.token).subscribe(
         (data) =>{
-          console.log("Color Request is successful", data);
+          LoggerService.log("Color Request is successful", data);
           this.emitColor.emit()
           localStorage.setItem('color', colorcode);
   
           },error=>{
-          console.log("Error", error);
+          LoggerService.log("Error", error);
         })
     }
    

@@ -91,16 +91,6 @@
     margin-left: 12px;
     font-size:17px;
 }
-hr { 
-    display: block;
-    margin-before: 0.5em;
-    margin-after: 0.5em;
-    margin-start: auto;
-    margin-end: auto;
-    overflow: hidden;
-    border-style: inset;
-    border-width: 1px;
-}
 .listItem{
     margin-top: 4%;
     border:none;
@@ -113,3 +103,9 @@ hr {
     outline: none;
     border: none
 }
+.mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+    margin: 4px !important;
+}
+// .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+//     margin: 6px;
+// }

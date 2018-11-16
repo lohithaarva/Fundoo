@@ -7,6 +7,9 @@
 .mainTitle{
   margin-left: 10px;
 }
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 55px;
+}
 
 .sidenav {
   overflow-y: scroll;
@@ -84,7 +87,8 @@ input:focus{
 }
 /***************************************************************************************/
 .toolbar{
-  background:#fb0 ;  
+  background:#fb0 ;
+  width: 100%;  
 }
 .title{
   padding-right: 50px;

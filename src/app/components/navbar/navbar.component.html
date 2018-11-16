@@ -24,7 +24,7 @@
     <!----------------- searchbar for smaller devices ------------------->
     <div fxLayout="row" fxFlex="10" fxHide fxShow.sm fxShow.xs  class="smallSearchIcon">
       <div (click)="show = !show">
-        <i  class="material-icons">search </i>
+        <i  (click)="navigate()" class="material-icons">search </i>
       </div>
 
       <div  *ngIf="show">
@@ -37,13 +37,13 @@
     <!------------------------pic icon and grid list ------------------->
     <div fxLayoutGap="60px" fxLayoutAlign="space-around">
       <div class="icons" fxLayout="row">
-        <button mat-icon-button matToolTip="listView" 
+        <button mat-icon-button matTooltip="listView" 
         (click)="cardsInList()" *ngIf="grid == 0"><mat-icon>view_stream</mat-icon></button>
-        <button mat-icon-button matToolTip="gridView" 
+        <button mat-icon-button matTooltip="gridView" 
         (click)="cardsInGrid()" *ngIf="grid == 1"><mat-icon>apps</mat-icon></button>
       </div>
       <!----------------------- Profile pic icon -------------------------->
-      <div>
+      <!-- <div> -->
         <button *ngIf  = "newimage2 == ''" mat-mini-fab 
             (click)="clicked=!clicked ;"
           style="background-color: bisque; color: black;">
@@ -55,7 +55,7 @@
             (click)="clicked=!clicked ;"
           style="background-color: bisque; color: black;">
         </button>
-      </div>
+      <!-- </div> -->
     </div>
     <!--------------------------------------------------------------------->
 
@@ -96,8 +96,6 @@
           <img src="../../../assets/images/settings.svg">Settings</a>
       </mat-nav-list>
     </mat-sidenav>
-
-
     <mat-sidenav-content class="temp" fxFlex="100">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
@@ -105,8 +103,6 @@
   </mat-sidenav-container>
 
   <!-------------------------sidenavigationbar stops --------------------------------->
-
-
 
   <!----------------------------- Profile image matcard starts---------------------------->
   <div *ngIf="clicked" class="basic">
