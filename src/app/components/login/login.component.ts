@@ -71,13 +71,12 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
           localStorage.setItem("imageUrl",data["imageUrl"])
           var token=localStorage.getItem('token')
           console.log(token)
-          
           var pushToken=localStorage.getItem('pushToken')
           console.log(pushToken)
           var body={
           'pushToken':pushToken
           }
-          this.myHttpService.postArchive('user/registerPushToken',body,token)
+          this.myHttpService.deleteNotes('/user/registerPushToken',body,token)
           .subscribe(data=>
           {
           console.log(data)

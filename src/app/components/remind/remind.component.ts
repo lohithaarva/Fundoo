@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { HttpService } from '../../core/services/httpservice/http.service';
 import { FormControl } from '@angular/forms';
+import { MatMenu } from '@angular/material';
 
 @Component({
   selector: 'app-remind',
   templateUrl: './remind.component.html',
-  styleUrls: ['./remind.component.scss']
+  styleUrls: ['./remind.component.scss'],
+  exportAs: 'menuInOtherComponent',
 })
 export class RemindComponent implements OnInit {
 
@@ -13,6 +15,7 @@ export class RemindComponent implements OnInit {
   @Input() noteRemindeCard;
   @Output() remindEmit = new EventEmitter();
   @Output() eventValue = new EventEmitter();
+  @ViewChild(MatMenu) menu: MatMenu;
 
   accessToken = localStorage.getItem('token');
   currentDate = new Date();

@@ -50,19 +50,26 @@
 
         <!------------------- chiplist of remainders start ----------------------->
         <div *ngIf="reminderOff(note.reminder[0])" fxLayout="row">
-          <div *ngFor="let remainderChip of note.reminder">
+
+            <div *ngFor="let remainderChip of note.reminder">
             <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
-              <mat-chip-list>
+              <mat-chip-list [matMenuTriggerFor]="x.menu">
                 <mat-chip > Today {{note.reminder | date:'shortTime'}}
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind #x="menuInOtherComponent" [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" 
+                  ></app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>
 
             <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
-              <mat-chip-list>
-                <mat-chip> Tomorrow {{note.reminder | date:'shortTime'}}
+              <mat-chip-list >
+                <mat-chip > Tomorrow {{note.reminder | date:'shortTime'}}
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind  [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" 
+                  ></app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>
@@ -70,38 +77,52 @@
             <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
               (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">
               <mat-chip-list>
-                <mat-chip> {{note.reminder | date:'medium'}}
+                <mat-chip > {{note.reminder | date:'medium'}}
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind  [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" 
+                  ></app-remind>
                 </mat-chip>
               </mat-chip-list> 
             </div>
-
           </div>
+        
         </div>
         <!----------------------------------  reminder strike out initiates ---------------------->
         <div *ngIf="!reminderOff(note.reminder[0])" fxLayout="row">
           <div *ngFor="let remainderChip of note.reminder">
             <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
               <mat-chip-list>
-                <mat-chip> <del> Today {{note.reminder | date:'shortTime'}}</del>
+                <mat-chip > <del> Today {{note.reminder | date:'shortTime'}}</del>
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind  [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" 
+                  ></app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>
 
             <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
-              <mat-chip-list>
-                <mat-chip> <del> Tomorrow {{note.reminder | date:'shortTime'}}</del>
+              <mat-chip-list >
+                <mat-chip > <del> Tomorrow {{note.reminder | date:'shortTime'}}</del>
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind  [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" 
+                 ></app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>
 
             <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
               (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">>
-              <mat-chip-list>
-                <mat-chip> <del>{{note.reminder | date:'medium'}}</del>
+              <mat-chip-list >
+                <mat-chip > <del>{{note.reminder | date:'medium'}}</del>
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                  <app-remind [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" >
+                
+                
+                </app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>

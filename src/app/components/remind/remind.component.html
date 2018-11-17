@@ -1,6 +1,6 @@
 <div class="remind" fxLayout="row" fxLayoutAlign="space-between">
     <!-------------------------  Reminder icon ----------------------------->
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
         <div class="reminderIconAlign">
         <span matTooltip="Remind Me" >
             <i class="material-icons">add_alert</i>
@@ -10,7 +10,7 @@
     <!------------------------------------------------------------------------>
 
     <!----------------------- Reminder menu opens ---------------------------->
-    <mat-menu #menu="matMenu" [overlapTrigger]="false" class="reminderMenu">
+    <mat-menu #appMenu="matMenu" [overlapTrigger]="false" class="reminderMenu">
         <div *ngIf="show" class="reminderMenu">
             <div class="reminderHeader">
                 Reminder:

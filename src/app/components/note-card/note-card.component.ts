@@ -53,6 +53,7 @@ export class NoteCardComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
       data: note,
       width: '750px',
+      panelClass: 'myapp-no-padding-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
