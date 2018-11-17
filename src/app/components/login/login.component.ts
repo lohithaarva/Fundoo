@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup , Validators} from '@angular/forms'
 import { HttpService } from '../../core/services/httpservice/http.service';
 import {LoggerService} from '../../core/services/logger/logger.service';
+import { MessageServiceService } from 'src/app/core/services/message-service/message-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,9 @@ import {LoggerService} from '../../core/services/logger/logger.service';
 
 
 export class LoginComponent implements OnInit {
-constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, private router:Router ) { }
+constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
+   private router:Router,
+   private msgService: MessageServiceService ) { }
   info:any = {};
   isLeftVisible : any;
   service;
@@ -59,19 +62,34 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService, pri
             duration: 2000
           })
           // console.log(data['id']);
-          localStorage.setItem('token',data['id'])
+        
+          localStorage.setItem("token",data['id'])
           localStorage.setItem("firstName",data["firstName"]);
           localStorage.setItem("lastname",data["lastName"]);
           localStorage.setItem("email",data["email"]);
           localStorage.setItem("userId",data["userId"]);
           localStorage.setItem("imageUrl",data["imageUrl"])
-          this.router.navigateByUrl('home')
+          var token=localStorage.getItem('token')
+          console.log(token)
+          
+          var pushToken=localStorage.getItem('pushToken')
+          console.log(pushToken)
+          var body={
+          'pushToken':pushToken
+          }
+          this.myHttpService.postArchive('user/registerPushToken',body,token)
+          .subscribe(data=>
+          {
+          console.log(data)
+          })
+          this.router.navigate(['home']);
         },
         error => {
           console.log("Password or emailid is wrong")
           this.snackBar.open("login falied", "Password or emailid is incorrect", {
             duration: 2000
           })
+
           console.log("Error", error);
         })
         return false;

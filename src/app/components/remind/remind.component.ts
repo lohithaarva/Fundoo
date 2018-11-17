@@ -24,7 +24,7 @@ export class RemindComponent implements OnInit {
 
   ngOnInit() {
   }
- /** Displaying the default series */
+  /** Displaying the default series */
   reminders: any[] = [
 
     { value: "morning", viewPeriod: "Morning", viewTime: "08.00 AM" },
@@ -47,20 +47,26 @@ export class RemindComponent implements OnInit {
     "time": ""
   }
 
-/** Method to display the present time and date */
+
+  addReminder(valueTime2) {
+    this.myHttpService.postArchive('notes/addUpdateReminderNotes',
+      {
+        "noteIdList": [this.noteRemindeCard.id],
+        "reminder": valueTime2
+      },
+      localStorage.getItem('token')).subscribe((result) => {
+        console.log(result);
+        this.remindEmit.emit({
+        })
+      })
+
+  }
+  /** Method to display the present time and date */
   addRemindeToday() {
     var value = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate(), 20, 0, 0, 0)
     this.eventValue.emit(value);
-    this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-      {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": value,
-      }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data); //API Post successful
-        this.remindEmit.emit({
-        })
-      })
+    this.addReminder(value);
   }
 
   /** Method to display the date, after present date */
@@ -68,92 +74,40 @@ export class RemindComponent implements OnInit {
     var valueTime1 = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
       this.currentDate.getDate() + 1, 8, 0, 0, 0)
     this.eventValue.emit(valueTime1);
-    this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-      {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime1
-      }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data); //API Post successful
-        this.remindEmit.emit({
-        })
-      })
+    this.addReminder(valueTime1);
   }
+
   addRemindNextWeek() {
     var valueTime2 = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
-      this.currentDate.getDate() + 7, 8, 0, 0, 0)
+      (this.currentDate.getDate() + 7), 8, 0, 0, 0)
     this.eventValue.emit(valueTime2);
-    this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-      {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),
-          this.currentDate.getDate() + 7, 8, 0, 0, 0)
-      }, this.accessToken).subscribe(data => {
-        console.log('Post is successfull ', data); //API Post successful
-        this.remindEmit.emit({
-        })
-      })
+    this.addReminder(valueTime2);
   }
 
   addRemindCustom(date, timing) {
-    /** Checking the validation for time format */
+    //console.log(date);
+    // console.log(timing);
     timing.match('^[0-2][0-3]:[0-5][0-9]$');
-    // debugger;
 
     if (timing == '8:00 AM') {
-      var valueTime4 = new Date(date.getFullYear(), date.getMonth(),
-        date.getDate(), 8, 0, 0, 0)
-      this.eventValue.emit(valueTime4);
-      this.body = {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime4
-      }
-      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-        localStorage.getItem('token'), this.body).subscribe((result) => {
-          console.log(result);  
-          this.remindEmit.emit();
-        })  //API Post successful
+      var valueTime3 = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0)
+      this.eventValue.emit(valueTime3);
+      this.addReminder(valueTime3);
 
     } else if (timing == '1:00 PM') {
-      var valueTime5 = new Date(date.getFullYear(), date.getMonth(),
-        date.getDate(), 13, 0, 0, 0)
-      this.eventValue.emit(valueTime5);
-      this.body = {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime5
-      }
-      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-        localStorage.getItem('token'), this.body).subscribe((result) => {
-          console.log(result);
-          this.remindEmit.emit();
-        })
+      var valueTime4 = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 13, 0, 0, 0)
+      this.eventValue.emit(valueTime4);
+      this.addReminder(valueTime4);
+
     } else if (timing == '6:00 PM') {
-      var valueTime6 = new Date(date.getFullYear(), date.getMonth(),
-        date.getDate(), 18, 0, 0, 0)
-      this.eventValue.emit(valueTime6);
+      var valueTime5 = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 18, 0, 0, 0)
+      this.eventValue.emit(valueTime5);
+      this.addReminder(valueTime5);
 
-      this.body = {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime6
-      }
-      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-        localStorage.getItem('token'), this.body).subscribe((result) => {
-          console.log(result);
-          this.remindEmit.emit();
-        })
     } else if (timing == '9:00 PM') {
-      var valueTime7 = new Date(date.getFullYear(), date.getMonth(),
-        date.getDate(), 21, 0, 0, 0)
-      this.eventValue.emit(valueTime7);
+      var valueTime6 = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 21, 0, 0, 0)
+      this.addReminder(valueTime6);
 
-      this.body = {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime7
-      }
-      this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-        localStorage.getItem('token'), this.body).subscribe((result) => {
-          console.log(result);
-          this.remindEmit.emit();
-        })
     } else if (timing == this.reminderBody.time) {
       var x;
       var splitTime = this.reminderBody.time.split("", 8);
@@ -164,35 +118,15 @@ export class RemindComponent implements OnInit {
       console.log(hour);
       console.log(minute);
       if (ampm == 'AM' || ampm == 'am') {
-        var valueTime8 = new Date(date.getFullYear(), date.getMonth(), date.getDate(),
-          hour, minute, 0, 0)
-        this.eventValue.emit(valueTime8);
+        var valueTime7 = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, 0, 0)
+        this.addReminder(valueTime7);
 
-        this.body = {
-          "noteIdList": [this.noteRemindeCard.id],
-          "reminder": valueTime8
-        }
-        this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-          localStorage.getItem('token'), this.body).subscribe((result) => {
-            console.log(result);
-            this.remindEmit.emit();
-          })
       } else if (ampm == 'PM' || ampm == 'pm') {
-        var valueTime9 = new Date(date.getFullYear(), date.getMonth(),
+        var valueTime8 = new Date(date.getFullYear(), date.getMonth(),
           date.getDate(), hour + 12, minute, 0, 0)
-        this.eventValue.emit(valueTime9);
-        this.body = {
-          "noteIdList": [this.noteRemindeCard.id],
-          "reminder": valueTime9
-        }
-        this.myHttpService.postArchive('/notes/addUpdateReminderNotes',
-          this.body, this.accessToken).subscribe((data) => {
-            this.remindEmit.emit({})
-          })
-
+        this.addReminder(valueTime8);
       }
-
     }
   }
-
 }
+

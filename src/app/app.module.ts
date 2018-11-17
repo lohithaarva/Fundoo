@@ -47,7 +47,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LabelTrashDialogComponent } from './components/label-trash-dialog/label-trash-dialog.component';
-import { PinComponent } from './components/pin/pin.component'
+import { PinComponent } from './components/pin/pin.component';
+import { MessageServiceService } from './core/services/message-service/message-service.service';
+
 
   
 @NgModule({
@@ -118,7 +120,7 @@ import { PinComponent } from './components/pin/pin.component'
   ],
   
 
-  providers: [HttpService, AuthGuard , AuthService, LoggerService],
+  providers: [HttpService, AuthGuard , AuthService, LoggerService, MessageServiceService],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
                     LabelTrashDialogComponent],
   bootstrap: [AppComponent]
