@@ -179,8 +179,8 @@ export class DialogComponentComponent implements OnInit {
     }
   }
 
-  reminderDelete(id) {
-    // var id = note.id;
+  reminderDelete(data) {
+    var id = data.id;
     LoggerService.log('reminder note id is', id);
     this.myHttpService.postArchive('/notes/removeReminderNotes',
       {
@@ -194,6 +194,17 @@ export class DialogComponentComponent implements OnInit {
         error => {
           LoggerService.log("Error", error);
         })
+  }
+
+  reminderOff(cuttOff) {
+    var currentReminderTime = new Date().getTime();
+    var timeValue = new Date(cuttOff).getTime();
+    if (timeValue > currentReminderTime) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   ngOnInit() {

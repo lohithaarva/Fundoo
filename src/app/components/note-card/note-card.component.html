@@ -53,12 +53,11 @@
 
             <div *ngFor="let remainderChip of note.reminder">
             <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
-              <mat-chip-list [matMenuTriggerFor]="x.menu">
+              <mat-chip-list>
                 <mat-chip > Today {{note.reminder | date:'shortTime'}}
                   <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                  <app-remind #x="menuInOtherComponent" [noteRemindeCard]="note" 
-                  (remindEmit)="messageDelete($event)" 
-                  ></app-remind>
+                  <app-remind [noteRemindeCard]="note" 
+                  (remindEmit)="messageDelete($event)" ></app-remind>
                 </mat-chip>
               </mat-chip-list>
             </div>

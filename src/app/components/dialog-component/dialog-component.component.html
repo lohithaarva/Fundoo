@@ -62,12 +62,14 @@
         <div >
           <mat-chip-list>
             <mat-chip class="reminderChipAlign" >{{remainderChip | date:'medium' }}
-              <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+              <mat-icon matChipRemove (click)="reminderDelete(data)">cancel</mat-icon>
             </mat-chip>
           </mat-chip-list>
         </div>
       </div>
     </div>
+
+    
     <!------------------- chiplist of remainders stops ------------------------>
 
 

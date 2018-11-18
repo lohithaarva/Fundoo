@@ -34,7 +34,7 @@ export class NavbarComponent {
   public route: ActivatedRoute, ) { }
   public accessToken = localStorage.getItem("token")
   public clicked = false;
-  header;
+  header="Fundoo"
   firstName;
   lastName;
   email;
@@ -49,6 +49,7 @@ export class NavbarComponent {
   profilePath;
   color;
   show: boolean = false;
+  clickOnSearch: boolean = true;
   public pic;
 
   ngOnInit() {
