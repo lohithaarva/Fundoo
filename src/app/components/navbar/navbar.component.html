@@ -1,284 +1,162 @@
 <!----------------------------------- Toolbar Starts----------------------------------->
 
-  <!-----------------------------mattoolbar starts --------------------------------->
-  <!-- <div fxLayout="row" > -->
-    <div fxLayout = "row" >
+<!-----------------------------mattoolbar starts --------------------------------->
+<!-- <div fxLayout="row" > -->
+<div fxLayout="row">
   <mat-toolbar class="toolbar">
 
     <!------------------ toggle initiates --------------->
-    <div *ngIf="clickOnSearch" fxFlex.lg = "5%" fxFlex.md = "5%" fxFlex.sm = "10%" fxFlex.xs = "15%">
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button 
-            (click)="drawer.toggle()">
-      <mat-icon  aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    </div>                     
+    <div fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="15%">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </div>
     <!-------------------- toggle ends -------------------->
 
     <!----------------- headers starts ----------------------->
-    <div *ngIf="clickOnSearch" fxFlex.lg="10%" fxFlex.md = "10%" fxFlex.sm = "20%" fxFlex.xs = "30%">
-    <span class="title" (click)="navigate()" >{{header}}</span>
+    <div *ngIf="clickOnSearch" fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="20" fxFlex.xs="30">
+      <span (click)="navigate()">{{header}}</span>
     </div>
     <!---------------- headers ends -------------------------->
-   
+    <!-- <div *ngIf=""> <span>{{header}}</span></div> -->
     <!--   -->
     <!-----------------------searchbar --------------------- fxShow fxHide.sm fxHide.xs------>
-    <div fxFlex.lg="40%" fxFlex.md = "40%" fxFlex.sm = "50%"   class="searchBar" fxShow fxHide.xs = "true">
+    <div fxFlex.lg="40%" fxFlex.md="40%" fxFlex.sm="50%" class="searchBar" fxShow fxHide.xs="true">
       <div fxFlex="100%">
-      <div fxFlex.lg="10%" fxFlex.md = "10%" fxFlex.sm = "10%"><i class="material-icons">search </i></div>
-      <!-- <div> -->
-        <input fxFlex.lg="90%" fxFlex.md = "90%" fxFlex.sm = "90%"class="search" type="input" [(ngModel)]="globalSearch" 
-        (keydown)="keySearch()" (click)="navigate()" placeholder="search">
-     <!-- </div> -->
-    </div>
-  </div>
-    <div fxFlex.xs = "30%"></div>
-
-    <!----------------- searchbar for smaller devices ------fxShow.sm fxShow.xs-------- ----->
-    <div class="searchBar"  fxHide fxHide.lg="true" fxShow.xs ="true">
-      <div fxFlex = "100%">
-      <div  *ngIf="show">
-          <input fxFlex.xs="90%" class="search" type="input" [(ngModel)]="globalSearch" 
+        <div fxFlex.lg=" 10%" fxFlex.md="10%" fxFlex.sm="10%"><i class="material-icons">search </i></div>
+        <!-- <div> -->
+        <input fxFlex.lg="90%" fxFlex.md="90%" fxFlex.sm="90%" class="search" type="input" [(ngModel)]="globalSearch"
           (keydown)="keySearch()" (click)="navigate()" placeholder="search">
-        </div>
-
-      <div fxFlex.xs="10%" (click)="show = !show ;clickOnSearch = !clickOnSearch">
-        <i  (click)="navigate()" class="material-icons">search </i>
+        <!-- </div> -->
       </div>
+    </div>
+    <div fxFlex.xs="30%"></div>
+
+    <!----------------- searchbar for smaller devices -------------- ----->
+    <div class="searchBar" fxHide fxHide.lg="true" fxShow.xs="true">
+      <div fxFlex="100%">
+        <div *ngIf="show">
+          <input fxFlex.xs="90%" class="searchSmallBarTry" type="input" [(ngModel)]="globalSearch" 
+          (keydown)="keySearch(); onEnterIcon($event) ; headerFundoo()"
+            (click)="navigate() " placeholder="search">
+        </div>
+        <div fxFlex.xs="10%" (click)="show = !show ;clickOnSearch = !clickOnSearch">
+          <i (click)="navigate()" class="material-icons">search </i>
+        </div>
 
       </div>
     </div>
     <!--------------------------------------------------------------->
-    <div fxFlex.lg = "30%" fxFlex.md = "30%" fxFlex.xs = "5%"></div>
+    <div fxFlex.lg="30%" fxFlex.md="30%" fxFlex.xs="5%"></div>
     <!------------------------pic icon and grid list ------------------->
-    <div fxFlex.lg = "13%"  fxFlex.md = "13%" fxFlex.sm = "10%" fxFlex.xs = "30%" fxLayout="row" 
-          fxLayoutAlign="space-around center">
-      <div fxFlex.lg = "50%" fxFlex.xs = "50%" > 
-      <div  class="icons" >
-        <button mat-icon-button matTooltip="listView" 
-        (click)="cardsInList()" *ngIf="grid == 0"><mat-icon>view_stream</mat-icon></button>
-        <button mat-icon-button matTooltip="gridView" 
-        (click)="cardsInGrid()" *ngIf="grid == 1"><mat-icon>apps</mat-icon></button>
-      </div>
+    <div fxFlex.lg="13%" fxFlex.md="13%" fxFlex.sm="10%" fxFlex.xs="30%" fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxFlex.lg="50%" fxFlex.xs="50%">
+        <div class="icons">
+          <button mat-icon-button matTooltip="listView" (click)="cardsInList()" *ngIf="grid == 0">
+            <mat-icon>view_stream</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="gridView" (click)="cardsInGrid()" *ngIf="grid == 1">
+            <mat-icon>apps</mat-icon>
+          </button>
+        </div>
       </div>
       <!----------------------- Profile pic icon -------------------------->
-      <div fxFlex.lg = "50%" fxFlex.xs = "50%" >
-        <button *ngIf  = "newimage2 == ''" mat-mini-fab 
-            (click)="clicked=!clicked ;"
-          style="background-color: bisque; color: black;">
+      <div fxFlex.lg="50%" fxFlex.xs="50%">
+        <button *ngIf="newimage2 == ''" mat-mini-fab (click)="clicked=!clicked ;" style="background-color: bisque; color: black;">
           {{firstName | slice:0:1}}
         </button>
 
-        <button *ngIf  = "newimage2 != ''" mat-mini-fab 
-            [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}" 
-            (click)="clicked=!clicked ;"
-          style="background-color: bisque; color: black;">
+        <button *ngIf="newimage2 != ''" mat-mini-fab [ngStyle]="{'background-image': 'url(' + img + ')','background-size':'cover'}"
+          (click)="clicked=!clicked ;" style="background-color: bisque; color: black;">
         </button>
       </div>
     </div>
     <!--------------------------------------------------------------------->
-    <div fxFlex.lg = "2%" fxFlex.md = "2%" fxFlex.sm = "2%" fxFlex.xs = "5%"></div>
+    <div fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="2%" fxFlex.xs="5%"></div>
   </mat-toolbar>
-  </div>
-  <!-- </div> -->
-  <!---------------------------mattoolbar ends --------------------------------------->
+</div>
+<!-- </div> -->
+<!---------------------------mattoolbar ends --------------------------------------->
 
-  <!-------------------------sidenavigationbar starts --------------------------------->
+<!-------------------------sidenavigationbar starts --------------------------------->
 
-  <mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container">
 
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" 
-          [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
-      <mat-nav-list>
-        <br>
-        <a class="mainTitle" (click) = 'changeHeader("Fundoo")' mat-list-item routerLink='/home/notes'>
-          <img src="../../../assets/images/notes.svg">Notes</a>
-        <a (click) = 'changeHeader("Reminders")' mat-list-item routerLink="/home/remainders">
-          <img src="../../../assets/images/remainders.svg">Remainders</a>
-        <hr>
-        <p>LABELS</p>
-        <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
-          <a (click) = 'changeHeader(result.label)' mat-list-item>
-            <mat-icon>label_outline</mat-icon>
-            <div class="response">{{result.label}}</div>
-          </a>
-        </div>
-        <a (click)=" openDialog()"><mat-icon class="createLabelIcon">
-            create</mat-icon>Edit Labels</a>
-        <hr>
-        <a (click) = 'changeHeader("Archive")' mat-list-item routerLink="/home/archive">
-          <img src="../../../assets/images/archive.svg">Archive</a>
-        <a (click) = 'changeHeader("Trash")' mat-list-item routerLink="/home/trash">
-          <img src="../../../assets/images/trash.svg">Trash</a>
-        <hr>
-        <a (click) = 'changeHeader("Settings")' mat-list-item routerLink="/home/settings">
-          <img src="../../../assets/images/settings.svg">Settings</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="temp" fxFlex="100">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
+    <mat-nav-list>
+      <br>
+      <a class="mainTitle" (click)='changeHeader("Fundoo")' mat-list-item routerLink='/home/notes'>
+        <img src="../../../assets/images/notes.svg">Notes</a>
+      <a (click)='changeHeader("Reminders")' mat-list-item routerLink="/home/remainders">
+        <img src="../../../assets/images/remainders.svg">Remainders</a>
+      <hr>
+      <p>LABELS</p>
+      <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
+        <a (click)='changeHeader(result.label)' mat-list-item>
+          <mat-icon>label_outline</mat-icon>
+          <!-- <div class="response"> -->
+            <span class="sideNavLabels">{{result.label}}</span>
 
-  </mat-sidenav-container>
+            <!-- </div> -->
+        </a>
+      </div>
+      <a (click)=" openDialog()">
+        <mat-icon class="createLabelIcon">
+          create</mat-icon>Edit Labels
+      </a>
+      <hr>
+      <a (click)='changeHeader("Archive")' mat-list-item routerLink="/home/archive">
+        <img src="../../../assets/images/archive.svg">Archive</a>
+      <a (click)='changeHeader("Trash")' mat-list-item routerLink="/home/trash">
+        <img src="../../../assets/images/trash.svg">Trash</a>
+      <hr>
+      <a (click)='changeHeader("Settings")' mat-list-item routerLink="/home/settings">
+        <img src="../../../assets/images/settings.svg">Settings</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="temp" fxFlex="100">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 
-  <!-------------------------sidenavigationbar stops --------------------------------->
+</mat-sidenav-container>
 
-  <!----------------------------- Profile image matcard starts---------------------------->
-  <div *ngIf="clicked" class="basic">
-    <mat-card class="sign-out-card">
-      <mat-card-header>
-        <div mat-card-avatar (click)="selectImage.click()" >
-          <button class="profilePicIcocn" *ngIf  = "newimage2 != ''" mat-mini-fab (click)="$event.stopPropagation()" 
-            [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
-            (click)="selectFile.click()">
-            <div class="textInImage">
-               Change 
-            </div>
-          </button>
-          <button *ngIf  = "newimage2 == ''" mat-mini-fab (click)="$event.stopPropagation()" 
-          (click)="selectFile.click()">
-          {{firstName | slice:0:1}}
+<!-------------------------sidenavigationbar stops --------------------------------->
+
+<!----------------------------- Profile image matcard starts---------------------------->
+<div *ngIf="clicked" class="basic">
+  <mat-card class="sign-out-card">
+    <mat-card-header>
+      <div mat-card-avatar (click)="selectImage.click()">
+        <button class="profilePicIcocn" *ngIf="newimage2 != ''" mat-mini-fab (click)="$event.stopPropagation()"
+          [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()">
           <div class="textInImage">
-            Change 
+            Change
           </div>
         </button>
-          <input style="display:none" (click)="$event.stopPropagation()" 
-            class="image" type="file" (change)="onFileSelected($event)"
-            #selectFile>
-           
-        </div>
-        <input (click)="$event.stopPropagation();" style="display:none" 
-          type="file" (change)="onFileSelected($event)" #selectImage>
-        <mat-card-title class="signOutCardTitle"> <b>{{firstName}} {{lastName}}</b></mat-card-title>
-        <mat-card-subtitle class="signOutCardTitle"><b>{{email}}</b></mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content></mat-card-content>
-      <hr>
-      <mat-card-actions fxLayoutAlign="space-between">
-        <button mat-button routerLink="/registration">Add Account</button>
-        <button mat-button (click)="signout()">Sign Out</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+        <button *ngIf="newimage2 == ''" mat-mini-fab (click)="$event.stopPropagation()" (click)="selectFile.click()">
+          {{firstName | slice:0:1}}
+          <div class="textInImage">
+            Change
+          </div>
+        </button>
+        <input style="display:none" (click)="$event.stopPropagation()" class="image" type="file" (change)="onFileSelected($event)"
+          #selectFile>
 
-  <!----------------------------- Profile image matcard stops ---------------------------->
+      </div>
+      <input (click)="$event.stopPropagation();" style="display:none" type="file" (change)="onFileSelected($event)"
+        #selectImage>
+      <mat-card-title class="signOutCardTitle"> <b>{{firstName}} {{lastName}}</b></mat-card-title>
+      <mat-card-subtitle class="signOutCardTitle"><b>{{email}}</b></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content></mat-card-content>
+    <hr>
+    <mat-card-actions fxLayoutAlign="space-between">
+      <button mat-button routerLink="/registration">Add Account</button>
+      <button mat-button (click)="signout()">Sign Out</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!----------------------------- Profile image matcard stops ---------------------------->
 <!--------------------------- Toolbar ends ------------------------------>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-<div fxFlex>
-    <div fxLayout="column wrap">
-      <mat-toolbar color="primary" position="fixed" class="toolbar">
-        <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="30%" fxFlex.xs="40%">
-          <div fxFlex=40%>
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" ngStyle.md="float:left">
-              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
-          </div>
-          <div fxFlex=60% fxFlex>
-            <div fxFlex=60% fxHide.xs="true"><span>Fundoo Keep</span></div>
-            <div fxFlex=40% fxHide.xl="true" fxHide.lg="true" fxHide.md="true" fxHide.sm="true"><span>Keep</span></div>
-          </div>
-        </div>
-  
-  
-        <div fxFlex.xl="60%" fxFlex.lg="60%" fxFlex.md="60%" fxFlex.sm="20%" fxFlex.xs="20%" ngStyle.xs="flex:1 1 auto"
-          ngStyle.xl="padding-left:50px" ngStyle.lg="padding-left:50px;padding-right:30px" ngStyle.md="padding-left:50px;padding-right:30px"
-          flexLayout="row">
-          <div ngStyle.xs="float:right;" ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline"
-            ngStyle.sm="float:right">
-            <button type="button" mat-icon-button  class="searchButton">
-              <mat-icon>search</mat-icon>
-            </button>
-          </div>
-          <div ngStyle.xs="visibility:collapse" ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline"
-            ngStyle.sm="visibility:collapse">
-            <input type="text" placeholder="Search" class="notselected" [(ngModel)]="searchInput" (click)=searchClicked() (keyup)=passMessage()>
-          </div>
-        </div>
-  
-        <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="40%" fxFlex.xs="40%">
-          <div fxFlex="60%">
-            <button type="button" mat-icon-button  class="refreshButton">
-              <mat-icon>refresh</mat-icon>
-            </button></div>
-          <div fxFlex="20%">
-            <button type="button" mat-icon-button  ngStyle.xs="visibility:collapse">
-              <mat-icon>view_agenda</mat-icon>
-            </button></div>
-          <div fxFlex="20%">
-            <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
-          </div>
-        </div>
-      </mat-toolbar>
-  
-  
-      <mat-sidenav-container class="sidenav-container"  >
-        <mat-sidenav #drawer class="sidenav"  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-          [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)" [position]="start">
-          <mat-nav-list>
-            <a mat-list-item (click)=NoteClicked()><img src="../../../assets/notes.svg" class="svg"><span class="sideNotes">Notes</span></a>
-            <a mat-list-item><img src="../../../assets/remainder.svg" class="svg"><span class="sideNotes">Remainders</span></a>
-            <hr>
-            <p class="label">Labels<button mat-button class="editButton"  (click)="openDialog()">EDIT</button></p>
-            <a mat-list-item *ngFor="let label of labelArray" (click)="labelClicked(label)">
-              <img src="../../../assets/label.svg" class="svg">
-              <span class="sideNotes">{{label.label}}</span></a>
-            <a mat-list-item (click)="openDialog()"><img src="../../../assets/create.svg" class="svg">
-              <span class="sideNotes">Edit Labels</span></a>
-            <a mat-list-item (click)=ArchiveClicked()><img src="../../../assets/archive.svg" class="svg" >
-              <span class="sideNotes">Archive</span></a>
-            <a mat-list-item (click)=TrashClicked()><img src="../../../assets/trash.svg" class="svg">
-              <span class="sideNotes">Trash</span></a>
-            <hr>
-          
-          </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content class="content" >
-              <router-outlet ></router-outlet>
-            
-              <mat-card class="profileCard"  *ngIf="clicked">
-                <mat-list>
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image">
-            <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" 
-            [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}" (click)=changeDp.click()>
-            
-            <input type="file" value="Upload photo" (change)=fileSelected($event) style="display:none" #changeDp>
-      </button>
-      
-                  </div>
-                  <mat-card-title>{{firstname}} {{lastname}} </mat-card-title>
-                  <mat-card-subtitle>{{email}}</mat-card-subtitle>
-                </mat-card-header>
-                </mat-list>
-                <mat-divider></mat-divider>
-                <mat-list>
-                    <button mat-stroked-button   class="uploadButton" (click)=changeImg.click()>upload photo</button>
-                      <input type="file" value="Upload photo" (change)=fileSelected($event) style="display:none" #changeImg >
-                   
-                    <button mat-stroked-button (click)=logout() class="refreshButton" >Logout</button>
-                </mat-list>
-              </mat-card>
-          
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </div>
-  
-  </div> -->

@@ -9,6 +9,8 @@ import { LabelsComponent } from '../labels/labels.component';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { environment } from 'src/environments/environment';
 import { CropImageComponent } from '../crop-image/crop-image.component';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 
 @Component({
@@ -27,30 +29,32 @@ export class NavbarComponent {
 
   constructor(private breakpointObserver: BreakpointObserver,
   private data: DataService,
-  public dialog: MatDialog,
+  private dialog: MatDialog,
   private myHttpService: HttpService,
   private router: Router,
   
-  public route: ActivatedRoute, ) { }
-  public accessToken = localStorage.getItem("token")
-  public clicked = false;
-  header="Fundoo"
-  firstName;
-  lastName;
-  email;
-  imageUrl;
-  value = [];
-  globalSearch: any;
-  public labelPageNames;
-  listClick = true;
-  gridView = true;
-  public grid = 0;
-  selectedFile = null;
-  profilePath;
-  color;
-  show: boolean = false;
-  clickOnSearch: boolean = true;
-  public pic;
+  private route: ActivatedRoute, ) { }
+  private accessToken = localStorage.getItem("token")
+  private clicked = false;
+  private header="Fundoo"
+  private firstName;
+  private lastName;
+  private email;
+  private imageUrl;
+  private value = [];
+  private globalSearch: any;
+  private labelPageNames;
+  private listClick = true;
+  private gridView = true;
+  private grid = 0;
+  private selectedFile = null;
+  private profilePath;
+  private color;
+  private show: boolean = false;
+  private clickOnSearch: boolean = true;
+  private pic;
+  private image = {};
+
 
   ngOnInit() {
 
@@ -60,7 +64,17 @@ export class NavbarComponent {
   /** Method to change header names */
   changeHeader(header) {
     this.header = header
-
+  }
+  onEnterIcon(event){
+    if (event.key === "Enter")
+    {
+    this.show = false;
+    this.clickOnSearch = true;
+    }
+    LoggerService.log(event);  
+  }
+  headerFundoo(){
+    
   }
 
   noteCard() {
@@ -150,7 +164,7 @@ export class NavbarComponent {
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
   }
-  image = {};
+  
 
   /** Method to initiate to particular label state */
   clickLabel(labelsList) {

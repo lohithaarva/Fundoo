@@ -13,7 +13,7 @@
 
 .sidenav {
   overflow-y: scroll;
-  width: 250px;
+  width: 215px;
   margin-top: 55px;
   background-color: rgb(221, 221, 230);
  
@@ -180,6 +180,22 @@ outline:none;
 
  .smallSearch{
    margin-left: 40px;
+ }
+ .searchSmallBarTry{
+   width: 135px;
+   height:41px;
+   color: black;
+   opacity: 1;
+   background-color:  rgb(235, 174, 22);
+   border:0px;
+   border-radius: 5px;
+   font-size: 20px;
+ }
+ .sideNavLabels{
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow:  hidden !important;
+  width:70px;
  }
   
 

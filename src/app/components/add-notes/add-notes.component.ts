@@ -3,6 +3,8 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 import { CoreModule } from '@angular/flex-layout';
 import { ColorComponent } from '../color/color.component';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { Inote } from '../../core/models/Inote'
+
 
 @Component({
   selector: 'app-add-notes',
@@ -34,6 +36,7 @@ export class AddNotesComponent implements OnInit {
   public remindToday = new Date();
   public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
     this.remindToday.getDate() + 1)
+    
 
   note = {
     'isArchived': false,
@@ -42,6 +45,7 @@ export class AddNotesComponent implements OnInit {
 
   constructor(private myHttpService: HttpService) { }
   @Output() messageEvent = new EventEmitter();
+  @Output() newDate = new EventEmitter();
 
   ngOnInit() { }
   /** Method to hide and show the notes */
@@ -68,9 +72,10 @@ export class AddNotesComponent implements OnInit {
           'isPined': false,
           'color': this.color,
           'reminder': this.reminderAdd,
-
+          
         }, this.token).subscribe(
           (data) => {
+            this.newDate.emit(data["status"].details)
             LoggerService.log("POST Request is successful ", data);
             this.dataArray = [];
             this.labelChipName = [];
@@ -80,6 +85,7 @@ export class AddNotesComponent implements OnInit {
             this.messageEvent.emit({
             })
             this.color = "#fafafa";
+            
           },
           error => {
             console.log("Error", error);

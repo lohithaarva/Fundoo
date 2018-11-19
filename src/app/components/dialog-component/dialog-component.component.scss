@@ -26,13 +26,17 @@
     margin-left: 2%;
     word-wrap: break-word;
 }
-.pinIcon {
-    float: right;
-    opacity: 0.5;
-    padding-left: 450px;
-    margin-top: -3%;
-    margin-right: 3%;
-}
+// .pinIcon {
+//     float: right;
+//     opacity: 0.5;
+//     padding-left: 450px;
+//     margin-top: -3%;
+//     margin-right: 3%;
+// }
+// .pinIcon{
+ 
+//   margin-top: 35%;
+// }
   .icons {
     float: right;
     width: 40px;
@@ -63,4 +67,11 @@
 }
 .mat-dialog-container {
   overflow: hidden;
+}
+.mat-typography{
+  margin: 4%;
+}
+.overAllCard{
+  width: 490px;
+    height: 65px;
 }

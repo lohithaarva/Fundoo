@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
+
+  
   url = 'http://34.213.106.173/api/';
 
   constructor(private http: HttpClient) { }

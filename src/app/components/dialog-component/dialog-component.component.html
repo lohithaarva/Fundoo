@@ -1,15 +1,18 @@
-<div class="mat-dialog-container"  (mouseover)="hover=true">
+<div class="mat-dialog-container" [style.backgroundColor]="data.color"  (mouseover)="hover=true">
   <div [style.backgroundColor]="data.color">
-    <div>
-      <div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span fxFlex="90">
         <mat-dialog-content class="mat-typography" class="inputTitleNote" contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
         </mat-dialog-content>
-      </div>
-      <div> <img class="pinIcon" src="../../../assets/images/pin.svg" alt=""></div>
+      </span>
+      <span fxFlex="10"> 
+      <img class="pinIcon" src="../../../assets/images/pin.svg" alt="">
+      </span>
     </div>
     <div class="inputNote" id="notesId" contenteditable="true" data-text="" [innerHTML]="data.description"></div>
 
    <!------------------------ Checklist start--------------------------->
+
          
 <div class="note" *ngFor="let check of data.noteCheckLists" fxLayout="row">
     

@@ -1,15 +1,5 @@
 <!-------------------- Displaying notes which are pinned as well as other notes ---------->
-<app-add-notes (messageEvent)="receiveMessage($event)"></app-add-notes>
-<div *ngIf ="pinNotes.length !=0">
-    <h5 class="headerTitle">PINNED</h5>
-    <app-note-card [cardAdded]="pinNotes" (eventEmit)="receiveMessage($event)"></app-note-card>
-    <h5 class="headerTitle">OTHERS</h5>
-    <app-note-card [cardAdded]="notes" (eventEmit)="receiveMessage($event)"></app-note-card>
-</div>
-<!---------------------------------------------------------------------------------------->
-<!---------------------------------------- Displaying notes ------------------------------>
-<div *ngIf = "pinNotes.length ==0">
-    <app-note-card [cardAdded]="pinNotes" (eventEmit)="receiveMessage($event)"></app-note-card>
-    <app-note-card [cardAdded]="notes" (eventEmit)="receiveMessage($event)"></app-note-card>
-</div>
+<app-add-notes (messageEvent)="receiveMessage($event)" (newDate) = "addNotes($event)"></app-add-notes>
+    <app-note-card fxLayoutAlign="start center"  [cardAdded]="pinNotes" [length] = 'pinNotes.length' [word] = "'Pinned'" (eventEmit)="receiveMessage($event)"></app-note-card>
+    <app-note-card fxLayoutAlign="start center"  [cardAdded]="notes" (eventEmit)="receiveMessage($event)" [length] = 'pinNotes.length' [word] = "'Others'"></app-note-card>
 <!----------------------------- End of displaying notes ------------------------------------>

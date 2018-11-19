@@ -6,6 +6,9 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { WrappedNodeExpr } from '@angular/compiler';
+
+
 
 
 @Component({
@@ -14,13 +17,20 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit {
-  messageDeleted: boolean;
-  condition = true;
-  public checkArray = [];
-  public modifiedCheckList;
-  public remindToday = new Date();
-  public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
-    this.remindToday.getDate() + 1)
+  @Input()  word;
+  @Input() length;
+  @Input() deleteNotesForever;
+  @Input() globalSearch;
+  @Input() cardAdded;
+  // @Input() unarchiveEvent;
+  @Output() eventEmit = new EventEmitter();
+  private messageDeleted: boolean;
+  private condition = true;
+  private checkArray = [];
+  private modifiedCheckList;
+  private remindToday = new Date();
+  private remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
+  this.remindToday.getDate() + 1)
 
 
   constructor(public dialog: MatDialog, private myHttpService: HttpService,
@@ -37,11 +47,7 @@ export class NoteCardComponent implements OnInit {
       this.condition = message;
     })
   }
-  @Input() deleteNotesForever;
-  @Input() globalSearch;
-  @Input() cardAdded;
-  // @Input() unarchiveEvent;
-  @Output() eventEmit = new EventEmitter();
+  
 
   messageDelete(event) {
     LoggerService.log("i m here for deleting the card")
@@ -52,7 +58,8 @@ export class NoteCardComponent implements OnInit {
   openDialog(note): void {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
       data: note,
-      // width: '750px',
+      width: '450px',
+      // height: '150px',
       // panelClass: 'myapp-no-padding-dialog'
     });
 
