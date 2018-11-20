@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { environment } from '../../../environments/environment';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DataService } from '../../core/services/dataservice/data.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 @Component({
     selector: 'app-crop-image',
@@ -17,7 +17,7 @@ export class CropImageComponent implements OnInit {
     constructor(
         public dialogRefPic: MatDialogRef<NavbarComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private httpService: HttpService,
+        private noteService: NoteService,
         private dataService: DataService) { }
 
     ngOnInit() {
@@ -32,14 +32,14 @@ export class CropImageComponent implements OnInit {
         LoggerService.log(this.croppedImage);
         const uploadData = new FormData();
         uploadData.append('file', this.croppedImage);
-        this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
+        this.noteService.addImage(uploadData).subscribe
+        (res => {
             this.img = environment.apiUrl + res['status'].imageUrl;
             localStorage.setItem("imageUrl", res['status'].imageUrl);
             this.dialogRefPic.close()
             this.dataService.changeMsg(true);
         }, error => {
-
-
+            LoggerService.log(error);
         })
 
     }

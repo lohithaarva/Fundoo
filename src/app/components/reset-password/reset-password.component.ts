@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/core/services/userService/user.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
 
   constructor(public snackBar: MatSnackBar,
-    private myHttpService: HttpService,
+    private userService: UserService,
      private router:Router,
      public route:ActivatedRoute,) { }
      public accessToken=this.route.snapshot.params.forgotToken;
@@ -38,8 +38,10 @@ export class ResetPasswordComponent implements OnInit {
       }
       this.input.append('newPassword', this.info.password);
       console.log(this.input)
-      this.myHttpService.postReset("user/reset-password",body,this.accessToken).subscribe(response=>{
+      this.userService.setPassword((body))
+      .subscribe(response=>{
         console.log("successfull",response);
+        this.router.navigateByUrl('login')
       },error=>{
         console.log("failed",error)
       })

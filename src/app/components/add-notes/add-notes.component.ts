@@ -1,9 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
-import { CoreModule } from '@angular/flex-layout';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ColorComponent } from '../color/color.component';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { Inote } from '../../core/models/Inote'
+import { NoteService } from '../../core/services/noteservice/note.service';
+
 
 
 @Component({
@@ -11,7 +13,8 @@ import { Inote } from '../../core/models/Inote'
   templateUrl: './add-notes.component.html',
   styleUrls: ['./add-notes.component.scss']
 })
-export class AddNotesComponent implements OnInit {
+export class AddNotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   enterExpression = true;
   boxClicked = true;
   checklist = {};
@@ -22,8 +25,9 @@ export class AddNotesComponent implements OnInit {
   checkBoxArray = [];
   labelChipName = [];
   labelChipId = [];
-  public dataArray = [];
+  private dataArray = [];
   public dataArrayCheck = [];
+  public body: any = {}
   public isChecked = false;
   public addCheck = false;
   public modifiedCheckList;
@@ -36,16 +40,21 @@ export class AddNotesComponent implements OnInit {
   public remindToday = new Date();
   public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
     this.remindToday.getDate() + 1)
-    
+
 
   note = {
     'isArchived': false,
     'id': ''
   }
 
-  constructor(private myHttpService: HttpService) { }
+  constructor(private noteService: NoteService) { }
   @Output() messageEvent = new EventEmitter();
   @Output() newDate = new EventEmitter();
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
   ngOnInit() { }
   /** Method to hide and show the notes */
@@ -63,30 +72,27 @@ export class AddNotesComponent implements OnInit {
     }
     if (this.checked == false) {
       LoggerService.log(this.color);
-      this.myHttpService
-        .addNotes('notes/addNotes', {
-          'title': document.getElementById('titleId').innerHTML,
-          'description': document.getElementById('notesId').innerHTML,
-          'labelIdList': JSON.stringify(this.labelChipId),
-          'checklist': '',
-          'isPined': false,
-          'color': this.color,
-          'reminder': this.reminderAdd,
-          
-        }, this.token).subscribe(
-          (data) => {
-            this.newDate.emit(data["status"].details)
-            LoggerService.log("POST Request is successful ", data);
-            this.dataArray = [];
-            this.labelChipName = [];
-            this.labelChipId = [];
-            this.reminderAdd = '';
-            this.remind = '';
-            this.messageEvent.emit({
-            })
-            this.color = "#fafafa";
-            
-          },
+      this.noteService.addNotes({
+        'title': document.getElementById('titleId').innerHTML,
+        'description': document.getElementById('notesId').innerHTML,
+        'labelIdList': JSON.stringify(this.labelChipId),
+        'checklist': '',
+        'isPined': false,
+        'color': this.color,
+        'reminder': this.reminderAdd,
+      }).pipe(takeUntil(this.destroy$))
+        .subscribe(data => {
+          this.newDate.emit(data["status"].details)
+          LoggerService.log("POST Request is successful ", data);
+          this.dataArray = [];
+          this.labelChipName = [];
+          this.labelChipId = [];
+          this.reminderAdd = '';
+          this.remind = '';
+          this.messageEvent.emit({
+          })
+          this.color = "#fafafa";
+        },
           error => {
             console.log("Error", error);
             this.dataArray = [];
@@ -103,7 +109,6 @@ export class AddNotesComponent implements OnInit {
       if (this.remind != undefined) {
         this.reminderAdd = this.remind
       }
-
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
           this.status = "close"
@@ -115,18 +120,18 @@ export class AddNotesComponent implements OnInit {
         this.dataArrayCheck.push(apiObj)
         this.status = "open"
       }
+
       LoggerService.log(this.dataArrayCheck, "here is  datacheck array");
       LoggerService.log(document.getElementById('titleId').innerHTML)
-      this.myHttpService.addNotes('/notes/addNotes', {
+      this.noteService.addNotes({
         'title': document.getElementById('titleId').innerHTML,
         'labelIdList': JSON.stringify(this.labelChipId),
         'checklist': JSON.stringify(this.dataArrayCheck),
         'isPined': 'false',
         'color': this.color,
         'reminder': this.reminderAdd,
-
-      }, this.token).subscribe(
-        (data) => {
+      }).pipe(takeUntil(this.destroy$))
+        .subscribe(data => {
           LoggerService.log('POST successful', data); /** Success api request */
           this.dataArray = [];
           this.labelChipName = [];
@@ -137,15 +142,15 @@ export class AddNotesComponent implements OnInit {
           })
           this.color = "#fafafa";
         },
-        error => {
-          this.dataArray = [];
-          this.labelChipName = [];
-          this.labelChipId = [];
-          this.reminderAdd = '';
-          this.remind = '';
+          error => {
+            this.dataArray = [];
+            this.labelChipName = [];
+            this.labelChipId = [];
+            this.reminderAdd = '';
+            this.remind = '';
 
-          LoggerService.log("Error", error);   /** Unsucessfull api request */
-        })
+            LoggerService.log("Error", error);   /** Unsucessfull api request */
+          })
       this.color = "#fafafa";
     }
     this.dataArray = [];
@@ -189,7 +194,6 @@ export class AddNotesComponent implements OnInit {
       this.dataArray.push(obj)
       LoggerService.log(this.dataArray);
       this.data = null;
-
       this.isChecked = false;
       this.addCheck = false;
     }
@@ -217,7 +221,6 @@ export class AddNotesComponent implements OnInit {
 
   /** Method to edit checklist  */
   editing(event, edited) {
-
     if (event.code == "Enter") {
       LoggerService.log("enter pressed");
       for (var i = 0; i < this.dataArray.length; i++) {
@@ -226,7 +229,6 @@ export class AddNotesComponent implements OnInit {
         }
       }
       LoggerService.log(this.dataArray);
-
     }
   }
   /** Method to delete reminder */
@@ -238,21 +240,5 @@ export class AddNotesComponent implements OnInit {
   }
 
 
-  // checkBox(checkList) {
-
-  //   if (checkList.status == "open") {
-  //     checkList.status = "close"
-  //   }
-  //   else {
-  //     checkList.status = "open"
-  //   }
-  //   console.log(checkList);
-  //   this.modifiedCheckList = checkList;
-  //   // this.update();
-  // }
-
-
-
 }
-
 

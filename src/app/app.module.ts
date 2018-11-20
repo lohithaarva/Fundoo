@@ -34,7 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { LoggerService } from '../app/core/services/logger/logger.service'
-import { HttpService } from './core/services/httpservice/http.service';
+import { httpService } from './core/services/httpservice/http.service';
 import { AuthService } from '../app/core/services/authguard/auth.service';
 import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { LabelfilterPipe } from '../app/core/pipes/labelfilter.pipe';
@@ -49,6 +49,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { LabelTrashDialogComponent } from './components/label-trash-dialog/label-trash-dialog.component';
 import { PinComponent } from './components/pin/pin.component';
 import { MessageServiceService } from './core/services/message-service/message-service.service';
+import { InterceptService} from './core/services/interceptor/intercept.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 
   
@@ -120,7 +123,13 @@ import { MessageServiceService } from './core/services/message-service/message-s
   ],
   
 
-  providers: [HttpService, AuthGuard , AuthService, LoggerService, MessageServiceService],
+  providers: [httpService, AuthGuard , AuthService, 
+    LoggerService, MessageServiceService, InterceptService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    }
+  ],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
                     LabelTrashDialogComponent],
   bootstrap: [AppComponent]

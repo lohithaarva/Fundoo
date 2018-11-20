@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
@@ -11,6 +10,10 @@ import { environment } from 'src/environments/environment';
 import { CropImageComponent } from '../crop-image/crop-image.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { TouchSequence } from 'selenium-webdriver';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { UserService } from 'src/app/core/services/userService/user.service';
+import { Inote } from '../../core/models/Inote'
+
 
 
 @Component({
@@ -28,15 +31,18 @@ export class NavbarComponent {
 
 
   constructor(private breakpointObserver: BreakpointObserver,
-  private data: DataService,
-  private dialog: MatDialog,
-  private myHttpService: HttpService,
-  private router: Router,
-  
-  private route: ActivatedRoute, ) { }
+    private data: DataService,
+    private dialog: MatDialog,
+    private noteService: NoteService,
+    private userService: UserService,
+    private router: Router,
+
+    private route: ActivatedRoute, ) {
+
+  }
   private accessToken = localStorage.getItem("token")
   private clicked = false;
-  private header="Fundoo"
+  private header = "Fundoo"
   private firstName;
   private lastName;
   private email;
@@ -54,7 +60,7 @@ export class NavbarComponent {
   private clickOnSearch: boolean = true;
   private pic;
   private image = {};
-
+  private note = [] as Array<Inote>
 
   ngOnInit() {
 
@@ -65,38 +71,33 @@ export class NavbarComponent {
   changeHeader(header) {
     this.header = header
   }
-  onEnterIcon(event){
-    if (event.key === "Enter")
-    {
-    this.show = false;
-    this.clickOnSearch = true;
+  onEnterIcon(event) {
+    if (event.key === "Enter") {
+      this.show = false;
+      this.clickOnSearch = true;
     }
-    LoggerService.log(event);  
+    LoggerService.log(event);
   }
-  headerFundoo(){
-    
+  headerFundoo() {
+
   }
 
   noteCard() {
-    var note = [];
+this.note=[];
     this.firstName = localStorage.getItem("firstName");
     console.log(this.firstName)
     this.lastName = localStorage.getItem("lastname");
     this.email = localStorage.getItem("email");
-    // this.imageUrl = localStorage.getItem("imageUrl")
-    this.myHttpService.getNotes("noteLabels/getNoteLabelList", this.accessToken)
-      .subscribe(response => {
+    this.noteService.getNoteLabellist().subscribe(
+      response => {
         console.log("accessToken", this.accessToken)
-        console.log(" Get label successfull", response);
-        for (var i = 0; i < response['data']['details'].length; i++) {
-          if (response['data']['details'][i].isDeleted == false) {
-            note.push(response['data']['details'][i]);
+        var noteLabelNotes: Inote[] = response['data']['details']
+        for (var i = 0; i < noteLabelNotes.length; i++) {
+          if (noteLabelNotes[i].isDeleted == false) {
+            this.note.push(noteLabelNotes[i]);
           }
         }
-        this.value = note;
-
-        console.log(response);
-        console.log(this.value);
+        this.value = this.note;
 
       }, error => {
         console.log("failed", error)
@@ -104,7 +105,7 @@ export class NavbarComponent {
   }
   /** Method to logout from the account */
   signout() {
-    this.myHttpService.postLogout("user/logout", this.accessToken)
+    this.userService.logout({})
       .subscribe(response => {
         console.log("accessToken", this.accessToken)
         console.log(" logout successfull", response);
@@ -119,7 +120,7 @@ export class NavbarComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(LabelsComponent, {
       width: '250px',
-      data: { labelDialog: this.value }
+      data: '{ labelDialog: this.value }'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -164,7 +165,7 @@ export class NavbarComponent {
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
   }
-  
+
 
   /** Method to initiate to particular label state */
   clickLabel(labelsList) {
@@ -183,7 +184,8 @@ export class NavbarComponent {
       console.log("pic", this.pic);
       if (this.pic == true) {
         this.newimage2 = localStorage.getItem('imageUrl');
-        this.img = environment.apiUrl + this.newimage2;
+        console.log(this.newimage2, "image is here");
+        this.img = "http://34.213.106.173/" + this.newimage2;
       }
 
     });

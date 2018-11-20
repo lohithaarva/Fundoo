@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 @Component({
   selector: 'app-remainders',
@@ -12,14 +12,14 @@ export class RemaindersComponent implements OnInit {
  @Output() reminderEmit = new EventEmitter();
 
 
-  constructor(private myHttpService: HttpService) { }
+  constructor(private noteService: NoteService) { }
 
   ngOnInit() {
     this.reminderNotes();
   }
 
   reminderNotes(){
-    this.myHttpService.getNotes('/notes/getReminderNotesList', this.token).subscribe(
+    this.noteService.getReminderNOteList().subscribe(
       (data) => {
         this.reminderNotesArray=data['data'].data;
         this.reminderNotesArray.sort((a: any, b: any) =>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HttpService } from '../../core/services/httpservice/http.service';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { HttpService } from '../../core/services/httpservice/http.service';
 })
 export class LabelNotesComponent implements OnInit {
 
-  constructor(private myHttpService: HttpService, public route: ActivatedRoute) { }
+  constructor( private noteService : NoteService,public route: ActivatedRoute) { }
   labelName;
   labelArray=[];
  
@@ -29,8 +29,9 @@ export class LabelNotesComponent implements OnInit {
     }
 
     getLabelNotes(labelName){
-      var url ="notes/getNotesListByLabel/"+labelName
-      this.myHttpService.addNotes(url, null, localStorage.getItem('token')).subscribe(response => {
+      // var url ="notes/getNotesListByLabel/"+labelName
+      this.noteService.getLabelNotes(labelName)
+      .subscribe(response => {
         console.log("successfull", response);
         this.labelArray=response['data'].data
         console.log(this.labelArray);

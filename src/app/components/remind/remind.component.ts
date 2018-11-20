@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { FormControl } from '@angular/forms';
 import { MatMenu } from '@angular/material';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 @Component({
   selector: 'app-remind',
@@ -11,7 +11,7 @@ import { MatMenu } from '@angular/material';
 })
 export class RemindComponent implements OnInit {
 
-  constructor(private myHttpService: HttpService) { }
+  constructor(private noteService: NoteService) { }
   @Input() noteRemindeCard;
   @Output() remindEmit = new EventEmitter();
   @Output() eventValue = new EventEmitter();
@@ -52,12 +52,11 @@ export class RemindComponent implements OnInit {
 
 
   addReminder(valueTime2) {
-    this.myHttpService.postArchive('notes/addUpdateReminderNotes',
-      {
-        "noteIdList": [this.noteRemindeCard.id],
-        "reminder": valueTime2
-      },
-      localStorage.getItem('token')).subscribe((result) => {
+    var requestBody =  {
+      "noteIdList": [this.noteRemindeCard.id],
+      "reminder": valueTime2
+    }
+    this.noteService.addReminder(requestBody).subscribe((result) => {
         console.log(result);
         this.remindEmit.emit({
         })

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { MatSnackBar } from '@angular/material';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 @Component({
   selector: 'app-pin',
@@ -15,7 +15,7 @@ export class PinComponent implements OnInit {
   public isPinned = false;
   public apiPinned = true;
   token = localStorage.getItem('token');
-  constructor(private myHttpService: HttpService, public snackBar: MatSnackBar) { }
+  constructor(private noteService: NoteService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if (this.notePinCard != undefined && this.notePinCard.isDeleted == true) {
@@ -37,12 +37,14 @@ export class PinComponent implements OnInit {
       arr.push(this.notePinCard.id);
       console.log(arr);
       if (this.notePinCard.id != undefined) {
-        this.myHttpService.postDel("/notes/pinUnpinNotes",
-        {
-          "isPined": this.apiPinned,
-          "noteIdList": arr
-        
-        }, this.token).subscribe((data)=>{
+        var requestBody = {
+          
+            "isPined": this.apiPinned,
+            "noteIdList": arr
+          
+          
+        }
+        this.noteService.pin(requestBody).subscribe((data)=>{
         //   this.snackBar.open("pinned","success", {
         //   duration: 1000,
         // }),

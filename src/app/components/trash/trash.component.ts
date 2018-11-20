@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { Inote } from '../../core/models/Inote'
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 @Component({
   selector: 'app-trash',
@@ -7,33 +9,35 @@ import { HttpService } from '../../core/services/httpservice/http.service';
   styleUrls: ['./trash.component.scss']
 })
 export class TrashComponent implements OnInit {
-  notes = [];
+
   access_token = localStorage.getItem("token");
   deleteNotesForever = "delete";
-  constructor(private myHttpService: HttpService) { }
+  private notes = [] as Array<Inote>
+  constructor(private noteService: NoteService) { }
 
   ngOnInit() {
     this.deleteNotes();
 
   }
 
-  receiveMessage($event){
+  receiveMessage($event) {
     this.deleteNotes();
   }
 
   deleteNotes() {
-    this.myHttpService.trashNotes("notes/getTrashNotesList", this.access_token).subscribe(
+    this.noteService.getTrashNotes().subscribe(
       data => {
-        this.notes=[];
-        console.log("successful", data['data'].data);
-        for (var i = data['data'].data.length - 1; i >= 0; i--) {
-          if (data['data'].data[i].isDeleted == true) {
-            this.notes.push(data['data'].data[i]);
+        this.notes = [];
+        var trashNotes: Inote[] = data['data'].data
+        LoggerService.log("successful", trashNotes);
+        for (var i = trashNotes.length - 1; i >= 0; i--) {
+          if (trashNotes[i].isDeleted == true) {
+            this.notes.push(trashNotes[i]);
           }
         }
-        console.log("array", this.notes)
+        LoggerService.log("array", this.notes)
       })
   }
 
- 
+
 }

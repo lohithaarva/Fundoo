@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { DataService } from "../../core/services/dataservice/data.service";
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { DataService } from "../../core/services/dataservice/data.service";
 })
 export class SearchComponent implements OnInit {
 
-  constructor( private myHttpService: HttpService,public data:DataService) { }
+  constructor( private noteService: NoteService,public data:DataService) { }
   main = [];
   notes = [];
   globalSearch:any;
@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
   }
 
   getCardsList() {
-    this.myHttpService.getNotes("notes/getNotesList", this.access_token).subscribe(
+    this.noteService.getNotes().subscribe(
       data => {
         this.notes = [];
         // console.log("successful", data['data'].data);

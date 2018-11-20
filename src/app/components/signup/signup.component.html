@@ -35,14 +35,18 @@
                 <div class="password-container">
                     <div class="password">
                         <mat-form-field>
-                            <input matInput placeholder="Enter your password" minlength="6" [formControl]="password"
-                                [(ngModel)]="info.password" required [type]="hide ? 'password' : 'text'" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
+                            <input matInput placeholder="Enter your password"
+                             minlength="6" [formControl]="password"
+                                [(ngModel)]="info.password" required 
+                                [type]="hide ? 'password' : 'text'" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
                             <mat-error *ngIf="password.invalid"> {{getErrorMessagepassword()}}</mat-error>
                         </mat-form-field>
                     </div>
                     <mat-form-field>
-                        <input matInput placeholder="Confirm password" minlength="6" [formControl]="confirmPassword"
-                            [(ngModel)]="info.confirmPassword" [type]="hide ? 'password' : 'text'">
+                        <input matInput placeholder="Confirm password" 
+                        minlength="6" [formControl]="confirmPassword"
+                            [(ngModel)]="info.confirmPassword" 
+                            [type]="hide ? 'password' : 'text'">
                         <mat-error *ngIf="confirmPassword.invalid">
                             {{getErrorMessageconfirmPassword()}}</mat-error>
                         <mat-icon matSuffix (click)="hide = !hide">
@@ -55,7 +59,8 @@
                 <mat-card-subtitle> Subscribe</mat-card-subtitle>
                 <div flexLayout="row" fxFlexLayout="center" fxLayoutGap="-100px" class="cards">
                     <div fxFlex.lg="50" *ngFor="let data of card">
-                        <mat-card mat-button (click)=" displayCards(data)" [ngClass]="data.choose? 'choose': 'notchosen'">
+                        <mat-card mat-button (click)=" displayCards(data)" 
+                        [ngClass]="data.choose? 'choose': 'notchosen'">
                             <mat-card-title fxLayout="row" class=" card-title ">
                                 {{data.name}}</mat-card-title>
                             <mat-card-content class="description">

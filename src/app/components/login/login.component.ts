@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup , Validators} from '@angular/forms'
-import { HttpService } from '../../core/services/httpservice/http.service';
 import {LoggerService} from '../../core/services/logger/logger.service';
 import { MessageServiceService } from 'src/app/core/services/message-service/message-service.service';
+import { UserService } from 'src/app/core/services/userService/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +15,9 @@ import { MessageServiceService } from 'src/app/core/services/message-service/mes
 })
 
 
-export class LoginComponent implements OnInit {
-constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
+export class LoginComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+constructor(public snackBar: MatSnackBar,private userService: UserService,
    private router:Router,
    private msgService: MessageServiceService ) { }
   info:any = {};
@@ -46,15 +49,15 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
     }
   }
   changeDivState(){
-    // console.log(this.info.email);
-    // console.log(this.info.password); 
     LoggerService.log(this.info.email); 
-    this.myHttpService
-      .postlogin('user/login', {
-        "email": this.info.email,
-        "password":this.info.password 
-          
-      }).subscribe(
+    var requestBody = {
+      "email": this.info.email,
+        "password":this.info.password      
+    }
+    this.userService
+      .loginPost(requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           // console.log("POST Request is successful ", data);
           LoggerService.log("POST Request is successful" , data) 
@@ -76,7 +79,7 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
           var body={
           'pushToken':pushToken
           }
-          this.myHttpService.deleteNotes('/user/registerPushToken',body,token)
+          this.userService.registerToken(body)
           .subscribe(data=>
           {
           console.log(data)
@@ -96,5 +99,10 @@ constructor(public snackBar: MatSnackBar,private myHttpService: HttpService,
   
   ngOnInit() {
    
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

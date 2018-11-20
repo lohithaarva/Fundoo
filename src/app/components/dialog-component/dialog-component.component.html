@@ -2,14 +2,16 @@
   <div [style.backgroundColor]="data.color">
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <span fxFlex="90">
-        <mat-dialog-content class="mat-typography" class="inputTitleNote" contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
+        <mat-dialog-content class="mat-typography" class="inputTitleNote" 
+        contenteditable="true" id="titleId" data-text="" [innerHTML]="data.title">
         </mat-dialog-content>
       </span>
       <span fxFlex="10"> 
       <img class="pinIcon" src="../../../assets/images/pin.svg" alt="">
       </span>
     </div>
-    <div class="inputNote" id="notesId" contenteditable="true" data-text="" [innerHTML]="data.description"></div>
+    <div class="inputNote" id="notesId" contenteditable="true" 
+    data-text="" [innerHTML]="data.description"></div>
 
    <!------------------------ Checklist start--------------------------->
 
@@ -52,7 +54,7 @@
       <div *ngFor="let labelChip of data.noteLabels">
         <mat-chip-list >
           <mat-chip class="reminderChipAlign">{{labelChip.label}}
-            <mat-icon matChipRemove (click)="remove(labelChip.id, data.id)">cancel</mat-icon>
+            <mat-icon matChipRemove (click)="removelabel(labelChip.id, data.id)">cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>
       </div>

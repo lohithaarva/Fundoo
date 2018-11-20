@@ -2,11 +2,11 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 import { MatDialog } from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WrappedNodeExpr } from '@angular/compiler';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 
 
@@ -33,7 +33,7 @@ export class NoteCardComponent implements OnInit {
   this.remindToday.getDate() + 1)
 
 
-  constructor(public dialog: MatDialog, private myHttpService: HttpService,
+  constructor(public dialog: MatDialog, private noteService: NoteService,
      private data: DataService,
      private router: Router) {
     this.data.currentDelete.subscribe(message => {
@@ -71,11 +71,12 @@ export class NoteCardComponent implements OnInit {
   }
 
   remove(labelId, noteId) {
-    // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
-    this.myHttpService.addNotes("/notes/" + noteId + "/addLabelToNotes/" + labelId + "/remove", {
+    var requestBody = {
       "noteId": noteId,
       "lableId": labelId
-    }, localStorage.getItem('token'))
+    }
+    // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
+    this.noteService.removeLabelFromNotes(requestBody ,noteId , labelId)
       .subscribe(Response => {
         LoggerService.log(Response);
         this.eventEmit.emit({})
@@ -88,11 +89,10 @@ export class NoteCardComponent implements OnInit {
   reminderDelete(note) {
     var id = note.id;
     LoggerService.log('reminder note id is', id);
-    this.myHttpService.postArchive('/notes/removeReminderNotes',
-      {
-        "noteIdList": [id]
-      },
-      localStorage.getItem('token')).subscribe(
+    var requestBody = {
+      "noteIdList": [id]
+    }
+    this.noteService.deleteReminder(requestBody).subscribe(
         (data) => {
           LoggerService.log("POST Request is successful ", data);
           this.eventEmit.emit({});

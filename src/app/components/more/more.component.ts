@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, EventEmitter, Output } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { TrashDialogComponent } from '../trash-dialog/trash-dialog.component';
 import {MatDialog} from '@angular/material';
+import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class MoreComponent implements OnInit {
   close: string;
 checkboxLabel = [];
 search : any;
-  constructor(private myHttpService : HttpService,public dialog: MatDialog) { }
+  constructor(private noteService : NoteService,public dialog: MatDialog) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
   @Output() labelEvent = new EventEmitter();
@@ -44,11 +44,12 @@ search : any;
 
   deleteCard(id){
     console.log(this.noteDeleteCard);
-    this.myHttpService.deleteNotes('/notes/trashNotes',{
+    var requestBody = {
       "isDeleted": true,
       "noteIdList":[this.noteDeleteCard.id]
-    }, this.token).subscribe(
-      (data) =>{
+    }
+    this.noteService.trash(requestBody)
+          .subscribe(data =>{
         console.log("Post Request is successful", data);
         this.delete.emit({})
         },error=>{
@@ -58,7 +59,7 @@ search : any;
 
   getLabels() {
   
-    this.myHttpService.get("noteLabels/getNoteLabelList", localStorage.getItem('token')).subscribe(
+    this.noteService.getNoteLabellist().subscribe(
       response => {
         this.checkboxLabel = response['data']['details'];
       })
@@ -71,8 +72,8 @@ search : any;
         
         // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
           console.log(id)
-          this.myHttpService.addNotes("/notes/" + this.noteDeleteCard.id + "/addLabelToNotes/" + id.id + "/add",{"noteId" : this.noteDeleteCard.id,
-        "lableId" : id.id}, localStorage.getItem('token'))
+          this.noteService.removeLabelFromNotes(this.noteDeleteCard.id, id.id ,{"noteId" : this.noteDeleteCard.id,
+        "lableId" : id.id})
             .subscribe(Response => {
               console.log(Response);
               this.delete.emit({})
@@ -83,10 +84,11 @@ search : any;
 }
 /******************** delete notes permanentely ***************/
 deleteForEver(){
-    this.myHttpService.deleteNotes("/notes/deleteForeverNotes", {
-      "isDeleted": true,
-      "noteIdList": [this.noteDeleteCard.id]
-    }, this.token).subscribe(
+  var requestBody = {
+    "isDeleted": true,
+    "noteIdList": [this.noteDeleteCard.id]
+  }
+  this.noteService.deleteForever(requestBody).subscribe(
       data => {
         console.log("delete forever successfull", data);
         this.delete.emit({})
@@ -96,10 +98,11 @@ deleteForEver(){
     }
 /******************** unarchive **************************/ 
 restore(){
-      this.myHttpService.deleteNotes("/notes/trashNotes", {
-        "isDeleted": false,
-        "noteIdList": [this.noteDeleteCard.id]
-      }, this.token).subscribe(
+  var requestBody = {
+    "isDeleted": false,
+    "noteIdList": [this.noteDeleteCard.id]
+  }
+      this.noteService.trash(requestBody).subscribe(
         data => {
           console.log("delete forever successfull", data);
           this.delete.emit({})

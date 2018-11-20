@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../core/services/httpservice/http.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/userService/user.service';
 
 
 
@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
   public card = [];
   info: any = {};
   service;
-  constructor(private myHttpService: HttpService, public snackBar: MatSnackBar, private router:Router) { }
+  constructor(private userService: UserService, public snackBar: MatSnackBar, private router:Router) { }
 
   email = new FormControl('', [Validators.required, Validators.email]);
   firstName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
 
-    this.myHttpService.getData("user/service")
+    this.userService.getCards()
 
       .subscribe((response) => {
         var data = response["data"];
@@ -111,15 +111,16 @@ export class SignupComponent implements OnInit {
     console.log(this.info.lastName);
     console.log(this.info.email);
     console.log(this.info.password);
-    this.myHttpService
-      .postData('user/userSignUp', {
-        "firstName": this.info.firstName,
+    var requestBody = {
+      "firstName": this.info.firstName,
         "lastName": this.info.lastName,
         "service": this.service,
         "email": this.info.email,
         "emailVerified": true,
         "password": this.info.password,
-      }).subscribe(
+    }
+    this.userService
+      .signupPost(requestBody).subscribe(
         (data) => {
           console.log("POST Request is successful ", data);
           this.router.navigateByUrl('home')
