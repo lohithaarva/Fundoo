@@ -1,28 +1,26 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { OuterSubscriber } from 'rxjs/internal/OuterSubscriber';
 import { MatDialog } from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WrappedNodeExpr } from '@angular/compiler';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
-
-
-
 
 @Component({
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
   styleUrls: ['./note-card.component.scss']
 })
-export class NoteCardComponent implements OnInit {
-  @Input()  word;
+export class NoteCardComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  @Input() word;
   @Input() length;
   @Input() deleteNotesForever;
   @Input() globalSearch;
   @Input() cardAdded;
-  // @Input() unarchiveEvent;
   @Output() eventEmit = new EventEmitter();
   private messageDeleted: boolean;
   private condition = true;
@@ -34,20 +32,22 @@ export class NoteCardComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, private noteService: NoteService,
-     private data: DataService,
-     private router: Router) {
-    this.data.currentDelete.subscribe(message => {
-      if (message) {
-        this.eventEmit.emit({
-        })
-      }
-    })
-
-    this.data.currentView.subscribe(message => {
-      this.condition = message;
-    })
+    private data: DataService,
+    private router: Router) {
+    this.data.currentDelete
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => {
+        if (message) {
+          this.eventEmit.emit({
+          })
+        }
+      })
+    this.data.currentView
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => {
+        this.condition = message;
+      })
   }
-  
 
   messageDelete(event) {
     LoggerService.log("i m here for deleting the card")
@@ -63,11 +63,13 @@ export class NoteCardComponent implements OnInit {
       // panelClass: 'myapp-no-padding-dialog'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      LoggerService.log(result);
-      this.eventEmit.emit({
-      })
-    });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        LoggerService.log(result);
+        this.eventEmit.emit({
+        })
+      });
   }
 
   remove(labelId, noteId) {
@@ -75,15 +77,14 @@ export class NoteCardComponent implements OnInit {
       "noteId": noteId,
       "lableId": labelId
     }
-    // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
-    this.noteService.removeLabelFromNotes(requestBody ,noteId , labelId)
+    this.noteService.removeLabelFromNotes(requestBody, noteId, labelId)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(Response => {
         LoggerService.log(Response);
         this.eventEmit.emit({})
       }, error => {
         LoggerService.log(error)
       })
-    // }
   }
 
   reminderDelete(note) {
@@ -92,7 +93,9 @@ export class NoteCardComponent implements OnInit {
     var requestBody = {
       "noteIdList": [id]
     }
-    this.noteService.deleteReminder(requestBody).subscribe(
+    this.noteService.deleteReminder(requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           LoggerService.log("POST Request is successful ", data);
           this.eventEmit.emit({});
@@ -137,8 +140,12 @@ export class NoteCardComponent implements OnInit {
     var labelName = result.label;
     this.router.navigate(['home/labelNotes/' + labelName]);
   }
-  ngOnInit() {
+  ngOnInit() { }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }
 

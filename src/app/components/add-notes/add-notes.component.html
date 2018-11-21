@@ -1,107 +1,103 @@
-<div class="flex-container" fxFlex fxLayout="column" fxlayoutalign="center">
-    <div style="margin-top:10vh;height: 100%; align-items: center">
-        <mat-card *ngIf="enterExpression" class="takeNotes">
-            <mat-card-title class="notesTitle">
-                <div>
-                    <span><input (click)="enterExpression=!enterExpression" class="inputTitle" placeholder="Take a note..."></span>
-                </div>
-                <div>
-                    <i class="material-icons icons" (click)="enterExpression=!enterExpression" (click)="boxClicked=!boxClicked">
-                        <mat-icon>check_box</mat-icon>
-                    </i>
-                </div>
-
-            </mat-card-title>
-        </mat-card>
+<mat-card *ngIf="enterExpression" class="hiddentakeNotes">
+    <div fxLayout="row">
+        <div fxFlex="90">
+            <input (click)="enterExpression=!enterExpression" class="inputTitle" placeholder="Take a note...">
+        </div>
+        <div fxFlex="10" class="checkBoxAlign">
+            <i class="material-icons icons" (click)="enterExpression=!enterExpression" (click)="boxClicked=!boxClicked">
+                <mat-icon>check_box</mat-icon>
+            </i>
+        </div>
     </div>
-    <mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes">
-        <div class="hiddenDiv">
-            <span>
-                <div><img (eventEmit)="pinEvent()" class="pinIcon" src="../../../assets/images/pin.svg" alt="">
-                </div>
-
-                <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title"></div>
-            </span>
-        </div>
-        <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" (click)="checked = false"
-            #description></div>
-
-        <!-------------------------- Checklist start---------------------------->
-        <div *ngIf="!boxClicked" id="title" autofocus #description>
-            <div class="check" *ngFor="let data of dataArray" id="note" fxLayout="row">
-
-                <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked></mat-checkbox>
-                <input fxFlex="90" class="inputNote1" id="note" [(ngModel)]=data.data (keydown)="editing($event.data)">
-                <mat-icon class="cancel" fxFlex="5%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
+</mat-card>
+<mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes">
+    <div class="hiddenDiv">
+        <span>
+            <div><img (eventEmit)="pinEvent()" class="pinIcon" src="../../../assets/images/pin.svg" alt="">
             </div>
 
-            <mat-divider></mat-divider>
+            <div class="inputTitleNote" contenteditable="true" id="titleId" data-text="Title" fxLayout="row"></div>
+        </span>
+    </div>
+    <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" (click)="checked = false"
+        #description ngStyle.xs="width: 70px;"></div>
 
-            <div class="check" fxLayout="row" id="title" id="note" autofocus #description>
-                <mat-icon class="cancel" fxFlex="5%">add</mat-icon>
-                <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" (click)="checked = true" [(ngModel)]=data.data
-                    placeholder="list item" (keydown)="enter($event)">
-            </div>
-            <mat-divider></mat-divider>
+    <!-------------------------- Checklist start---------------------------->
+    <div *ngIf="!boxClicked" id="title" autofocus #description>
+        <div class="check" *ngFor="let data of dataArray" id="note" fxLayout="row">
+
+            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked></mat-checkbox>
+            <input fxFlex="90" class="inputNote1" id="note" [(ngModel)]=data.data (keydown)="editing($event.data)">
+            <mat-icon class="cancel" fxFlex="5%" (click)=ondelete(data) matTooltip="delete">cancel</mat-icon>
         </div>
 
-        <!-------------------------- Checklist stop---------------------------->
-        <!------------------------- Label chips start -------------------------->
+        <mat-divider></mat-divider>
+
+        <div class="check" fxLayout="row" id="title" id="note" autofocus #description>
+            <mat-icon class="cancel" fxFlex="5%">add</mat-icon>
+            <input id="note" [(ngModel)]=data fxFlex="95%" class="inputNote" (click)="checked = true" [(ngModel)]=data.data
+                placeholder="list item" (keydown)="enter($event)">
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+
+    <!-------------------------- Checklist stop---------------------------->
+    <!------------------------- Label chips start -------------------------->
 
 
-        <div fxLayout="row" fxFlexAlign="end end">
-            <div *ngFor="let labelChip of labelChipName">
+    <div fxLayout="row" fxFlexAlign="end end">
+        <div *ngFor="let labelChip of labelChipName">
+            <mat-chip-list>
+                <mat-chip>{{labelChip.label}}
+                    <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+
+    <!--------------------------Label chip stop --------------------------->
+
+    <!------------------------- reminder chip start ----------------------------->
+
+    <div fxLayout="row">
+        <div *ngFor="let remaind of arrayRemind">
+            <div *ngIf="(remindToday | date:'shortDate') == (remaind | date:'shortDate')">
                 <mat-chip-list>
-                    <mat-chip>{{labelChip.label}}
+                    <mat-chip class="reminderChipAlign"> Today {{remaind| date:'shortTime'}}
+                        <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+            <div *ngIf="(remindTomorrow | date:'shortDate') == (remaind | date:'shortDate')">
+                <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> Tomorrow {{remaind| date:'shortTime'}}
+                        <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+            <div *ngIf="(remindToday | date:'shortDate')  !== (remaind | date:'shortDate') &&
+                            (remindTomorrow | date:'shortDate') !== (remaind | date:'shortDate')">
+                <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> {{remaind| date:'shortTime'}}
                         <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
                     </mat-chip>
                 </mat-chip-list>
             </div>
         </div>
-
-        <!--------------------------Label chip stop --------------------------->
-
-        <!------------------------- reminder chip start ----------------------------->
-
-        <div fxLayout="row">
-            <div *ngFor="let remaind of arrayRemind">
-                <div *ngIf="(remindToday | date:'shortDate') == (remaind | date:'shortDate')">
-                    <mat-chip-list>
-                        <mat-chip class="reminderChipAlign"> Today {{remaind| date:'shortTime'}}
-                            <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                </div>
-
-                <div *ngIf="(remindTomorrow | date:'shortDate') == (remaind | date:'shortDate')">
-                    <mat-chip-list>
-                        <mat-chip class="reminderChipAlign"> Tomorrow {{remaind| date:'shortTime'}}
-                            <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                </div>
-
-                <div *ngIf="(remindToday | date:'shortDate')  !== (remaind | date:'shortDate') &&
-                            (remindTomorrow | date:'shortDate') !== (remaind | date:'shortDate')">
-                    <mat-chip-list>
-                        <mat-chip class="reminderChipAlign"> {{remaind| date:'shortTime'}}
-                            <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                        </mat-chip>
-                    </mat-chip-list>
-                </div>
-            </div>
+    </div>
+    <!-------------------------- reminder chip stop ------------------------------->
+    <span>
+        <div fxLayoutAlign="space-around center" class="noteCardIcon">
+            <app-remind [noteRemindeCard]="note" (eventValue)="newvalue($event)"></app-remind>
+            <app-collaborator></app-collaborator>
+            <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
+            <app-add-image></app-add-image>
+            <app-add-archive [noteArchiveCard]="note"></app-add-archive>
+            <app-more (labelEvent)=addLabel($event)></app-more>
+            <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
         </div>
-        <!-------------------------- reminder chip stop ------------------------------->
-        <span>
-            <div fxLayoutAlign="space-around center"  class="noteCardIcon">
-                <app-remind [noteRemindeCard]="note" (eventValue)="newvalue($event)"></app-remind>
-                <app-collaborator></app-collaborator>
-                <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
-                <app-add-image></app-add-image>
-                <app-add-archive [noteArchiveCard]="note"></app-add-archive>
-                <app-more (labelEvent)=addLabel($event)></app-more>
-                <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>
-            </div>
-        </span>
-    </mat-card>
-</div>
+    </span>
+</mat-card>
+<!-- </div> -->

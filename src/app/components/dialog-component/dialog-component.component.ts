@@ -1,4 +1,6 @@
-import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { NoteCardComponent } from '../note-card/note-card.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
@@ -17,11 +19,11 @@ export interface DialogData {
   styleUrls: ['./dialog-component.component.scss'],
 
 })
-export class DialogComponentComponent implements OnInit {
+export class DialogComponentComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   token = localStorage.getItem('token')
   @Output() updateEvent = new EventEmitter();
   @Output() eventEmit = new EventEmitter();
-  // @Input() deleteNotesInDialog;
   public checklist = false;
   public modifiedCheckList;
   public title;
@@ -40,12 +42,14 @@ export class DialogComponentComponent implements OnInit {
       "title": document.getElementById('titleId').innerHTML,
       "description": document.getElementById('notesId').innerHTML
     }
-    this.noteService.noteUpdate(requestBody).subscribe(data => {
-      LoggerService.log('response', data);
-      this.dialogRef.close();
-      this.updateEvent.emit({
+    this.noteService.noteUpdate(requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log('response', data);
+        this.dialogRef.close();
+        this.updateEvent.emit({
+        })
       })
-    })
     this.dialogRef.close();
   }
 
@@ -77,7 +81,6 @@ export class DialogComponentComponent implements OnInit {
         "noteLabels": ""
       }
       this.noteService.noteUpdate(requestBody).subscribe(data => {
-        // console.log(data,"data");
         this.snackBar.open("note updated successfully", "update", {
           duration: 10000,
         });
@@ -89,8 +92,8 @@ export class DialogComponentComponent implements OnInit {
         "itemName": this.modifiedCheckList.itemName,
         "status": this.modifiedCheckList.status
       }
-      // var url = "notes/" + this.data['id'] + "/checklist/" + this.modifiedCheckList.id + "/update";
-      this.noteService.updateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
+      this.noteService.updateChecklist(JSON.stringify(apiData), this.data.id, 
+                                        this.modifiedCheckList.id)
         .subscribe(response => {
           LoggerService.log(response);
           this.eventEmit.emit({})
@@ -131,7 +134,6 @@ export class DialogComponentComponent implements OnInit {
   }
 
   removeCheckList() {
-    // var url = "notes/" + this.data['id'] + "/checklist/" + this.removedList.id + "/remove";
     this.noteService.removeChecklist(null, this.data.id, this.removedList.id)
       .subscribe(response => {
         LoggerService.log(response);
@@ -211,9 +213,11 @@ export class DialogComponentComponent implements OnInit {
       this.checklist = true;
     }
     this.tempArray = this.data['noteCheckLists']
-
-
-
   }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 
 }

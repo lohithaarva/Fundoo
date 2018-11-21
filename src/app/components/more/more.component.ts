@@ -1,6 +1,8 @@
-import { Component, OnInit,Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit,Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { TrashDialogComponent } from '../trash-dialog/trash-dialog.component';
 import {MatDialog} from '@angular/material';
+import { Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
 
 
@@ -9,7 +11,8 @@ import { NoteService } from 'src/app/core/services/noteservice/note.service';
   templateUrl: './more.component.html',
   styleUrls: ['./more.component.scss']
 })
-export class MoreComponent implements OnInit {
+export class MoreComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>(); 
   close: string;
 checkboxLabel = [];
 search : any;
@@ -20,7 +23,6 @@ search : any;
   @Input() deleteNotesForever;
   
   ngOnInit() {
-             
               this.getLabels();
               }
 
@@ -29,7 +31,9 @@ search : any;
     const dialogRef = this.dialog.open(TrashDialogComponent, { 
     });
     
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       console.log(result);
       if(result == true){
         this.deleteForEver();
@@ -41,7 +45,6 @@ search : any;
 
   }
 
-
   deleteCard(id){
     console.log(this.noteDeleteCard);
     var requestBody = {
@@ -49,6 +52,7 @@ search : any;
       "noteIdList":[this.noteDeleteCard.id]
     }
     this.noteService.trash(requestBody)
+    .pipe(takeUntil(this.destroy$))
           .subscribe(data =>{
         console.log("Post Request is successful", data);
         this.delete.emit({})
@@ -72,8 +76,9 @@ search : any;
         
         // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
           console.log(id)
-          this.noteService.removeLabelFromNotes(this.noteDeleteCard.id, id.id ,{"noteId" : this.noteDeleteCard.id,
+          this.noteService.addLabeltoNotes(this.noteDeleteCard.id, id.id ,{"noteId" : this.noteDeleteCard.id,
         "lableId" : id.id})
+        .pipe(takeUntil(this.destroy$))
             .subscribe(Response => {
               console.log(Response);
               this.delete.emit({})
@@ -88,7 +93,9 @@ deleteForEver(){
     "isDeleted": true,
     "noteIdList": [this.noteDeleteCard.id]
   }
-  this.noteService.deleteForever(requestBody).subscribe(
+  this.noteService.deleteForever(requestBody)
+  .pipe(takeUntil(this.destroy$))
+  .subscribe(
       data => {
         console.log("delete forever successfull", data);
         this.delete.emit({})
@@ -102,13 +109,18 @@ restore(){
     "isDeleted": false,
     "noteIdList": [this.noteDeleteCard.id]
   }
-      this.noteService.trash(requestBody).subscribe(
+      this.noteService.trash(requestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         data => {
           console.log("delete forever successfull", data);
           this.delete.emit({})
-         
-  
         })
+      }
+      ngOnDestroy() {
+        this.destroy$.next(true);
+        // Now let's also unsubscribe from the subject itself:
+        this.destroy$.unsubscribe();
       }
   
 }

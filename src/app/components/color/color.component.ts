@@ -31,7 +31,8 @@ export class ColorComponent implements OnInit, OnDestroy {
       this.noteService.changeColor({
         "color": colorcode,
         "noteIdList": [this.noteColorCard.id]
-      }).subscribe(
+      }) .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           LoggerService.log("Color Request is successful", data);
           this.emitColor.emit()

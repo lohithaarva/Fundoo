@@ -1,14 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { AuthService } from '../../core/services/authguard/auth.service';
 import { Inote } from '../../core/models/Inote'
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>(); 
   private notes = [] as Array<Inote>
   private pinNotes =[] as Array<Inote>
   access_token = localStorage.getItem("token");
@@ -39,11 +42,12 @@ export class NotesComponent implements OnInit {
     }
 
   getCardsList() {
-    this.noteService.getNotes().subscribe(
+    this.noteService.getNotes()      
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       data => {
         this.notes = [];
         var notesArray:Inote[] = data['data'].data
-        // console.log("successful", notesArray);
         for (var i = notesArray.length - 1; i >= 0; i--) {
           if (notesArray[i].isDeleted == false 
           && notesArray[i].isArchived == false 
@@ -61,7 +65,9 @@ export class NotesComponent implements OnInit {
         }
  
       getPinnedList() {
-        this.noteService.getNotes().subscribe(
+        this.noteService.getNotes()      
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           data => {
             this.pinNotes = [];
             var notesArray:Inote[] = data['data'].data 
@@ -80,6 +86,12 @@ export class NotesComponent implements OnInit {
               console.log("Error" , error);
             }
             }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
           }
 
 

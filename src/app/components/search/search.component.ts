@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { Inote } from '../../core/models/Inote'
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 
 
 @Component({
@@ -8,67 +12,58 @@ import { NoteService } from 'src/app/core/services/noteservice/note.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
 
-  constructor( private noteService: NoteService,public data:DataService) { }
+export class SearchComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private noteService: NoteService, public data: DataService) { }
   main = [];
-  notes = [];
-  globalSearch:any;
+  private notes = [] as Array<Inote>
+  globalSearch: any;
   access_token = localStorage.getItem('token');
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message=>{
+    this.data.currentMessage
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message => {
       this.globalSearch = message;
-      console.log("searching note cards");
-      
+      LoggerService.log("searching note cards");
     })
     this.getCardsList();
   }
 
   getCardsList() {
-    this.noteService.getNotes().subscribe(
-      data => {
-        this.notes = [];
-        // console.log("successful", data['data'].data);
-        for (var i = data['data'].data.length - 1; i >= 0; i--) {
-          if (data['data'].data[i].isDeleted == false && data['data'].data[i].isArchived == false) {
-            this.notes.push(data['data'].data[i]);
-          }
-        }
-        console.log("array", this.notes)
-        // this.first=[];
-        // this.second=[];
-        // this.third=[];
-        this.main=[];
-        for(var index=0; index<(this.notes.length) ; index++)
-        {
-          if(this.notes[index].isDeleted == false ){
-            this.main.push(this.notes[index])
-            
-          }
-        }
+    this.noteService.getNotes()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        data => {
+          this.notes = [];
+          var notesArray:Inote[] = data['data'].data
 
-        console.log("Main data ", this.main);
-        console.log(this.notes.length);
-        
-        for(var index=0; index<(this.notes.length) ; index++)
-        {
-            console.table(this.notes[index]);
-          if(this.notes[index].isDeleted == false){ 
-            console.log(index);
-            // if(index%3 == 0){
-            //   this.first.push(this.notes[index]);
-            // }else if(index % 3 == 1){
-            //   this.second.push(this.notes[index]);
-            // }else{
-            //   this.third.push(this.notes[index]);
-            // }
-
+          for (var i =notesArray.length - 1; i >= 0; i--) {
+            if (notesArray[i].isDeleted == false && notesArray[i].isArchived == false) {
+              this.notes.push(notesArray[i]);
+            }
           }
-        }
-        
-      })
+          this.main = [];
+          for (var index = 0; index < (this.notes.length); index++) {
+            if (this.notes[index].isDeleted == false) {
+              this.main.push(this.notes[index])
+
+            }
+          }
+          for (var index = 0; index < (this.notes.length); index++) {
+            // console.table(this.notes[index]);
+            if (this.notes[index].isDeleted == false) {
+              LoggerService.log(index);
+            }
+          }
+
+        })
   }
-
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

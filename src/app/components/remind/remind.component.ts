@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatMenu } from '@angular/material';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-remind',
@@ -9,7 +12,8 @@ import { NoteService } from 'src/app/core/services/noteservice/note.service';
   styleUrls: ['./remind.component.scss'],
   exportAs: 'menuInOtherComponent',
 })
-export class RemindComponent implements OnInit {
+export class RemindComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();   
 
   constructor(private noteService: NoteService) { }
   @Input() noteRemindeCard;
@@ -49,14 +53,15 @@ export class RemindComponent implements OnInit {
     "date": new FormControl(new Date()),
     "time": ""
   }
-
-
+  
   addReminder(valueTime2) {
     var requestBody =  {
       "noteIdList": [this.noteRemindeCard.id],
       "reminder": valueTime2
     }
-    this.noteService.addReminder(requestBody).subscribe((result) => {
+    this.noteService.addReminder(requestBody)    
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((result) => {
         console.log(result);
         this.remindEmit.emit({
         })
@@ -87,8 +92,6 @@ export class RemindComponent implements OnInit {
   }
 
   addRemindCustom(date, timing) {
-    //console.log(date);
-    // console.log(timing);
     timing.match('^[0-2][0-3]:[0-5][0-9]$');
 
     if (timing == '8:00 AM') {
@@ -129,6 +132,11 @@ export class RemindComponent implements OnInit {
         this.addReminder(valueTime8);
       }
     }
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }
 

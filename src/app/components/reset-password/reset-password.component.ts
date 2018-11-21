@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/core/services/userService/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();   
   service;
   info:any = {}; 
   password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
@@ -39,6 +42,7 @@ export class ResetPasswordComponent implements OnInit {
       this.input.append('newPassword', this.info.password);
       console.log(this.input)
       this.userService.setPassword((body))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(response=>{
         console.log("successfull",response);
         this.router.navigateByUrl('login')
@@ -49,6 +53,11 @@ export class ResetPasswordComponent implements OnInit {
     }
   
   ngOnInit() {
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 }

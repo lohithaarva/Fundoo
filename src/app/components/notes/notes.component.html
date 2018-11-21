@@ -1,5 +1,17 @@
 <!-------------------- Displaying notes which are pinned as well as other notes ---------->
+<div fxLayout = "column">
+<div fxFLex = "30">
+<div style="margin-top:10vh;height: 100%;" fxFlex= "row">
+<div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="5" fxFlex.sm="0" fxFlex.xs="0"></div>
+<div  fxFlex.xl="60% " fxFlex.lg="60%" fxFlex.md="90" fxFlex.sm=100 fxFlex.xs=100 >
 <app-add-notes (messageEvent)="receiveMessage($event)" (newDate) = "addNotes($event)"></app-add-notes>
-    <app-note-card fxLayoutAlign="start center"  [cardAdded]="pinNotes" [length] = 'pinNotes.length' [word] = "'Pinned'" (eventEmit)="receiveMessage($event)"></app-note-card>
-    <app-note-card fxLayoutAlign="start center"  [cardAdded]="notes" (eventEmit)="receiveMessage($event)" [length] = 'pinNotes.length' [word] = "'Others'"></app-note-card>
-<!----------------------------- End of displaying notes ------------------------------------>
+</div>
+<div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="5" fxFlex.sm="0" fxFlex.xs="0"></div>
+</div>
+</div>
+<div fxFLex = "70">
+<app-note-card fxLayoutAlign="start start"  [cardAdded]="pinNotes" [length] = 'pinNotes.length' [word] = "'Pinned'" (eventEmit)="receiveMessage($event)"></app-note-card>
+<app-note-card fxLayoutAlign="start center"  [cardAdded]="notes" (eventEmit)="receiveMessage($event)" [length] = 'pinNotes.length' [word] = "'Others'"></app-note-card>
+</div>
+</div>
+    <!----------------------------- End of displaying notes ------------------------------------>

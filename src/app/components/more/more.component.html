@@ -1,25 +1,21 @@
-<span class="more"[matMenuTriggerFor]="menu" matTooltip="More">
-  <i class="material-icons">more_vert</i></span>
 <mat-menu #menu="matMenu">
-    <button  mat-menu-item *ngIf = "deleteNotesForever != 'delete'"
-             (click) = "deleteCard(noteDeleteCard.id)">Delete</button>
-    <button mat-menu-item *ngIf = "deleteNotesForever != 'delete'" 
-            [matMenuTriggerFor]="AddLabels"> Add label</button>
-    <button mat-menu-item *ngIf = "deleteNotesForever != 'delete'">Show CheckList</button>
+  <button mat-menu-item *ngIf="deleteNotesForever != 'delete'" (click)="deleteCard(noteDeleteCard.id)">Delete</button>
+  <button mat-menu-item *ngIf="deleteNotesForever != 'delete'" [matMenuTriggerFor]="AddLabels"> Add label</button>
 
-    <button mat-menu-item *ngIf = "deleteNotesForever == 'delete'" 
-            (click) = "openTrashDialog()">Delete forever</button>
-    <button mat-menu-item *ngIf = "deleteNotesForever == 'delete'" 
-            (click) = "restore()">Restore</button>
-    </mat-menu>
+  <button mat-menu-item *ngIf="deleteNotesForever == 'delete'" (click)="openTrashDialog()">Delete forever</button>
+  <button mat-menu-item *ngIf="deleteNotesForever == 'delete'" (click)="restore()">Restore</button>
+</mat-menu>
+<span class="more" [matMenuTriggerFor]="menu" matTooltip="More">
+  <i class="material-icons">more_vert</i></span>
 
-    <mat-menu #AddLabels="matMenu" ><div>Label Note</div>
-      <div fxLayout="row" (click)="$event.stopPropagation()"> 
-        <mat-icon fxFlex="15%">search</mat-icon>
-        <input placeholder="Enter label" fxFlex="85%" [(ngModel)]="search" class="searchLabel"> 
-      </div>
-       <div *ngFor="let boxLabel of checkboxLabel | LockFilter:search"> 
-         <mat-checkbox class="checkBox"  (click)="$event.stopPropagation(); selectLabel(boxLabel)">
-                       {{boxLabel.label}}</mat-checkbox>
-       </div>
-    </mat-menu>
+<mat-menu #AddLabels="matMenu">
+  <div>Label Note</div>
+  <div fxLayout="row" (click)="$event.stopPropagation()">
+    <mat-icon fxFlex="15%">search</mat-icon>
+    <input placeholder="Enter label" fxFlex="85%" [(ngModel)]="search" class="searchLabel">
+  </div>
+  <div *ngFor="let boxLabel of checkboxLabel | LockFilter:search">
+    <mat-checkbox class="checkBox" (click)="$event.stopPropagation(); selectLabel(boxLabel)">
+      {{boxLabel.label}}</mat-checkbox>
+  </div>
+</mat-menu>

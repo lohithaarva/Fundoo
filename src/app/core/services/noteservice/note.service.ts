@@ -194,7 +194,7 @@ addNotes(RequestBody) {
     return this.service.PostJson(this.url, RequestBody)
 
   }
-  addLabeltoNotes(RequestBody, noteId, labelId) {
+  addLabeltoNotes(noteId, labelId, RequestBody ) {
 
     this.url = this.baseUrl + "/notes/" + noteId + "/addLabelToNotes/" + labelId + "/add"
     return this.service.PostJson(this.url, RequestBody)

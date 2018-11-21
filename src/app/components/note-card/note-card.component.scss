@@ -1,7 +1,6 @@
 .note-card{
     cursor: pointer;
-    border-radius:3%;
-   
+    border-radius:3%; 
 }
 .note-card:hover .iconInvisible {
     visibility: visible;
@@ -26,7 +25,6 @@
 }
 .iconInvisible{
     visibility: hidden;
-    /* padding-left:10px; */
 }
 .centerdiv{
     width:784px;
@@ -40,7 +38,6 @@
     flex-wrap: wrap;
     margin:-10px;
     width:500px;
-  /* flex-flow: row wrap; */
 }
 .collectionCards{
   margin-top:6vh;
@@ -82,12 +79,6 @@
   ::ng-deep.element.style {
     margin-left: 9px;
 }
-
-// .chipListLabels{
-//     margin-top: 9px;
-//     margin-bottom: 10px;
-
-// }
 .containerCard
 {
     display: flex;   
@@ -113,6 +104,32 @@
   overflow:  hidden !important;
   width:40px;
 }
-// .labelALignBorders{
-//   width: 50px;
+.mat-icon-button[_ngcontent-c16] i[_ngcontent-c16] {
+  line-height: 24px;
+  margin-top: 14% !important;
+  margin-top: -3%;
+}
+.cardsAlignBottom{
+  margin-bottom: 5%;
+}
+.reminderChipAlign[_ngcontent-c28] {
+  margin-left: 23px;
+  margin-top: 14px;
+}
+// ::ng-deep.mat-chip-list-wrapper {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   margin-top: 3px;
+//   margin: 0px;
+//   margin: -4% !important;
+// }
+// @media only screen and (min-width: 600px) and (max-width: 735px)
+// {
+// .list
+// {
+// margin-top: 20px;
+// width:300px;
+// }
 // }

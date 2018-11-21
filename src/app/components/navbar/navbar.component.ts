@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
@@ -22,7 +22,8 @@ import { Inote } from '../../core/models/Inote'
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -65,11 +66,13 @@ export class NavbarComponent {
   ngOnInit() {
 
     this.noteCard();
-    this.changeHeader(this.header);
+    this.header = localStorage.getItem('header')
+    
   }
   /** Method to change header names */
   changeHeader(header) {
-    this.header = header
+    this.header = header;
+    localStorage.setItem('header',header)
   }
   onEnterIcon(event) {
     if (event.key === "Enter") {
@@ -83,25 +86,27 @@ export class NavbarComponent {
   }
 
   noteCard() {
-this.note=[];
+    this.note = [];
     this.firstName = localStorage.getItem("firstName");
     console.log(this.firstName)
     this.lastName = localStorage.getItem("lastname");
     this.email = localStorage.getItem("email");
-    this.noteService.getNoteLabellist().subscribe(
-      response => {
-        console.log("accessToken", this.accessToken)
-        var noteLabelNotes: Inote[] = response['data']['details']
-        for (var i = 0; i < noteLabelNotes.length; i++) {
-          if (noteLabelNotes[i].isDeleted == false) {
-            this.note.push(noteLabelNotes[i]);
+    this.noteService.getNoteLabellist()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        response => {
+          console.log("accessToken", this.accessToken)
+          var noteLabelNotes: Inote[] = response['data']['details']
+          for (var i = 0; i < noteLabelNotes.length; i++) {
+            if (noteLabelNotes[i].isDeleted == false) {
+              this.note.push(noteLabelNotes[i]);
+            }
           }
-        }
-        this.value = this.note;
+          this.value = this.note;
 
-      }, error => {
-        console.log("failed", error)
-      })
+        }, error => {
+          console.log("failed", error)
+        })
   }
   /** Method to logout from the account */
   signout() {
@@ -123,10 +128,12 @@ this.note=[];
       data: '{ labelDialog: this.value }'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.noteCard();
-      console.log('The dialog was closed');
-    });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.noteCard();
+        console.log('The dialog was closed');
+      });
   }
 
   keySearch() {
@@ -145,7 +152,6 @@ this.note=[];
   cardsInList() {
     this.grid = 1;
     this.data.changeView(false);
-
   }
 
   /** notecards in grid view */
@@ -178,17 +184,25 @@ this.note=[];
       data: data
     });
 
-    dialogRefPic.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.data.currentMsg.subscribe(message => this.pic = message)
-      console.log("pic", this.pic);
-      if (this.pic == true) {
-        this.newimage2 = localStorage.getItem('imageUrl');
-        console.log(this.newimage2, "image is here");
-        this.img = "http://34.213.106.173/" + this.newimage2;
-      }
+    dialogRefPic.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        console.log('The dialog was closed');
+        this.data.currentMsg.subscribe(message => this.pic = message)
+        console.log("pic", this.pic);
+        if (this.pic == true) {
+          this.newimage2 = localStorage.getItem('imageUrl');
+          console.log(this.newimage2, "image is here");
+          this.img = "http://34.213.106.173/" + this.newimage2;
+        }
 
-    });
+      });
+  }
+  
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 

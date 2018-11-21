@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/userService/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 
 
@@ -11,13 +14,14 @@ import { UserService } from 'src/app/core/services/userService/user.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   hide = true;
   records = {};
   public card = [];
   info: any = {};
   service;
-  constructor(private userService: UserService, public snackBar: MatSnackBar, private router:Router) { }
+  constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router) { }
 
   email = new FormControl('', [Validators.required, Validators.email]);
   firstName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
@@ -53,7 +57,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
     this.userService.getCards()
-
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
         var data = response["data"];
         for (var i = 0; i < data.data.length; i++) {
@@ -75,36 +79,36 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  check=false;
+  check = false;
   next() {
 
     console.log(this.service)
-    if (this.info.firstName == 0 || this.info.lastName == 0 || this.info.email == 0 || 
-     this.info.password == 0 || this.service==0  ){
+    if (this.info.firstName == 0 || this.info.lastName == 0 || this.info.email == 0 ||
+      this.info.password == 0 || this.service == 0) {
       console.log("fill all the details")
       this.snackBar.open("Fill in all the details", "signup failed", {
         duration: 2000
       })
       return;
     }
-// else if(!this.info.firstName == this.info.lastName){
-//   console.log("give a valid name");
-//      this.check=true;
-//      this.snackBar.open("Firstname or Lastname doesnt match", "signup failed", {
-//        duration: 2000
-//      })
-//         return;
+    // else if(!this.info.firstName == this.info.lastName){
+    //   console.log("give a valid name");
+    //      this.check=true;
+    //      this.snackBar.open("Firstname or Lastname doesnt match", "signup failed", {
+    //        duration: 2000
+    //      })
+    //         return;
 
-//     }
+    //     }
 
-     else if(!this.info.password ==this.info.confirmPassword){
-     console.log("give same password to confirm");
-     this.check=true;
-     this.snackBar.open("Password doesnot match", "signup failed", {
-       duration: 2000
-     })
-        return;
-   }
+    else if (!this.info.password == this.info.confirmPassword) {
+      console.log("give same password to confirm");
+      this.check = true;
+      this.snackBar.open("Password doesnot match", "signup failed", {
+        duration: 2000
+      })
+      return;
+    }
 
     console.log(this.service.length)
     console.log(this.info.firstName);
@@ -113,11 +117,11 @@ export class SignupComponent implements OnInit {
     console.log(this.info.password);
     var requestBody = {
       "firstName": this.info.firstName,
-        "lastName": this.info.lastName,
-        "service": this.service,
-        "email": this.info.email,
-        "emailVerified": true,
-        "password": this.info.password,
+      "lastName": this.info.lastName,
+      "service": this.service,
+      "email": this.info.email,
+      "emailVerified": true,
+      "password": this.info.password,
     }
     this.userService
       .signupPost(requestBody).subscribe(
@@ -126,11 +130,14 @@ export class SignupComponent implements OnInit {
           this.router.navigateByUrl('home')
         },
         error => {
-        
+
           console.log("Error", error);
         })
-
-        
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 }

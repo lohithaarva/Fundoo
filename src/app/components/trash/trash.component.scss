@@ -12,18 +12,6 @@
 .note-card{
     width:290px;
 }
-    /* .hiddentakeNotes {
-        width:290px;
-       border-radius:2px;
-        position: relative;
-        left: 0;
-        right: 0;
-        margin: auto;
-        margin-top: -50px;
-        padding: 5px;
-        margin-bottom: 5px; 
-        margin-left: initial; 
-     }  */
     
   .hiddenDiv {
     padding: 10px;
@@ -52,5 +40,6 @@
 }
 ::ng-deep.more{
     margin-top: 7%;
+    margin-left: 15%;
     cursor: pointer;
 }

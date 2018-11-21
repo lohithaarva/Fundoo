@@ -1,12 +1,13 @@
 .takeNotes {
-    width: 600px;
     height: 46px;
     height: 46px!important;
     left: 0;
     right: 0;
-    margin: auto;
+    margin-top:2px;
     padding: 4px;
     border-radius:7px;
+    width: 80%;
+
   }
   .inputTitle {
     width: 80%;
@@ -16,10 +17,17 @@
     font-size: 15px;
     margin-left: 20px;   
   }
+  .notesTitle{
+      width: 80%;  
+  }
+  .checkBoxAlign{
+      margin-top: 30px
+  }
   .inputTitleNote {
     border: none;
     outline: none;
     width: 80%;
+    width: stretch;
     font-size: 16px;
     font-weight: 600;
     cursor:text;
@@ -30,6 +38,7 @@
     border: none;
     cursor: text;
     width: 80%;
+    width: stretch;
     font-size: 16px;
     padding-left: 10px;
 }
@@ -40,15 +49,14 @@
     padding-top: 5px;
 }
 .hiddentakeNotes 
-{
-    width: 580px;
+{ 
     position: relative;
     left: 0;
     right: 0;
     margin: auto;
-    margin-top: -50px;
     padding: 5px;
     margin-bottom: 5px;
+    width: 100%
 } 
 .hiddenDiv {
     padding: 10px;
@@ -67,7 +75,7 @@
 }
 
 .hiddentakeNotes {
-    width: 580px;
+    width: 80%;
     position: relative;
     left: 0;
     right: 0;
