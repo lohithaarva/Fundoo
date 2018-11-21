@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -51,6 +51,7 @@ import { PinComponent } from './components/pin/pin.component';
 import { MessageServiceService } from './core/services/message-service/message-service.service';
 import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
 
 
 
@@ -128,6 +129,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
     }
   ],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
