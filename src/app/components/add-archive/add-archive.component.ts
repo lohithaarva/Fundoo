@@ -4,7 +4,6 @@ import { takeUntil } from 'rxjs/operators';
 import { NoteService } from '../../core/services/noteservice/note.service';
 import { MatSnackBar } from '@angular/material';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-import { httpService } from 'src/app/core/services/httpservice/http.service';
 
 @Component({
   selector: 'app-add-archive',
@@ -18,16 +17,13 @@ export class AddArchiveComponent implements OnInit, OnDestroy {
   @Output() unarchiveEvent = new EventEmitter();
 
   constructor(public noteService: NoteService,
-    public snackBar: MatSnackBar,
-    public service: httpService) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
   ngOnInit() { }
-  token = localStorage.getItem('token')
-
   cardArchive() {
     var RequestBody = {
       "isArchived": true,
@@ -41,10 +37,7 @@ export class AddArchiveComponent implements OnInit, OnDestroy {
           duration: 10000,
         });
         this.archiveEvent.emit();
-      }),
-      error => {
-        LoggerService.log("Error", error);
-      }
+      })
   }
 
   unarchiveNotes() {
@@ -58,11 +51,6 @@ export class AddArchiveComponent implements OnInit, OnDestroy {
       this.snackBar.open("note unarchived successfully,please check in notes", "notes", {
         duration: 10000,
       });
-    }),
-      error => {
-        LoggerService.log("Error", error);
-
-      }
+    })
   }
-
 }

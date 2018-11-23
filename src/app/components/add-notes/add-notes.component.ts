@@ -1,12 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ColorComponent } from '../color/color.component';
 import { LoggerService } from '../../core/services/logger/logger.service';
-import { Inote } from '../../core/models/Inote'
 import { NoteService } from '../../core/services/noteservice/note.service';
-
-
 
 @Component({
   selector: 'app-add-notes',
@@ -26,26 +22,22 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   labelChipName = [];
   labelChipId = [];
   private dataArray = [];
-  public dataArrayCheck = [];
-  public body: any = {}
-  public isChecked = false;
-  public addCheck = false;
-  public modifiedCheckList;
-  checked;
-  public status = "open";
-  public i = 0;
-  data;
+  private dataArrayCheck = [];
+  private isChecked = false;
+  private addCheck = false;
+  private checked;
+  private status = "open";
+  private i = 0;
+  private data;
   dataarray = [];
-  public reminderAdd;
-  public remindToday = new Date();
-  public remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
-    this.remindToday.getDate() + 1)
+  private reminderAdd;
+  private remindToday = new Date();
 
 
   note = {
     'isArchived': false,
     'id': ''
-  }
+  } 
 
   constructor(private noteService: NoteService) { }
   @Output() messageEvent = new EventEmitter();

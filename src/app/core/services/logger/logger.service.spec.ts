@@ -11,11 +11,7 @@ beforeEach(() => {
 
 TestBed.configureTestingModule({
 
-providers: [
-
-LoggerService
-
-]
+providers: [ LoggerService ]
 
 });
 

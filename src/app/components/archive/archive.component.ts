@@ -35,7 +35,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          LoggerService.log("Error", error);
+          // LoggerService.log("Error", error);
         })
   }
 
