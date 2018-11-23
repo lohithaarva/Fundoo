@@ -1,3 +1,6 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+ 
 [contenteditable=true]:empty:before{
     content: attr(placeholder);
     display: block; 
@@ -25,7 +28,7 @@
 }
 .flot
 {
-    cursor: pointer;
+    cursor: $cursor_type;
     float: right;
 }
 .content
@@ -40,7 +43,7 @@
 }
 .labelList{
     margin-top: 4%;
-    cursor: pointer;
+    cursor: $cursor_type;
 }
 .lock:hover .icon-unlock,
 .lock .icon-lock {
@@ -50,7 +53,7 @@
     display: inline;
 }
 .universal{
-    cursor: pointer;
+    cursor: $cursor_type;
 }
 
 /* 

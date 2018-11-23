@@ -1,10 +1,12 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
 .remind 
 {
     opacity: .54;
     float: left;
     cursor: pointer;
     margin-left: -5px;
-    // margin-top: -3px;
     margin-right: 2px;
 }
 .reminderIconAlign[_ngcontent-c16] {

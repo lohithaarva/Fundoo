@@ -1,3 +1,6 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+ 
 .container{
   height: 100vh;
   display : flex;
@@ -12,30 +15,29 @@
   font-size: 25px; 
 }
 
-
 .heading div:nth-child(1)
 {
-  color: blue;
+  color: $blue_color;
 }
 .heading div:nth-child(2)
 {
-  color:red;
+  color: $red_color;
 }
 .heading div:nth-child(3)
 {
-  color:yellow;
+  color: $yellow_color;
 }
 .heading div:nth-child(4)
 {
-  color:blue;
+  color: $blue_color;
 }
 .heading div:nth-child(5)
 {
-  color:green;
+  color: $green_color;
 }
 .heading div:nth-child(6)
 {
-  color:red;
+  color: $red_color;
 }
 .password{
   width:100%;

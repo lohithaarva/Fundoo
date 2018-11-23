@@ -62,4 +62,8 @@ registerToken(RequestBody){
   this.url = this.baseUrl +"/user/registerPushToken";
   return this.service.PostJson(this.url,RequestBody)
 }
+searchUserList(RequestBody){
+  this.url = this.baseUrl +"/user/searchUserList";
+  return this.service.PostJson(this.url,RequestBody);
+}
 }

@@ -1,3 +1,6 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
 .container{
     height: 100vh;    
 }
@@ -32,27 +35,27 @@
   /**************************Fundoo color ***********************************/
 .signup-heading div:nth-child(1)
 {
-  color: blue;
+  color: $blue_color;
 }
 .signup-heading div:nth-child(2)
 {
-  color:red;
+  color: $red_color;
 }
 .signup-heading div:nth-child(3)
 {
-  color:yellow;
+  color: $yellow_color;
 }
 .signup-heading div:nth-child(4)
 {
-  color:blue;
+  color: $blue_color;
 }
 .signup-heading div:nth-child(5)
 {
-  color:green;
+  color: $green_color;
 }
 .signup-heading div:nth-child(6)
 {
-  color:red;
+  color: $red_color;
 }
 /***************************************************************************************/
 .sign-container{
@@ -67,22 +70,16 @@
 }
 
 .choose{
-  width:150px;
-  height:80px;
-  color:white;
+  @include choose($white_color);
   background:linear-gradient(to right, rgb(0, 0, 0), rgb(67, 67, 67));
   
 }
 .notchosen{
-  width:150px;
-  height:80px;
-  color:black;
+  @include choose($black_color);
   background: linear-gradient(to right, rgb(31, 64, 55), rgb(153, 242, 200));
 }
 .cards{
- 
-  cursor:pointer;
-  
+  cursor:$cursor_type;
 }
 .description{
 font-size:12px

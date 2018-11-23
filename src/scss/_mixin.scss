@@ -1,0 +1,77 @@
+@import './variables.scss'; 
+
+@mixin choose($property){
+    width:150px;
+    height:80px;
+    color: $property;
+}
+
+@mixin search() { 
+  align-items: center;
+  height:41px;
+  border-radius: 5px; 
+}
+
+@mixin sidenav-container(){
+    height: 100%;
+    width: 100%;
+}
+
+@mixin toggle(){
+    opacity: 0.54;
+}
+
+@mixin searchBar(){
+    color: $black_color;
+    opacity: $opacity;
+    background-color: $yellow_color;
+    border:0px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+@mixin listItem(){
+    border:none;
+    outline:none;
+}
+
+@mixin mainTitleLabels(){
+    margin-left: 10px;
+    color: $grey_color;
+    letter-spacing: .07272727em;
+    font-family: $font-stack;
+    font-size: .6875rem;
+    font-weight: 500;
+    line-height: 1rem;
+    text-transform: uppercase;
+}
+
+@mixin inputTitle(){
+    width: 80%;
+    border: none;
+    outline: none;
+}
+
+@mixin inputNote(){
+    cursor: text;
+    width: stretch;
+    font-size: 16px;
+}
+
+@mixin collaborator(){
+    background-position: center;
+    opacity: .54;;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+    margin-right: 6px;
+}
+
+// @mixin card-generator($card-bg-color) { // take a color as a parameter
+//     background-color: $card-bg-color;
+//     text-align: center;
+//     word-wrap: break-word;
+//   }
+ 

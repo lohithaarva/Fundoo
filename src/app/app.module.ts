@@ -52,6 +52,7 @@ import { MessageServiceService } from './core/services/message-service/message-s
 import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
+import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 
 
 
@@ -88,7 +89,8 @@ import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
     TrashDialogComponent,
     CropImageComponent,
     LabelTrashDialogComponent,
-    PinComponent
+    PinComponent,
+    CollaboratorDialogComponent
     
     
   ],
@@ -136,7 +138,7 @@ import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
     }
   ],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
-                    LabelTrashDialogComponent],
+                    LabelTrashDialogComponent, CollaboratorDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

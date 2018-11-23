@@ -1,8 +1,9 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
 .takeNotes {
     height: 46px;
     height: 46px!important;
-    left: 0;
-    right: 0;
     margin-top:2px;
     padding: 4px;
     border-radius:7px;
@@ -10,9 +11,7 @@
 
   }
   .inputTitle {
-    width: 80%;
-    border: none;
-    outline: none;
+    @include inputTitle();
     margin-top: 7px;
     font-size: 15px;
     margin-left: 20px;   
@@ -24,51 +23,25 @@
       margin-top: 30px
   }
   .inputTitleNote {
-    border: none;
-    outline: none;
-    width: 80%;
-    width: stretch;
-    font-size: 16px;
+    @include inputTitle();
+    @include  inputNote();
     font-weight: 600;
-    cursor:text;
-    opacity: .54;
+    opacity: $opacity_property;
 }
 .inputNote{
-    outline: none;
-    border: none;
-    cursor: text;
-    width: 80%;
-    width: stretch;
-    font-size: 16px;
+    @include inputTitle();
+    @include  inputNote();
     padding-left: 10px;
 }
 .pinIcon {
     float: right;
-    opacity: 0.5;
+    opacity: $opacity_level;
     padding-left: 450px;
     padding-top: 5px;
 }
-.hiddentakeNotes 
-{ 
-    position: relative;
-    left: 0;
-    right: 0;
-    margin: auto;
-    padding: 5px;
-    margin-bottom: 5px;
-    width: 100%
-} 
 .hiddenDiv {
     padding: 10px;
 }
-.icons {
-    float: right;
-    width: 40px;
-    height: 40px;
-    opacity: 0.5;
-    margin-top: -17px;
-    cursor: pointer;
-  }
 
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
@@ -77,8 +50,6 @@
 .hiddentakeNotes {
     width: 80%;
     position: relative;
-    left: 0;
-    right: 0;
     margin: auto;
     border-radius:7px;
     padding: 5px;
@@ -94,26 +65,21 @@
     margin-top: 5%;
 }
 ::ng-deep.addIcon{
-    opacity: .54;
+    opacity: $opacity_property;
     margin-top: 19px;
     margin-left: 12px;
     font-size:17px;
 }
 .listItem{
     margin-top: 4%;
-    border:none;
-    outline:none;
+   @include listItem();
 }
 .cancel{
-    cursor: pointer;
+    cursor: $cursor_type;
 }
 .note{
-    outline: none;
-    border: none
+    @include listItem();
 }
 .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
     margin: 4px !important;
 }
-// .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
-//     margin: 6px;
-// }

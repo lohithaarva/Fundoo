@@ -1,11 +1,6 @@
-.image{
-    background-position: center;
-    opacity: .54;;
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
-    display: inline-block;
-    outline: none!important;
-    margin-right: 6px;
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
 
+.image{
+    @include collaborator();
 }

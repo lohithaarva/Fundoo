@@ -1,77 +1,60 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+  
   .inputTitle {
-    width: 80%;
-    border: none;
-    outline: none;
+   @include inputTitle();
     margin-top: 7px;
     font-size: 15px;
     margin-left: 20px;   
   }
   .inputTitleNote {
-    border: none;
-    outline: none;
-    width: 80%;
+    @include inputTitle();
     font-size: 16px;
     font-weight: 600;
-    cursor:text;
+    cursor:$cursor_text;
     margin-top: 4%;
     margin-left: -1%;
 }
-.inputNote{
-    outline: none;
-    border: none;
-    cursor: text;
-    width: 80%;
+  .inputNote{
+    @include inputTitle();
+    cursor: $cursor_text;
     font-size: 16px;
     padding-left: 10px;
     margin-left: 2%;
     word-wrap: break-word;
 }
-// .pinIcon {
-//     float: right;
-//     opacity: 0.5;
-//     padding-left: 450px;
-//     margin-top: -3%;
-//     margin-right: 3%;
-// }
-// .pinIcon{
- 
-//   margin-top: 35%;
-// }
   .icons {
     float: right;
     width: 40px;
     height: 40px;
-    opacity: 0.5;
+    opacity:$opacity_level;
     margin-top: -17px;
-    cursor: pointer;
+    cursor: $cursor_type;
   }
 
   [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
 }
-.closeButton{
+  .closeButton{
     float:right;
 }
-
-
-.iconCheck{
+  .iconCheck{
   margin-left: 9px;
 }
-.note{
-  outline: none;
-    border: none;  
+  .note{
+  @include listItem()
 }
-.reminderChipAlign{
+  .reminderChipAlign{
   margin-left: 23px;
   margin-top: 14px;
 }
-.mat-dialog-container {
+  .mat-dialog-container {
   overflow: hidden;
 }
-.mat-typography{
+  .mat-typography{
   margin: 4%;
 }
-.overAllCard{
+  .overAllCard{
   width: 490px;
-    height: 65px;
+  height: 65px;
 }

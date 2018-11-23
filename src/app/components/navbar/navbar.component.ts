@@ -9,7 +9,6 @@ import { DataService } from "../../core/services/dataservice/data.service";
 import { environment } from 'src/environments/environment';
 import { CropImageComponent } from '../crop-image/crop-image.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
-import { TouchSequence } from 'selenium-webdriver';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
 import { UserService } from 'src/app/core/services/userService/user.service';
 import { Inote } from '../../core/models/Inote'
@@ -62,6 +61,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private pic;
   private image = {};
   private note = [] as Array<Inote>
+  apiUrl = environment.apiUrl;
 
   ngOnInit() {
 
@@ -161,7 +161,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   /** Method to crop the profile image  */
   public newimage2 = localStorage.getItem('imageUrl');
-  img = "http://34.213.106.173/" + this.newimage2;
+  img = environment.apiUrl + this.newimage2;
   token = localStorage.getItem('token');
   onFileSelected(event) {
     var token = localStorage.getItem('token');
@@ -193,7 +193,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         if (this.pic == true) {
           this.newimage2 = localStorage.getItem('imageUrl');
           console.log(this.newimage2, "image is here");
-          this.img = "http://34.213.106.173/" + this.newimage2;
+          this.img = environment.apiUrl+ this.newimage2;
         }
 
       });

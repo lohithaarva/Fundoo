@@ -1,9 +1,9 @@
-<!----------------------------------- Toolbar Starts----------------------------------->
+<!-- --------------------------------- Toolbar Starts----------------------------------->
 
 <!-----------------------------mattoolbar starts --------------------------------->
-<!-- <div fxLayout="row" > -->
 <div fxLayout="row">
-  <mat-toolbar class="toolbar">
+  <!-- <div> -->
+      <mat-toolbar>
 
     <!------------------ toggle initiates --------------->
     <div fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="15%">
@@ -38,7 +38,7 @@
             (click)="navigate() " placeholder="search">
         </div>
         <div fxFlex.xs="10%" (click)="show = !show ;clickOnSearch = !clickOnSearch">
-          <i (click)="navigate()" class="material-icons">search </i>
+          <i (click)="navigate()" class="material-icons smallerSearchIcon">search </i>
         </div>
 
       </div>
@@ -72,13 +72,11 @@
     <div fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="2%" fxFlex.xs="5%"></div>
   </mat-toolbar>
 </div>
-<!-- </div> -->
 <!---------------------------mattoolbar ends --------------------------------------->
 
 <!-------------------------sidenavigationbar starts --------------------------------->
 
 <mat-sidenav-container class="sidenav-container">
-
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
     <mat-nav-list>
@@ -96,10 +94,7 @@
       <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
         <a class="mainTitle" (click)='changeHeader(result.label)' mat-list-item>
           <mat-icon>label_outline</mat-icon>
-          <!-- <div class="mainTitle"> -->
           <span class="mainTitle" class="sideNavLabels">{{result.label}}</span>
-
-          <!-- </div> -->
         </a>
       </div>
       <a class="mainTitle" (click)=" openDialog()">
@@ -159,4 +154,4 @@
 </div>
 
 <!----------------------------- Profile image matcard stops ---------------------------->
-<!--------------------------- Toolbar ends ------------------------------>
+<!--------------------------- Toolbar ends ---------------------------- -->

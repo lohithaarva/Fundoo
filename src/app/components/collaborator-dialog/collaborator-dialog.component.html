@@ -1,0 +1,36 @@
+<div>
+    <div class="header">Collaborators</div>
+    <hr>
+    <div class="imageIcon" fxLayout="row">
+        <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+        </button>
+        <div fxLayout="column">
+            <div class="imageIcon">
+                {{firstName}} {{lastName}} (owner)
+            </div>
+            <div class="imageIcon emailName">
+                {{email}}
+            </div>
+        </div>
+    </div>
+    <div class="imageIcons" fxLayout="row">
+        <button mat-mini-fab disabled>
+            <mat-icon>person_add</mat-icon>
+        </button>
+        <input  [matMenuTriggerFor] ="appMenu" class="contentDiv imageIcon" [(ngModel)]="collaboratorSearch"
+        (keyup)="keySearch($event)" placeholder="Person or email to share with">
+        <mat-menu #appMenu="matMenu">
+            <div *ngFor="let name of collaboratorList">
+                    <button mat-button>
+                        {{name.firstName}}{{name.lastName}}
+                        <{{name.email}}>
+                    </button>
+            </div>
+           
+        </mat-menu>
+    </div>
+    <div class="buttonsPlace">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+    </div>
+</div>
