@@ -59,8 +59,6 @@ export class NoteCardComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
       data: note,
       width: '450px',
-      // height: '150px',
-      // panelClass: 'myapp-no-padding-dialog'
     });
 
     dialogRef.afterClosed()

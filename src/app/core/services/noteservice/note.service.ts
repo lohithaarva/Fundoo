@@ -256,5 +256,10 @@ addNotes(RequestBody) {
     this.url = this.baseUrl + "/noteLabels/" + labelId + "/deleteNoteLabel";
     return this.service.delete(this.url);
   }
+  addCollaboratorsNotes(RequestBody,noteId){
+    this.url = this.baseUrl + "/notes/" + noteId + "/AddcollaboratorsNotes";
+    return this.service.PostJson(this.url, RequestBody)
+
+  }
 
 }

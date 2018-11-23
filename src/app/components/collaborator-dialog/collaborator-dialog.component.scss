@@ -10,6 +10,7 @@ padding: 0 0 10px 0;
 }
 .header{
     margin: 10px;
+    
 }
 .imageIcon{
     margin-left: 10px;
@@ -49,6 +50,9 @@ padding: 0 0 10px 0;
 }
 ::ng-deep.mat-menu-panel {
     min-width: 112px;
-    max-width: 372px; 
+    max-width: 430px; 
     // width:400px;
+}
+.doneIcon{
+    margin-left: 110%;
 }

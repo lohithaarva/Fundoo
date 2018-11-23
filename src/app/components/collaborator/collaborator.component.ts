@@ -1,6 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
+import { DialogData } from '../dialog-component/dialog-component.component';
 
 
 @Component({
@@ -10,13 +11,18 @@ import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator
 })
 export class CollaboratorComponent implements OnInit {
   private close: string;
+  @Input() collaboratorPop
   constructor(private dialog: MatDialog) { }
 
   openCollaboratorDialog(): void {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, { 
       width: '600px',
-    
+      data: this.collaboratorPop
+      
     });
+ 
+ 
+    
 
     dialogRef.afterClosed()
     .subscribe(result => {

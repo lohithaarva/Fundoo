@@ -166,7 +166,6 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "itemName": this.newList,
         "status": this.status
       }
-      // var url = "notes/" + this.data['id'] + "/checklist/add";
       this.noteService.addChecklist(this.newData, this.data.id)
         .subscribe(response => {
           LoggerService.log(response);

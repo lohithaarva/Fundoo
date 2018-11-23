@@ -125,7 +125,7 @@
           <!-- <span> -->
           <div fxLayout="row" fxLayoutAlign="space-between" class="iconInvisible">
             <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)" *ngIf="deleteNotesForever == delete"></app-remind>
-            <app-collaborator *ngIf="deleteNotesForever == delete"></app-collaborator>
+            <app-collaborator [collaboratorPop]='note' *ngIf="deleteNotesForever == delete"></app-collaborator>
             <app-color *ngIf="deleteNotesForever == delete" [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
             <app-add-image *ngIf="deleteNotesForever == delete"></app-add-image>
             <app-add-archive *ngIf="deleteNotesForever == delete" [noteArchiveCard]="note" (archiveEvent)="archiveEvent($event)"
