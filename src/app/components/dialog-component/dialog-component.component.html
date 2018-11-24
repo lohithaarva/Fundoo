@@ -73,11 +73,23 @@
         </div>
       </div>
     </div>
-
+<br>
     
     <!------------------- chiplist of remainders stops ------------------------>
 
+    <!-------------------------- Collaborator starts -------------------------->
+    <div fxLayout = "row wrap" >
+      <div class="collaboratorIconAlign" 
+            *ngFor="let collaboratorIcon of data.collaborators">
+          <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(data)"  
+          mat-mini-fab >
+            {{collaboratorIcon.firstName | slice : 0:1}}
+            </button>
+      </div>
+      </div>
+    <!------------------------- Collaborator stops  ------------------------->
 
+<br>
     <span class="iconInvisible">
       <div fxLayoutAlign="space-around center"  class="dialogIcons">
         <app-remind></app-remind>
@@ -89,7 +101,6 @@
         <button mat-button class="closeButton" (click)="onNoClick(data.id)">CLOSE</button>
 
       </div>
-
     </span>
   </div>
 </div>

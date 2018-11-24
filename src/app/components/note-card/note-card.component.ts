@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 
 @Component({
   selector: 'app-note-card',
@@ -139,6 +140,18 @@ export class NoteCardComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/labelNotes/' + labelName]);
   }
   ngOnInit() { }
+
+  openCollaboratorDialog(noteData): void {
+    const dialogRef = this.dialog.open(CollaboratorDialogComponent, { 
+      width: '600px',
+      data: noteData,
+      
+    });
+    // dialogRef.afterClosed()
+    // .subscribe(result => {
+    //   this.close = result;  
+    // });
+  }
 
   ngOnDestroy() {
     this.destroy$.next(true);

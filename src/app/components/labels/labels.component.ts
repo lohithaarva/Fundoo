@@ -32,7 +32,7 @@ export class LabelsComponent implements OnInit, OnDestroy {
   onNoClick(): void {
   }
   ngOnInit() {
-    // this.delete();
+    this.delete();
   }
 
   id = localStorage.getItem('userId')
@@ -56,7 +56,7 @@ export class LabelsComponent implements OnInit, OnDestroy {
         console.log("POST Request is successful ", data);
         this.updateLabel.emit({
         })
-        // this.delete();
+        this.delete();
       },
         error => {
           console.log("Error", error);
@@ -132,8 +132,8 @@ export class LabelsComponent implements OnInit, OnDestroy {
           this.noteService.deleteLabel(val).subscribe(
             (data) => {
               console.log("DELETE Request is successful ", data);
-              // this.delete();
-              // this.data.changeDelete(true);
+              this.delete();
+              this.data.changeDelete(true);
             },
             error => {
               console.log("Error", error);

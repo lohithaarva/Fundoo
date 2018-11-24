@@ -33,7 +33,7 @@ export class AddArchiveComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         LoggerService.log("archive note", data);
-        this.snackBar.open("note archived successfully,please check in archive", "archive", {
+        this.snackBar.open("Note archived successfully,please check in archive", "archive", {
           duration: 10000,
         });
         this.archiveEvent.emit();

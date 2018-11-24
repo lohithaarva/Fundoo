@@ -261,5 +261,10 @@ addNotes(RequestBody) {
     return this.service.PostJson(this.url, RequestBody)
 
   }
+  removeCollaborator(id,userId){
+    this.url = this.baseUrl + "/notes/" + id + "/removeCollaboratorsNotes/" + userId;
+    return this.service.delete(this.url);
+
+  }
 
 }

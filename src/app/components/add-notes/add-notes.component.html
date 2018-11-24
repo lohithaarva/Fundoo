@@ -21,6 +21,33 @@
     <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note" (click)="checked = false"
         #description ngStyle.xs="width: 70px;"></div>
 
+
+        <!-------------------------Collaborator start ------------------------>
+        <div *ngIf="!collaboratorDivision">
+                <mat-card class="example-card">
+                        <mat-card-header>
+                          <mat-card-title>Shiba Inu</mat-card-title>
+                          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>
+                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                            bred for hunting.
+                          </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-button>Cancel</button>
+                          <button mat-button>Save</button>
+                        </mat-card-actions>
+                      </mat-card>
+
+        </div>
+
+
+
+
+        <!-------------------------Collaborator stop ------------------------->
     <!-------------------------- Checklist start---------------------------->
     <div *ngIf="!boxClicked" id="title" autofocus #description>
         <div class="check" *ngFor="let data of dataArray" id="note" fxLayout="row">
@@ -90,7 +117,7 @@
     <span>
         <div fxLayoutAlign="space-around center" class="noteCardIcon">
             <app-remind [noteRemindeCard]="note" (eventValue)="newvalue($event)"></app-remind>
-            <app-collaborator></app-collaborator>
+            <app-collaborator (click) = "openCollaboratorDivision()"></app-collaborator>
             <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
             <app-add-image></app-add-image>
             <app-add-archive [noteArchiveCard]="note"></app-add-archive>

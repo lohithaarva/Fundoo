@@ -7,7 +7,7 @@
     margin-top:2px;
     padding: 4px;
     border-radius:7px;
-    width: 80%;
+    width: $width_align;
 
   }
   .inputTitle {
@@ -17,10 +17,10 @@
     margin-left: 20px;   
   }
   .notesTitle{
-      width: 80%;  
+      width: $width_align; 
   }
   .checkBoxAlign{
-      margin-top: 30px
+      margin-top: 4px;
   }
   .inputTitleNote {
     @include inputTitle();

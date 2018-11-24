@@ -11,16 +11,15 @@ import { NoteService } from '../../core/services/noteservice/note.service';
 })
 export class AddNotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  enterExpression = true;
-  boxClicked = true;
-  checklist = {};
-  token = localStorage.getItem('token')
-  changeColor = localStorage.getItem('color');
-  color;
-  inputArea = [];
-  checkBoxArray = [];
-  labelChipName = [];
-  labelChipId = [];
+  private enterExpression = true;
+  private boxClicked = true;
+  private checklist = {};
+  private changeColor = localStorage.getItem('color');
+  private color;
+  private inputArea = [];
+  private checkBoxArray = [];
+  private labelChipName = [];
+  private labelChipId = [];
   private dataArray = [];
   private dataArrayCheck = [];
   private isChecked = false;
@@ -29,9 +28,10 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   private status = "open";
   private i = 0;
   private data;
-  dataarray = [];
+  private dataarray = [];
   private reminderAdd;
   private remindToday = new Date();
+  private collaboratorDivision: boolean = true;
 
 
   note = {
@@ -55,6 +55,18 @@ export class AddNotesComponent implements OnInit, OnDestroy {
       this.enterExpression = !this.enterExpression;
     }
     this.boxClicked = true;
+  }
+
+  divisionEvent(event){
+    if (!this.collaboratorDivision) {
+      this.collaboratorDivision = !this.collaboratorDivision;
+    }
+  
+
+  }  
+  openCollaboratorDivision(){
+    console.log('hie');
+    
   }
   /** Method to add the notes *****/
   exit() {
@@ -95,6 +107,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
           })
       this.color = "#fafafa";
     }
+
     /** Method to add notes along with checklist ****8*/
     else {
       this.reminderAdd = '';
@@ -112,7 +125,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
         this.dataArrayCheck.push(apiObj)
         this.status = "open"
       }
-
       LoggerService.log(this.dataArrayCheck, "here is  datacheck array");
       LoggerService.log(document.getElementById('titleId').innerHTML)
       this.noteService.addNotes({
@@ -157,14 +169,16 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     LoggerService.log(event);
     this.color = event;
   }
+  
+  
 
   /** Method to add labels to notes  */
   addLabel(event) {
     if (this.labelChipName.indexOf(event) < 0) {
       this.labelChipId.push(event.id);
       this.labelChipName.push(event);
-      LoggerService.log(this.labelChipName);
-      LoggerService.log(this.labelChipId);
+      // LoggerService.log(this.labelChipName);
+      // LoggerService.log(this.labelChipId);
     }
     else {
       this.labelChipId.splice(this.labelChipId.indexOf(event), 1);
@@ -193,7 +207,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
   /** Method to delete checklist */
   ondelete(deletedObj) {
-    console.log("ondelete function runnig");
     for (var i = 0; i < this.dataArray.length; i++) {
       if (deletedObj.index == this.dataArray[i].index) {
         this.dataArray.splice(i, 1);
@@ -214,7 +227,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   /** Method to edit checklist  */
   editing(event, edited) {
     if (event.code == "Enter") {
-      LoggerService.log("enter pressed");
       for (var i = 0; i < this.dataArray.length; i++) {
         if (edited.index == this.dataArray[i].index) {
           this.dataArray[i].data == edited.data

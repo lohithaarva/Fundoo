@@ -120,7 +120,17 @@
           </div>
           <!------------------------------- reminder strike out cease ------------->
           <!------------------- chiplist of remainders stops ------------------------>
-          <br><br>
+          <br>
+          <div fxLayout = "row wrap" >
+          <div class="collaboratorIconAlign" 
+                *ngFor="let collaboratorIcon of note.collaborators">
+              <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)"  
+              mat-mini-fab >
+                {{collaboratorIcon.firstName | slice : 0:1}}
+                </button>
+          </div>
+          </div>
+          <br>
           <!-------------------  displaying icons   --------------------------------->
           <!-- <span> -->
           <div fxLayout="row" fxLayoutAlign="space-between" class="iconInvisible">

@@ -1,58 +1,66 @@
-<div>
-    <div class="header"><b>Collaborators</b></div>
+<mat-card>
+    <mat-card-header><b>Collaborators</b></mat-card-header>
     <mat-divider></mat-divider>
-    <div class="imageIcon" fxLayout="row">
-        <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
-        </button>
-        <div fxLayout="column" >
-            <div class="imageIcon">
-                {{firstName}} {{lastName}} (owner)
+    <div class="main">
+        <div class="imageIcon" fxLayout="row">
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="20">
+                <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+                </button>
             </div>
-            <div class="imageIcon emailName">
-                {{email}}
-            </div>
-        </div>
-    </div>
-   
-    <div class="imageIcons" fxLayout="row">
-        <button mat-mini-fab disabled>
-            <mat-icon>person_add</mat-icon>
-        </button>
-       
-        <div fxFlex=50>
-            <input [matMenuTriggerFor]="appMenu"  class="contentDiv imageIcon" 
-            [(ngModel)]="collaboratorSearch" (keyup)="keySearch($event)" 
-                placeholder="Person or email to share with">
-                <div fxFlex = "40"></div>
-            <div class="doneIcon" fxFlex=10>
-                <mat-icon>done</mat-icon>
-            </div>
-        </div>
-        <div fxLayout="row">
-            <mat-menu #appMenu="matMenu">
-                <div *ngFor="let name of collaboratorList">
-                    <button mat-button (click) = "addCollaborator(name); addNames(name.email)">
-                        {{name.firstName}}{{name.lastName}} <{{name.email}}>
-                    </button>
+            <div fxFlex.lg="80" fxFlex.md="80" fxFlex.sm="95" fxFLex.xs="80" fxLayout="column">
+                <div class="imageIcon">
+                    {{firstName}} {{lastName}} (owner)
                 </div>
-            </mat-menu>
+                <div class="imageIcon emailName">
+                    {{email}}
+                </div>
+            </div>
+        </div>
+        <div class="imageIcon" fxLayout="row" class="imageIcons" *ngFor="let value of addCollaboraorNew">
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="20">
+                <button mat-mini-fab disabled>{{value.firstName |slice: 0 : 1}}
+                </button>
+            </div>
+            <div fxFlex.lg="80" fxFlex.md="80" fxFlexsm="70" fxFlex.xs="70" fxLayout="column">
+                <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="0" class=imageIcon>
+                    {{value.firstName}} {{value.lastName}}
+                </div>
+                <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="40" fxFlex.xs="0" class="imageIcon emailName">
+                    {{value.email}}
+                </div>
+            </div>
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="10">
+                <mat-icon (click)="removeCollaborator(value.userId)">cancel</mat-icon>
+            </div>
+        </div>
+        <div class="imageIcons" fxLayout="row">
+            <button mat-mini-fab disabled>
+                <mat-icon>person_add</mat-icon>
+            </button>
+            <div fxFlex=50>
+                <input [matMenuTriggerFor]="appMenu" class="contentDiv imageIcon" [(ngModel)]="collaboratorSearch"
+                    (keyup)="keySearch($event)" placeholder="Person or email to share with">
+                <!-- <div fxFlex="40"></div> -->
+                <div class="doneIcon" fxFlex=10>
+                    <mat-icon *ngIf="show" (click)=enterDetails(collaboratorSearch)>done</mat-icon>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <mat-menu #appMenu="matMenu">
+                    <div *ngFor="let name of collaboratorList">
+                        <button mat-button (click)="clickitem(name.email);addCollaborator(name);">
+                            {{name.firstName}}{{name.lastName}} < {{name.email}}>
+                        </button>
+                    </div>
+                </mat-menu>
+            </div>
         </div>
     </div>
-    <div class="buttonsPlace">
-        <button mat-button mat-dialog-close (click)= "cancelCollaborator()">Cancel</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
-    </div>
-</div>
+    <mat-card-footer class="buttonsPlace" fxLayout="row" fxLayoutAlign="end end">
+        <button mat-button mat-dialog-close (click)="cancelCollaborator()">Cancel</button>
+        <button mat-button [mat-dialog-close]="true">Save</button>
+    </mat-card-footer>
 
-  <!-- <div class="imageIcon" fxLayout = "row" *ngFor = "let list of addCollaboratorName">
-        <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
-        </button>
-        <div fxLayout = "column">
-            <div class = imageIcon>
-                {{list.firstName}} {{list.lastName}}
-            </div>
-            <div class = "imageIcon emailName">
-                {{list.email}}
-            </div>
-        </div>
-    </div> -->
+
+    <!-- </div> -->
+</mat-card>

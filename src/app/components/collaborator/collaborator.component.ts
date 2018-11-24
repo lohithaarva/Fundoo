@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 import { DialogData } from '../dialog-component/dialog-component.component';
@@ -11,29 +11,31 @@ import { DialogData } from '../dialog-component/dialog-component.component';
 })
 export class CollaboratorComponent implements OnInit {
   private close: string;
-  @Input() collaboratorPop
-  constructor(private dialog: MatDialog) { }
+  @Input() collaboratorPop;
+  @Output() collaboratorEvent = new EventEmitter();
+  public isDeleted = false;
 
+  constructor(private dialog: MatDialog) { }
   openCollaboratorDialog(): void {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, { 
       width: '600px',
       data: this.collaboratorPop
       
     });
- 
- 
-    
-
     dialogRef.afterClosed()
     .subscribe(result => {
-      console.log('The dialog was closed');
       this.close = result;  
     });
-
+  }
+  openCollaboratorDivision(){
+  this.collaboratorEvent.emit({
+  })
   }
 
-
   ngOnInit() {
+    if (this.collaboratorPop != undefined && this.collaboratorPop.isDeleted==true){
+      this.isDeleted=true;
+    }
   }
 
 }
