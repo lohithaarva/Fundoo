@@ -2,7 +2,9 @@ import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/cor
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { UserService } from 'src/app/core/services/userService/user.service';
 import { NoteService } from '../../core/services/noteservice/note.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-notes',
@@ -32,6 +34,20 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   private reminderAdd;
   private remindToday = new Date();
   private collaboratorDivision: boolean = true;
+  private img;
+  private email;
+  private firstName;
+  private lastName;
+  private image;
+  private collaboratorSearch; //searchInput
+  private collaboratorList = [];
+  private addCollaboratorName = [];
+  public searchResult = []
+  public collabs = [];
+  private addCollaboraorNew = [];
+  privateaddCollaboraor: any;
+  private show: boolean = false;
+
 
 
   note = {
@@ -39,16 +55,20 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     'id': ''
   } 
 
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NoteService,  private userService: UserService) { }
   @Output() messageEvent = new EventEmitter();
   @Output() newDate = new EventEmitter();
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+  ngOnInit() { 
+    this.email = localStorage.getItem('email');
+    this.firstName = localStorage.getItem('firstName');
+    this.lastName = localStorage.getItem('lastName');
+    this.image = localStorage.getItem('imageUrl');
+    this.img = environment.apiUrl + this.image;
+    // for (let i = 0; i < this.data['collaborators'].length; i++) {
+    //   this.addCollaboraorNew = (this.data['collaborators']);
+    // }
   }
-
-  ngOnInit() { }
   /** Method to hide and show the notes */
   finish() {
     if (!this.enterExpression) {
@@ -78,6 +98,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
         'isPined': false,
         'color': this.color,
         'reminder': this.reminderAdd,
+        'collaberators': JSON.stringify(this.addCollaboraorNew),
       }).pipe(takeUntil(this.destroy$))
         .subscribe(data => {
           this.newDate.emit(data["status"].details)
@@ -87,6 +108,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
           this.labelChipId = [];
           this.reminderAdd = '';
           this.remind = '';
+          this.addCollaboraorNew = [];
           this.messageEvent.emit({
           })
           this.color = "#fafafa";
@@ -98,6 +120,8 @@ export class AddNotesComponent implements OnInit, OnDestroy {
             this.labelChipId = [];
             this.reminderAdd = '';
             this.remind = '';
+            this.addCollaboraorNew = [];
+
           })
       this.color = "#fafafa";
     }
@@ -128,6 +152,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
         'isPined': 'false',
         'color': this.color,
         'reminder': this.reminderAdd,
+        'collaberators': JSON.stringify(this.addCollaboraorNew),
       }).pipe(takeUntil(this.destroy$))
         .subscribe(data => {
           LoggerService.log('POST successful', data); /** Success api request */
@@ -136,6 +161,8 @@ export class AddNotesComponent implements OnInit, OnDestroy {
           this.labelChipId = [];
           this.reminderAdd = '';
           this.remind = '';
+          this.addCollaboraorNew = [];
+
           this.messageEvent.emit({
           })
           this.color = "#fafafa";
@@ -146,6 +173,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
             this.labelChipId = [];
             this.reminderAdd = '';
             this.remind = '';
+            this.addCollaboraorNew = [];
 
             LoggerService.log("Error", error);   /** Unsucessfull api request */
           })
@@ -237,6 +265,59 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     this.labelChipId = [];
   }
 
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  keySearch(event) {
+    var RequestBody = {
+      "searchWord": this.collaboratorSearch,
+    }
+    if (this.collaboratorSearch.length >= 1) {
+      this.show = true;
+    }
+    this.userService.searchUserList(RequestBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        LoggerService.log("collaborator note", data);
+
+        this.collaboratorList = data['data']['details'];
+        LoggerService.log('data', this.collaboratorList);
+      }),
+      error => {
+        LoggerService.log("Error", error);
+      }
+  }
+
+  addCollaborator(name) {
+  }
+  clickitem(email) {
+    LoggerService.log(email);
+    this.collaboratorSearch = email;
+  }
+
+  enterDetails(searchPerson) {
+    for (let index = 0; index < this.collaboratorList.length; index++) {
+      if (this.collaboratorList[index].email == searchPerson) {
+        this.addCollaboraorNew.push(this.collaboratorList[index]);
+      }
+    }
+    this.collaboratorSearch = [];
+  }
+
+  removeCollaborator(userId) {
+        for (var i = 0; i < this.addCollaboraorNew.length; i++) {
+          if (this.addCollaboraorNew[i].userId == userId) {
+            this.addCollaboraorNew.splice(i, 1)
+          }
+        }
+  }
+
+  saveBackToAdd(){
+    this.collaboratorDivision = true;
+  }
 
 }
 

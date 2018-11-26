@@ -39,7 +39,6 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   @Output() emitArchive = new EventEmitter();
   @Input() noteArchiveCard;
   /**EventEmitter:creates an instance of this class that can delliver events  */
-
   /**it is a interface */
   /**OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. */
   ngOnInit() {

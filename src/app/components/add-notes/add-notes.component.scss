@@ -33,8 +33,7 @@
 .pinIcon {
     float: right;
     opacity: $opacity_level;
-    padding-left: 450px;
-    padding-top: 5px;
+    padding-top: 5px 0px 0px 450px;
 }
 .hiddenDiv {
     padding: 10px;
@@ -53,10 +52,11 @@
     margin-bottom: 5px;
   }
   .card{
-    width:550px;
-    border-radius:7px;
-    position: relative;
-    padding: 5px;
+    @include card_align();
+}
+.collaboratorCard{
+    @include card_align();
+    margin-top: 10%;
 }
 .replaceTheCard{
     margin-bottom: 5%;
@@ -89,6 +89,90 @@
 .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
     margin: 4px !important;
 }
-.collaboratorAlign{
-    width: 450px;
-}
+
+/********************************* Collaborator css **********************************/
+.collaboratorHeader{
+    border-bottom: $black_light;
+    font-size: 18px;
+    font-weight: 500;
+    height: 40px;
+    padding: 0 0 10px 0;
+    }
+    .header{
+        margin: 10px;
+        
+    }
+    ::ng-deep.mat-card-footer {
+        display: block;
+        margin: 49px -5px 0px -4px !important;
+    }
+    .imageIcon{
+        // margin-left: $margin;
+        margin-top: 2%;
+        white-space:nowrap;
+        text-overflow: ellipsis;
+        overflow:  hidden !important;
+    }
+    .imageIcons{
+        margin-top: 10px;
+        // margin-left: $margin;
+    
+    }
+    ::ng-deep.mat-dialog-container {
+        display: block;
+        padding: 24px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        overflow: hidden; 
+        outline: 0;
+        @include sidenav-container();
+    }
+    
+    [contentEditable=true]:empty:not(:focus):before{
+        content:attr(data-text)
+    }
+    
+    .contentDiv{
+        @include listItem()
+    }
+    
+    .buttonsPlace{
+    height: $height;
+    background-color: $light_grey;
+    }
+    
+    .buttonPlaceHolder{
+        margin-left: 70%;
+    }
+    
+    .header{
+        margin: 2% 0% 0% 5%;
+    
+    }
+    
+    .emailName{
+        color: $grey_color;
+        @include emailName();
+    }
+    
+    ::ng-deep.mat-menu-panel {
+        min-width: 112px;
+        max-width: 430px; 
+    }
+    
+    .doneIcon{
+        margin-left: 110%;
+    }
+    
+    .divider{
+        margin-top: 5%;
+    }
+    
+    .main{
+    margin-bottom: 2%;
+    }
+    
+    :host::ng-deep.mat-card-header-text {
+        margin: 0 8px ; 
+        margin: 0 0px !important;
+    }

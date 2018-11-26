@@ -104,8 +104,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
           }
           this.value = this.note;
 
-        }, error => {
-          console.log("failed", error)
         })
   }
   /** Method to logout from the account */
@@ -117,8 +115,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         localStorage.clear();
         this.router.navigateByUrl('login')
 
-      }, error => {
-        console.log("failed", error)
       })
   }
   /** Method to display label during popover */

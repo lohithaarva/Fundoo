@@ -1,40 +1,71 @@
+/************************************************************************************************
+*  Execution       :   1. default node         cmd> archive.ts 
+*        
+*  Purpose         :  To display notecards which are archived and also perform functionality
+                      when clicked.
+* 
+*  Description    
+* 
+*  @file           : archive.ts
+*  @overview       : To display notecards which are archived and also perform functionality
+                     when clicked
+*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @author         : LohithaShree <lohitha.arva@gmail.com>
+*  @since          : 20-10-2018
+*
+*************************************************************************************************/
+/**component has imports , decorator & class */
 import { Component, OnInit, Inject, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { NoteCardComponent } from '../note-card/note-card.component';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 
-
+/**To use components in other modules , we have to export them */
 export interface DialogData {
   title: string;
   description: string;
   id: string;
 }
-
+/**A componenet can be reused throughout the application & even in other applications */
 @Component({
-  selector: 'app-dialog-component',
-  templateUrl: './dialog-component.component.html',
-  styleUrls: ['./dialog-component.component.scss'],
-
+  selector: 'app-dialog-component',/**A string value which represents the component on browser at 
+                                  execution time */
+  templateUrl: './dialog-component.component.html',/**External templating process to define html
+                                  tags in component */
+  styleUrls: ['./dialog-component.component.scss'],/**It is used to provide style of components */
 })
+/**To use components in other modules , we have to export them */
 export class DialogComponentComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  token = localStorage.getItem('token')
+  /**Input and Output are two decorators in Angular responsible for 
+      * communication between two components*/
+  /**EventEmitter:creates an instance of this class that can delliver events  */
   @Output() updateEvent = new EventEmitter();
   @Output() eventEmit = new EventEmitter();
-  public checklist = false;
-  public modifiedCheckList;
-  public title;
-  public note;
-  public tempArray = [];
-  public newList;
-  public newData: any = {};
+  private checklist = false;
+  private modifiedCheckList;
+  private title;
+  private note;
+  private tempArray = [];
+  private newList;
+  private newData: any = {};
 
-  constructor(public dialogRef: MatDialogRef<NoteCardComponent>,
+  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<NoteCardComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, public snackBar: MatSnackBar,
     private noteService: NoteService) { }
+
+  /**OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. */
+
+  ngOnInit() {
+    if (this.data['noteCheckLists'].length > 0) {
+      this.checklist = true;
+    }
+    this.tempArray = this.data['noteCheckLists']
+  }
 
   onNoClick(id): void {
     var requestBody = {
@@ -44,7 +75,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     }
     this.noteService.noteUpdate(requestBody)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
+      .subscribe(data => {  /**registers handlers for events emitted by this instance */
         LoggerService.log('response', data);
         this.dialogRef.close();
         this.updateEvent.emit({
@@ -56,14 +87,14 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
   removelabel(labelId, noteId) {
     var requestBody = {
       "noteId": noteId,
-      "lableId": labelId
+      "lableId": labelId 
     }
     this.noteService.removeLabelFromNotes(requestBody, noteId, labelId)
-      .subscribe(Response => {
+    .pipe(takeUntil(this.destroy$))
+      .subscribe( /**registers handlers for events emitted by this instance */
+        Response => {
         LoggerService.log(Response);
         this.eventEmit.emit({})
-      }, error => {
-        LoggerService.log(error)
       })
   }
 
@@ -80,7 +111,8 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "color": "",
         "noteLabels": ""
       }
-      this.noteService.noteUpdate(requestBody).subscribe(data => {
+      this.noteService.noteUpdate(requestBody)
+      .subscribe(data => {
         this.snackBar.open("note updated successfully", "update", {
           duration: 10000,
         });
@@ -92,15 +124,13 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "itemName": this.modifiedCheckList.itemName,
         "status": this.modifiedCheckList.status
       }
-      this.noteService.updateChecklist(JSON.stringify(apiData), this.data.id, 
-                                        this.modifiedCheckList.id)
-        .subscribe(response => {
+      this.noteService.updateChecklist(JSON.stringify(apiData), this.data.id,
+        this.modifiedCheckList.id)
+        .subscribe( /**registers handlers for events emitted by this instance */
+          response => {
           LoggerService.log(response);
           this.eventEmit.emit({})
         })
-    }
-    error => {
-      LoggerService.log(error);
     }
   }
 
@@ -135,7 +165,8 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
 
   removeCheckList() {
     this.noteService.removeChecklist(null, this.data.id, this.removedList.id)
-      .subscribe(response => {
+      .subscribe( /**registers handlers for events emitted by this instance */
+      response => {
         LoggerService.log(response);
         for (var i = 0; i < this.tempArray.length; i++) {
           if (this.tempArray[i].id == this.removedList.id) {
@@ -167,15 +198,14 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "status": this.status
       }
       this.noteService.addChecklist(this.newData, this.data.id)
-        .subscribe(response => {
+        .subscribe(   /**registers handlers for events emitted by this instance */
+          response => {
           LoggerService.log(response);
           this.newList = null;
           this.addCheck = false;
           this.adding = false;
           LoggerService.log(response['data'].details);
-
           this.tempArray.push(response['data'].details)
-
           LoggerService.log(this.tempArray)
         })
     }
@@ -190,10 +220,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     this.noteService.deleteReminder(requestBody).subscribe(data => {
       LoggerService.log("POST Request is successful ", data);
       this.eventEmit.emit({})
-    },
-      error => {
-        LoggerService.log("Error", error);
-      })
+    })
   }
 
   reminderOff(cuttOff) {
@@ -207,15 +234,16 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
-    if (this.data['noteCheckLists'].length > 0) {
-      this.checklist = true;
-    }
-    this.tempArray = this.data['noteCheckLists']
-  }
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+  openCollaboratorDialog(noteData): void {
+    const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+      width: '600px',
+      data: noteData,
+
+    });
   }
 
 

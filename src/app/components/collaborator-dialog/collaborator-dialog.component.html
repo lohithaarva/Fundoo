@@ -1,18 +1,19 @@
-<mat-card>
+
+    <mat-card>
     <mat-card-header><b>Collaborators</b></mat-card-header>
     <mat-divider></mat-divider>
     <div class="main">
         <div class="imageIcon" fxLayout="row" class="imageIcons">
             <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="20">
-                <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+                <button mat-mini-fab [ngStyle]="{'background-image':'url(' +profilePhoto+ ')','background-size':'cover'}">
                 </button>
             </div>
             <div fxFlex.lg="90" fxFlex.md="80" fxFlex.sm="70" fxFLex.xs="70" fxLayout="column">
                 <div fxFlex.lg="40" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="0" class="imageIcon">
-                    {{firstName}} {{lastName}} (owner)
+                    {{owner.firstName}} {{owner.lastName}} (owner)
                 </div>
                 <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="40" fxFlex.xs="0" class="imageIcon emailName">
-                    {{email}}
+                    {{owner.email}}
                 </div>
             </div>
         </div>
@@ -69,9 +70,6 @@
     </div>
     <mat-card-footer class="buttonsPlace" fxLayout="row" fxLayoutAlign="end end">
         <button mat-button mat-dialog-close (click)="cancelCollaborator()">Cancel</button>
-        <button mat-button [mat-dialog-close]="true">Save</button>
+        <button mat-button [mat-dialog-close]="true" (click)="cancelCollaborator()">Save</button>
     </mat-card-footer>
-
-
-    <!-- </div> -->
 </mat-card>

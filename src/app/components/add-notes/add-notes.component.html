@@ -64,7 +64,17 @@
                 </div>
 
                 <!--------------------------Label chip stop --------------------------->
-
+                <!-------------------------- Collaborator starts ---------------------->
+                <div fxLayout = "row wrap" >
+                        <div class="collaboratorIconAlign" 
+                              *ngFor="let collaboratorIcon of addCollaboraorNew">
+                            <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)"  
+                            mat-mini-fab >
+                              {{collaboratorIcon.firstName | slice : 0:1}}
+                              </button>
+                        </div>
+                        </div>
+                <!-------------------------Collaboraotr stops ------------------------->
                 <!------------------------- reminder chip start ----------------------------->
 
                 <div fxLayout="row">
@@ -116,13 +126,13 @@
 </div>
 
 <!-------------------------------------COllaborator started --------------------------------------------------->
-<div class="card">
-    <!-- <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div> -->
-    <!-- <div fxFlex="100%" fxLayout="row"> -->
+<div  fxLayout="column">
+     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div> 
+     <div fxFlex="100%" fxLayout="row">
         <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
         <div fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="100" fxLayoutAlign="space-between center">
-            <div *ngIf="!collaboratorDivision">
-                <mat-card >
+            <div *ngIf="!collaboratorDivision"  fxLayout="column" fxLayoutGap="50px">
+                <mat-card class="collaboratorCard">
                     <mat-card-header><b>Collaborators</b></mat-card-header>
                     <mat-divider></mat-divider>
                     <div class="main">
@@ -184,14 +194,14 @@
                         </div>
                     </div>
                     <mat-card-footer class="buttonsPlace" fxLayout="row" fxLayoutAlign="end end">
-                        <button mat-button mat-dialog-close (click)="cancelCollaborator()">Cancel</button>
-                        <button mat-button [mat-dialog-close]="true">Save</button>
+                        <button mat-button  (click) = "saveBackToAdd()">Cancel</button>
+                        <button mat-button  (click) = "saveBackToAdd()">Save</button>
                     </mat-card-footer>
                 </mat-card>
             </div>
         </div>
-        <!-- <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div> -->
-    <!-- </div> -->
+        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
+    </div>
     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
 </div>
 <!-------------------------Collaborator stop ------------------------->

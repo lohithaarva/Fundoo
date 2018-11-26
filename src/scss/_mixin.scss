@@ -73,3 +73,9 @@
     text-overflow: ellipsis;
     overflow:  hidden !important;
 }
+@mixin card_align(){
+    width:550px;
+    border-radius:7px;
+    position: relative;
+    padding: 5px;
+}

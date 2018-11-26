@@ -21,6 +21,7 @@ constructor(public snackBar: MatSnackBar,private userService: UserService,
    private router:Router,
    private msgService: MessageServiceService ) { }
   info:any = {};
+  hide = true;
   isLeftVisible : any;
   service;
   email = new FormControl('', [Validators.required, Validators.email]);
