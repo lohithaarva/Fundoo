@@ -15,6 +15,9 @@ padding: 0 0 10px 0;
 .imageIcon{
     // margin-left: $margin;
     margin-top: 2%;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow:  hidden !important;
 }
 .imageIcons{
     margin-top: 10px;
@@ -30,36 +33,52 @@ padding: 0 0 10px 0;
     outline: 0;
     @include sidenav-container();
 }
+
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
 }
+
 .contentDiv{
     @include listItem()
 }
+
 .buttonsPlace{
 height: $height;
 background-color: $light_grey;
 }
+
 .buttonPlaceHolder{
     margin-left: 70%;
 }
+
 .header{
-    margin-left: 5%;
-    margin-top: 2%;
+    margin: 2% 0% 0% 5%;
+
 }
+
 .emailName{
     color: $grey_color;
-    white-space:nowrap;
-    text-overflow: ellipsis;
-    overflow:  hidden !important;
+    @include emailName();
 }
+
 ::ng-deep.mat-menu-panel {
     min-width: 112px;
     max-width: 430px; 
 }
+
 .doneIcon{
     margin-left: 110%;
 }
+
 .divider{
     margin-top: 5%;
+}
+
+.main{
+margin-bottom: 2%;
+}
+
+:host::ng-deep.mat-card-header-text {
+    margin: 0 8px ; 
+    margin: 0 0px !important;
 }

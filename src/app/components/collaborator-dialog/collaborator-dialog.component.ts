@@ -113,8 +113,11 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         LoggerService.log("collaborator note", data);
-        this.removeCollaboratorEvent.emit({
-        })
+        for (var i = 0; i < this.addCollaboraorNew.length; i++) {
+          if (this.addCollaboraorNew[i].userId == userId) {
+            this.addCollaboraorNew.splice(i, 1)
+          }
+        }
       })
     }
 }

@@ -3,12 +3,12 @@
     <mat-divider></mat-divider>
     <div class="main">
         <div class="imageIcon" fxLayout="row" class="imageIcons">
-            <div fxFlex.lg="3" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="20">
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="20">
                 <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
                 </button>
             </div>
-            <div fxFlex.lg="97" fxFlex.md="80" fxFlex.sm="70" fxFLex.xs="70" fxLayout="column">
-                <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="0" class="imageIcon">
+            <div fxFlex.lg="90" fxFlex.md="80" fxFlex.sm="70" fxFLex.xs="70" fxLayout="column">
+                <div fxFlex.lg="40" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="0" class="imageIcon">
                     {{firstName}} {{lastName}} (owner)
                 </div>
                 <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="40" fxFlex.xs="0" class="imageIcon emailName">
@@ -21,7 +21,7 @@
                 <button mat-mini-fab disabled>{{value.firstName |slice: 0 : 1}}
                 </button>
             </div>
-            <div fxFlex.lg="80" fxFlex.md="80" fxFlexsm="70" fxFlex.xs="70" fxLayout="column">
+            <div fxFlex.lg="85" fxFlex.md="80" fxFlexsm="70" fxFlex.xs="70" fxLayout="column">
                 <div fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="0" class=imageIcon>
                     {{value.firstName}} {{value.lastName}}
                 </div>
@@ -29,35 +29,43 @@
                     {{value.email}}
                 </div>
             </div>
-            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="10">
+            <div fxLayoutAlign="end end"  fxFlex.lg="5" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="10">
                 <mat-icon (click)="removeCollaborator(value.userId)">cancel</mat-icon>
             </div>
         </div>
+
+
         <div class="imageIcons" fxLayout="row" class="imageIcons" >
         <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="20">
             <button mat-mini-fab disabled>
                 <mat-icon>person_add</mat-icon>
             </button>
         </div>
-            <div fxFlex=50>
-                <input [matMenuTriggerFor]="appMenu" class="contentDiv imageIcon" 
+                <div fxFlex.lg="80" fxFlex.md="80" fxFlexsm="70" fxFlex.xs="70" >
+                <input 
+                [matMenuTriggerFor]="appMenu" class="contentDiv imageIcon" 
                 [(ngModel)]="collaboratorSearch"
                     (keyup)="keySearch($event)" placeholder="Person or email to share with">
-                <div class="doneIcon" fxFlex=10>
+                </div>
+
+                <div fxLayoutAlign="end end" fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="15" fxFlex.xs="10" >
                     <mat-icon *ngIf="show" (click)=enterDetails(collaboratorSearch)>done</mat-icon>
                 </div>
-            </div>
-            <div fxFlex.lg="80" fxFlex.md="80" fxFlexsm="70" fxFlex.xs="70" fxLayout="column" fxLayout="row">
-                <mat-menu #appMenu="matMenu">
-                    <div *ngFor="let name of collaboratorList">
-                        <button mat-button (click)="clickitem(name.email);addCollaborator(name);">
-                            {{name.firstName}}{{name.lastName}} < {{name.email}}>
-                        </button>
-                    </div>
-                </mat-menu>
-            </div>
-       
         </div>
+
+        <div fxLayoutAlign="center center"  fxLayout="row" >
+        <div  fxLayout="column">
+            <mat-menu fxFLex.lg="80" fxFlex.md="80" fxFLex.sm="90" fxFLex.xs="100" #appMenu="matMenu">
+                <div *ngFor="let name of collaboratorList">
+                    <button mat-button (click)="clickitem(name.email);addCollaborator(name);">
+                        {{name.firstName}}{{name.lastName}} < {{name.email}}>
+                    </button>
+                </div>
+            </mat-menu>
+        </div>
+        </div>
+
+
     </div>
     <mat-card-footer class="buttonsPlace" fxLayout="row" fxLayoutAlign="end end">
         <button mat-button mat-dialog-close (click)="cancelCollaborator()">Cancel</button>

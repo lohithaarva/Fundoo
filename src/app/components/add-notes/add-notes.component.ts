@@ -56,16 +56,10 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     }
     this.boxClicked = true;
   }
-
-  divisionEvent(event){
-    if (!this.collaboratorDivision) {
-      this.collaboratorDivision = !this.collaboratorDivision;
-    }
   
-
-  }  
   openCollaboratorDivision(){
     console.log('hie');
+    this.collaboratorDivision = !this.collaboratorDivision;
     
   }
   /** Method to add the notes *****/

@@ -49,21 +49,6 @@
   width:500px;
   align-self: center;
 }
-  .grid{
-    margin-top: 20px;
-    width:260px;
-    word-wrap: break-word;
-    padding-left: 10px;
-  }
-  .list 
-  {
-    margin-top: 20px;
-    width:700px;
-    word-break: break-all;
-    border-radius:3% !important;
-    border-radius:1%
-    
-  }
   .noteCards{
     margin-top: 20px; 
     margin-bottom: 20px;
@@ -116,4 +101,148 @@
 .collaboratorIconAlign{
   margin-right: 3%;
   margin-bottom: 2%;
+}
+.grid{
+  // margin-top: 20px;
+  width:260px;
+  word-wrap: break-word;
+  margin-left: 10px;
+}
+.list 
+{
+  // margin-top: 20px;
+  width:700px;
+  word-break: break-all;
+  border-radius:3% !important;
+  border-radius:1%
+  
+}
+
+@media only screen and (min-width: 200px) and (max-width: 600px){
+  .flexClass
+  {
+      width:100%; 
+      justify-content: center;
+  }
+}
+@media only screen and (min-width: 699px) and (max-width: 750px)
+{
+  .list
+{
+ 
+  width:650px;
+}
+}
+@media only screen and (min-width: 627px) and (max-width: 699px)
+{
+  .list
+{
+  
+  width:580px;
+}
+}
+@media only screen and (min-width: 604px) and (max-width: 626px)
+{
+  .list
+{
+  
+  width:500px;
+}
+}
+@media only screen and (min-width: 600px) and (max-width: 605px)
+{
+  .list
+{
+
+  width:400px;
+}
+}
+@media only screen and (min-width: 509px) and (max-width: 600px)
+{
+  .list
+{
+  
+  width:460px;
+}
+}
+@media only screen and (min-width: 466px) and (max-width: 509px)
+{
+  .list
+{
+ 
+  width:420px;
+}
+}
+@media only screen and (min-width: 411px) and (max-width: 465px)
+{
+  .list
+{
+  
+  width:360px;
+}
+}
+@media only screen and (min-width: 360px) and (max-width: 410px)
+{
+  .list
+{
+ 
+  width:320px;
+}
+}
+@media only screen and (min-width: 310px) and (max-width: 359px)
+{
+  .list
+{
+  
+  width:300px;
+}
+}
+
+// @media only screen and (min-width: 506px) and (max-width: 649px)
+// {
+//   .grid
+// {
+//   margin-top: 20px;
+//   width:460px;
+// }
+// }
+@media only screen and (min-width: 435px) and (max-width: 505px)
+{
+  .grid
+{
+ 
+  width:420px;
+}
+}
+@media only screen and (min-width: 391px) and (max-width: 434px)
+{
+  .grid
+{
+ 
+  width:380px;
+}
+}
+@media only screen and (min-width: 391px) and (max-width: 434px)
+{
+  .grid
+{
+  
+  width:380px;
+}
+}
+@media only screen and (min-width: 349px) and (max-width: 390px)
+{
+  .grid
+{
+
+  width:330px;
+}
+}
+@media only screen and (min-width: 310px) and (max-width: 348px)
+{
+  .grid
+{
+ 
+  width:300px;
+}
 }

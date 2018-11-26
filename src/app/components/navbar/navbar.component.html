@@ -6,7 +6,7 @@
       <mat-toolbar>
 
     <!------------------ toggle initiates --------------->
-    <div fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="15%">
+    <div fxFlex.xl = "5" fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="15">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
@@ -14,27 +14,28 @@
     <!-------------------- toggle ends -------------------->
 
     <!----------------- headers starts ----------------------->
-    <div *ngIf="clickOnSearch" fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="20" fxFlex.xs="30">
+    <div *ngIf="clickOnSearch" fxFLex.xl="10" fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="20" fxFlex.xs="30">
       <span (click)="navigate()">{{header}}</span>
     </div>
     <!---------------- headers ends -------------------------->
     <!-----------------------searchbar --------------------------->
-    <div fxFlex.lg="40%" fxFlex.md="40%" fxFlex.sm="50%" class="searchBar" fxShow fxHide.xs="true">
+    <div fxFLex.xl="40" fxFlex.lg="40" fxFlex.md="40" fxFlex.sm="50" class="searchBar" fxShow fxHide.xs="true">
       <div fxFlex="100%">
-        <div fxFlex.lg=" 10%" fxFlex.md="10%" fxFlex.sm="10%"><i class="material-icons searchIcon">search </i></div>
+        <div fxFlex.xl=" 10" fxFlex.lg=" 10" fxFlex.md="10" fxFlex.sm="10"><i class="material-icons searchIcon">search </i></div>
         <!-- <div> -->
-        <input fxFlex.lg="90%" fxFlex.md="90%" fxFlex.sm="90%" class="search" type="input" [(ngModel)]="globalSearch"
+        <input fxFlex.xl="90" fxFlex.lg="90" fxFlex.md="90" fxFlex.sm="90" class="search" type="input" [(ngModel)]="globalSearch"
           (keydown)="keySearch()" (click)="navigate()" placeholder="search">
         <!-- </div> -->
       </div>
     </div>
-    <div fxFlex.xs="30%"></div>
+    <div fxFlex.xs="30"></div>
 
     <!----------------- searchbar for smaller devices -------------- ----->
     <div class="searchBar" fxHide fxHide.lg="true" fxShow.xs="true">
       <div fxFlex="100%">
         <div *ngIf="show">
-          <input fxFlex.xs="90%" class="searchSmallBarTry" type="input" [(ngModel)]="globalSearch" (keydown)="keySearch(); onEnterIcon($event) ; headerFundoo()"
+          <input fxFlex.xs="90%" class="searchSmallBarTry" type="input" [(ngModel)]="globalSearch" 
+          (keydown)="keySearch(); onEnterIcon($event) ; headerFundoo()"
             (click)="navigate() " placeholder="search">
         </div>
         <div fxFlex.xs="10%" (click)="show = !show ;clickOnSearch = !clickOnSearch">
@@ -44,21 +45,25 @@
       </div>
     </div>
     <!--------------------------------------------------------------->
-    <div fxFlex.lg="30%" fxFlex.md="30%" fxFlex.xs="5%"></div>
+    <div fxFLex.xl = "30" fxFlex.lg="30" fxFlex.md="30" fxFlex.xs="5"></div>
     <!------------------------pic icon and grid list ------------------->
-    <div fxFlex.lg="13%" fxFlex.md="13%" fxFlex.sm="10%" fxFlex.xs="30%" fxLayout="row" fxLayoutAlign="space-around center">
-      <div fxFlex.lg="50%" fxFlex.xs="50%">
+    <div fxFLex.xl = "13" fxFlex.lg="13" fxFlex.md="13" fxFlex.sm="10" fxFlex.xs="30" fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxFlex.xl="50" fxFlex.lg="50" fxFlex.xs="50">
         <div class="icons">
+          <div fxShow fxHide.xs="true">
           <button mat-icon-button matTooltip="listView" (click)="cardsInList()" *ngIf="grid == 0">
             <mat-icon>view_stream</mat-icon>
           </button>
+          </div>
+          <div>
           <button mat-icon-button matTooltip="gridView" (click)="cardsInGrid()" *ngIf="grid == 1">
             <mat-icon>apps</mat-icon>
           </button>
+          </div>
         </div>
       </div>
       <!----------------------- Profile pic icon -------------------------->
-      <div fxFlex.lg="50%" fxFlex.xs="50%">
+      <div  fxFlex.xl="50"  fxFlex.lg="50" fxFlex.xs="50">
         <button *ngIf="newimage2 == ''" mat-mini-fab (click)="clicked=!clicked ;" style="background-color: bisque; color: black;">
           {{firstName | slice:0:1}}
         </button>
@@ -69,7 +74,7 @@
       </div>
     </div>
     <!--------------------------------------------------------------------->
-    <div fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="2%" fxFlex.xs="5%"></div>
+    <div fxFlex.xl="2" fxFlex.lg="2" fxFlex.md="2" fxFlex.sm="2" fxFlex.xs="5"></div>
   </mat-toolbar>
 </div>
 <!---------------------------mattoolbar ends --------------------------------------->

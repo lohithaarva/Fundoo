@@ -68,10 +68,8 @@
     outline: none!important;
     margin-right: 6px;
 }
-
-// @mixin card-generator($card-bg-color) { // take a color as a parameter
-//     background-color: $card-bg-color;
-//     text-align: center;
-//     word-wrap: break-word;
-//   }
- 
+@mixin emailName(){
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow:  hidden !important;
+}

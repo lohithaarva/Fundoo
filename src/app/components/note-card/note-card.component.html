@@ -1,6 +1,7 @@
 <!-- ----------------- displaying notecards --------------------->
 <div fxLayout="row wrap" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="start" fxFlex="100%">
   <div fxFlex.xl="10" fxFlex.lg="10" fxFlex.md="5" fxFlex.sm="0" fxFlex.xs="0"></div>
+  
   <div class="cardsAlignBottom" fxLayoutAlign="center center" fxLayout="row wrap" fxFlex.xl="80" fxFlex.lg="80"
     fxFlex.md="90" fxFlex.sm=100 fxFlex.xs=100>
     <div *ngIf="length!=0" class="pinNotesHeaders"> {{word}} </div>
@@ -17,6 +18,8 @@
           <div>
             <span fxFlex="100" (click)="openDialog(note)" [innerHTML]="note.description"></span>
           </div>
+
+
 
           <!-------------------checklist starts ------------------------------------>
           <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">

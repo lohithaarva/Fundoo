@@ -19,9 +19,6 @@
   .notesTitle{
       width: $width_align; 
   }
-  .checkBoxAlign{
-      margin-top: 4px;
-  }
   .inputTitleNote {
     @include inputTitle();
     @include  inputNote();
@@ -48,13 +45,22 @@
 }
 
 .hiddentakeNotes {
-    width: 80%;
+    width: 100%;
     position: relative;
     margin: auto;
     border-radius:7px;
     padding: 5px;
     margin-bottom: 5px;
   }
+  .card{
+    width:550px;
+    border-radius:7px;
+    position: relative;
+    padding: 5px;
+}
+.replaceTheCard{
+    margin-bottom: 5%;
+}
 .closeButton{
     float:right;
 }
@@ -82,4 +88,7 @@
 }
 .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
     margin: 4px !important;
+}
+.collaboratorAlign{
+    width: 450px;
 }
