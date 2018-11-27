@@ -128,7 +128,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.noteCard();
-        console.log('The dialog was closed');
       });
   }
 

@@ -1,8 +1,8 @@
 <div *ngIf="collaboratorDivision" fxLayout="column" fxLayoutGap="50px">
     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
     <div fxFlex="100%" fxLayout="row">
-        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
-        <div fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="100" fxLayoutAlign="space-between center">
+        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="2"></div>
+        <div fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="96" fxLayoutAlign="space-between center">
 
             <!-----------------------------------------------Initial Mat card starts ---------------------------->
             <mat-card *ngIf="enterExpression" class="card">
@@ -29,7 +29,7 @@
                     </span>
                 </div>
                 <div class="inputNote" id="notesId" *ngIf="boxClicked" contenteditable="true" data-text="Take a note"
-                    (click)="checked = false" #description ngStyle.xs="width: 70px;">
+                    (click)="checked = false" #description>
                 </div>
 
                 <!-------------------------- Checklist start---------------------------->
@@ -50,10 +50,45 @@
                 </div>
 
                 <!-------------------------- Checklist stop---------------------------->
-                <!------------------------- Label chips start -------------------------->
 
 
-                <div fxLayout="row" fxFlexAlign="end end">
+
+
+<div fxLayout ="row" fxLayoutAlign="start start" fxLayout = "row wrap" class="alingingIcon" >
+
+
+                <!------------------------- reminders start ----------------------------->
+
+                <div fxLayout="row" class="reminderChipAlign">
+                        <div *ngFor="let remaind of arrayRemind">
+                            <div *ngIf="(remindToday | date:'shortDate') == (remaind | date:'shortDate')">
+                                <mat-chip-list>
+                                    <mat-chip> Today {{remaind| date:'shortTime'}}
+                                        <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                            <div *ngIf="(remindTomorrow | date:'shortDate') == (remaind | date:'shortDate')">
+                                <mat-chip-list>
+                                    <mat-chip> Tomorrow {{remaind| date:'shortTime'}}
+                                        <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                            <div *ngIf="(remindToday | date:'shortDate')  !== (remaind | date:'shortDate') &&
+                                (remindTomorrow | date:'shortDate') !== (remaind | date:'shortDate')">
+                                <mat-chip-list>
+                                    <mat-chip> {{remaind| date:'shortTime'}}
+                                        <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                    <!-------------------------- reminders stop ------------------------------->
+                                    <!------------------------- Label chips start -------------------------->
+
+                <div class="reminderChipAlign" fxLayout="row" fxFlexAlign="end end" fxLayoutGap = "10px">
                     <div *ngFor="let labelChip of labelChipName">
                         <mat-chip-list>
                             <mat-chip>{{labelChip.label}}
@@ -64,46 +99,19 @@
                 </div>
 
                 <!--------------------------Label chip stop --------------------------->
-                <!-------------------------- Collaborator starts ---------------------->
-                <div fxLayout = "row wrap" >
-                        <div class="collaboratorIconAlign" 
-                              *ngFor="let collaboratorIcon of addCollaboraorNew">
-                            <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)"  
-                            mat-mini-fab >
-                              {{collaboratorIcon.firstName | slice : 0:1}}
-                              </button>
-                        </div>
-                        </div>
-                <!-------------------------Collaboraotr stops ------------------------->
-                <!------------------------- reminder chip start ----------------------------->
-
-                <div fxLayout="row">
-                    <div *ngFor="let remaind of arrayRemind">
-                        <div *ngIf="(remindToday | date:'shortDate') == (remaind | date:'shortDate')">
-                            <mat-chip-list>
-                                <mat-chip class="reminderChipAlign"> Today {{remaind| date:'shortTime'}}
-                                    <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                                </mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <div *ngIf="(remindTomorrow | date:'shortDate') == (remaind | date:'shortDate')">
-                            <mat-chip-list>
-                                <mat-chip class="reminderChipAlign"> Tomorrow {{remaind| date:'shortTime'}}
-                                    <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                                </mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <div *ngIf="(remindToday | date:'shortDate')  !== (remaind | date:'shortDate') &&
-                            (remindTomorrow | date:'shortDate') !== (remaind | date:'shortDate')">
-                            <mat-chip-list>
-                                <mat-chip class="reminderChipAlign"> {{remaind| date:'shortTime'}}
-                                    <mat-icon matChipRemove (click)="reminderDelete()">cancel</mat-icon>
-                                </mat-chip>
-                            </mat-chip-list>
-                        </div>
+                 <!-------------------------- Collaborator display starts ---------------------->
+                 <div fxLayout="row wrap" fxLayoutGap = "10px">
+                    <div class="collaboratorIconAlign" *ngFor="let collaboratorIcon of addCollaboraorNew">
+                        <button matTooltip="{{collaboratorIcon.firstName}}"
+                        (click)="collaboratorDivision = !collaboratorDivision"
+                            mat-mini-fab>
+                            {{collaboratorIcon.firstName | slice : 0:1}}
+                        </button>
                     </div>
                 </div>
-                <!-------------------------- reminder chip stop ------------------------------->
+                <!-------------------------Collaboraotr display stops ------------------------->
+</div>
+
                 <span>
                     <div fxLayoutAlign="space-around center" class="noteCardIcon">
                         <app-remind [noteRemindeCard]="note" (eventValue)="newvalue($event)"></app-remind>
@@ -120,19 +128,19 @@
             </mat-card>
             <!------------------------------------------------------------------------------------------------>
         </div>
-        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
+        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="2"></div>
     </div>
     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
 </div>
-
+ 
 <!-------------------------------------COllaborator started --------------------------------------------------->
-<div  fxLayout="column">
-     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div> 
-     <div fxFlex="100%" fxLayout="row">
-        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
-        <div fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="100" fxLayoutAlign="space-between center">
-            <div *ngIf="!collaboratorDivision"  fxLayout="column" fxLayoutGap="50px">
-                <mat-card class="collaboratorCard">
+<div *ngIf="!collaboratorDivision"  fxLayout="column" fxLayoutGap="50px" >
+    <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
+    <div fxFlex="100%" fxLayout="row">
+        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="5"></div>
+        <div fxFLex.lg="40" fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="95">
+            <div fxLayout="column" >
+                <mat-card class="hiddentakeNotes">
                     <mat-card-header><b>Collaborators</b></mat-card-header>
                     <mat-divider></mat-divider>
                     <div class="main">
@@ -194,13 +202,13 @@
                         </div>
                     </div>
                     <mat-card-footer class="buttonsPlace" fxLayout="row" fxLayoutAlign="end end">
-                        <button mat-button  (click) = "saveBackToAdd()">Cancel</button>
-                        <button mat-button  (click) = "saveBackToAdd()">Save</button>
+                        <button mat-button (click)="saveBackToAdd()">Cancel</button>
+                        <button mat-button (click)="saveBackToAdd()">Save</button>
                     </mat-card-footer>
                 </mat-card>
             </div>
         </div>
-        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="0"></div>
+        <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="5"></div>
     </div>
     <div fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
 </div>

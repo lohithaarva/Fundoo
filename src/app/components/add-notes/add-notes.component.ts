@@ -5,6 +5,7 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 import { UserService } from 'src/app/core/services/userService/user.service';
 import { NoteService } from '../../core/services/noteservice/note.service';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-notes',
@@ -45,7 +46,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   public searchResult = []
   public collabs = [];
   private addCollaboraorNew = [];
-  privateaddCollaboraor: any;
+  // privateaddCollaboraor: any;
   private show: boolean = false;
 
 
@@ -53,13 +54,14 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   note = {
     'isArchived': false,
     'id': ''
-  } 
+  }
 
-  constructor(private noteService: NoteService,  private userService: UserService) { }
+  constructor(private noteService: NoteService, public snackBar: MatSnackBar,
+    private userService: UserService) { }
   @Output() messageEvent = new EventEmitter();
   @Output() newDate = new EventEmitter();
 
-  ngOnInit() { 
+  ngOnInit() {
     this.email = localStorage.getItem('email');
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
@@ -76,11 +78,11 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     }
     this.boxClicked = true;
   }
-  
-  openCollaboratorDivision(){
+
+  openCollaboratorDivision() {
     console.log('hie');
     this.collaboratorDivision = !this.collaboratorDivision;
-    
+
   }
   /** Method to add the notes *****/
   exit() {
@@ -191,8 +193,8 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     LoggerService.log(event);
     this.color = event;
   }
-  
-  
+
+
 
   /** Method to add labels to notes  */
   addLabel(event) {
@@ -299,6 +301,15 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
 
   enterDetails(searchPerson) {
+    for (let duplicateName = 0; duplicateName < this.addCollaboraorNew.length; duplicateName++) {
+      if (this.collaboratorSearch == this.addCollaboraorNew[duplicateName].email) {
+        this.snackBar.open("Collaborator already exists", "fail", {
+          duration: 3000
+        })
+        this.collaboratorSearch = null;
+        return false;
+      }
+    }
     for (let index = 0; index < this.collaboratorList.length; index++) {
       if (this.collaboratorList[index].email == searchPerson) {
         this.addCollaboraorNew.push(this.collaboratorList[index]);
@@ -308,14 +319,14 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   }
 
   removeCollaborator(userId) {
-        for (var i = 0; i < this.addCollaboraorNew.length; i++) {
-          if (this.addCollaboraorNew[i].userId == userId) {
-            this.addCollaboraorNew.splice(i, 1)
-          }
-        }
+    for (var i = 0; i < this.addCollaboraorNew.length; i++) {
+      if (this.addCollaboraorNew[i].userId == userId) {
+        this.addCollaboraorNew.splice(i, 1)
+      }
+    }
   }
 
-  saveBackToAdd(){
+  saveBackToAdd() {
     this.collaboratorDivision = true;
   }
 

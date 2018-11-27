@@ -55,9 +55,6 @@ export class PinComponent implements OnInit, OnDestroy {
         }),
           LoggerService.log('data',data);
           this.pinEventEmit.emit({});
-      },
-      error =>{
-        console.log("Error" , error);
       })
     }
   }

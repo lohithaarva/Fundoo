@@ -38,7 +38,8 @@
                             <input matInput placeholder="Enter your password"
                              minlength="6" [formControl]="password"
                                 [(ngModel)]="info.password" required 
-                                [type]="hide ? 'password' : 'text'" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
+                                [type]="hide ? 'password' : 'text'" 
+                                pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
                             <mat-error *ngIf="password.invalid"> {{getErrorMessagepassword()}}</mat-error>
                         </mat-form-field>
                     </div>

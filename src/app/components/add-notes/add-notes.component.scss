@@ -10,6 +10,12 @@
     width: $width_align;
 
   }
+  .alingingIcon{
+      margin-top: 3%;
+  }
+  .reminderChipAlign{
+      padding-right: 1%;
+  }
   .inputTitle {
     @include inputTitle();
     margin-top: 7px;
@@ -52,11 +58,8 @@
     margin-bottom: 5px;
   }
   .card{
+    width:550px;
     @include card_align();
-}
-.collaboratorCard{
-    @include card_align();
-    margin-top: 10%;
 }
 .replaceTheCard{
     margin-bottom: 5%;
@@ -88,6 +91,10 @@
 }
 .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
     margin: 4px !important;
+}
+::ng-deep.mat-icon-button[_ngcontent-c16] i[_ngcontent-c16] {
+    line-height: 24px;
+    margin-top: 27%;
 }
 
 /********************************* Collaborator css **********************************/
@@ -146,8 +153,7 @@
     }
     
     .header{
-        margin: 2% 0% 0% 5%;
-    
+        margin: 2% 0% 0% 5%; 
     }
     
     .emailName{

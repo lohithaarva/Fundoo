@@ -36,10 +36,9 @@
 }
 
 @mixin mainTitleLabels(){
-    margin-left: 10px;
+    margin-left: 25px;
     color: $grey_color;
     letter-spacing: .07272727em;
-    font-family: $font-stack;
     font-size: .6875rem;
     font-weight: 500;
     line-height: 1rem;
@@ -74,7 +73,6 @@
     overflow:  hidden !important;
 }
 @mixin card_align(){
-    width:550px;
     border-radius:7px;
     position: relative;
     padding: 5px;

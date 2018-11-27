@@ -1,11 +1,11 @@
 <!-- ----------------- displaying notecards --------------------->
-<div fxLayout="row wrap" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="start" fxFlex="100%">
+<div fxFlex="100%">
   <div fxFlex.xl="10" fxFlex.lg="10" fxFlex.md="5" fxFlex.sm="0" fxFlex.xs="0"></div>
-  
-  <div class="cardsAlignBottom" fxLayoutAlign="center center" fxLayout="row wrap" fxFlex.xl="80" fxFlex.lg="80"
-    fxFlex.md="90" fxFlex.sm=100 fxFlex.xs=100>
+
+  <div class="cardsAlignBottom cardsAlignment" fxLayout="row wrap" fxFlex.xl="80" fxFlex.lg="80" fxFlex.md="90"
+    fxFlex.sm=100 fxFlex.xs=100>
     <div *ngIf="length!=0" class="pinNotesHeaders"> {{word}} </div>
-    <div *ngFor="let note of cardAdded | LockFilter:globalSearch" class="cards">
+    <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
       <div [ngClass]="{ 'grid':condition, 'list': !condition }">
         <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;"
           [style.backgroundColor]="note.color">
@@ -34,108 +34,108 @@
               (click)="checkBox(checklist,note) ;openDialog(note)"></mat-checkbox>
             <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)">{{checklist.itemName}}</del>
           </div>
-
-
           <!------------------- checklist ends -------------------------------------->
 
-          <!----------------- chiplist of labels start----------------------------->
-          <div fxLayout="row" fxFlexAlign="end end" fxLayoutAlign="space-between start">
-            <div *ngFor="let labelChip of note.noteLabels">
+          <!------------------- chiplist of remainders start ----------------------->
+          <div fxLayout="row" fxLayoutAlign="start start" fxLayout="row wrap" class="alingingIcon">
+
+
+            <!-- <div> -->
+            <div *ngIf="reminderOff(note.reminder[0])" class="reminderChipAlign">
+              <div *ngFor="let remainderChip of note.reminder">
+                <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> Today {{note.reminder | date:'shortTime'}}
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+
+                <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> Tomorrow {{note.reminder | date:'shortTime'}}
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+
+                <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
+              (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> {{note.reminder | date:'medium'}}
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon class="hideIcon" matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+            <!----------------------------------  reminder strike out initiates ---------------------->
+            <div *ngIf="!reminderOff(note.reminder[0])" fxLayout="row">
+              <div *ngFor="let remainderChip of note.reminder">
+                <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> <del> Today {{note.reminder | date:'shortTime'}}</del>
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon class="hideIcon" matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+
+                <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> <del> Tomorrow {{note.reminder | date:'shortTime'}}</del>
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon  matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+
+                <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
+              (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">>
+                  <mat-chip-list>
+                    <mat-chip class="reminderChipAlign"> <del>{{note.reminder | date:'medium'}}</del>
+                      <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
+                      <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+
+              </div>
+            </div>
+            <!------------------------------- reminder strike out cease ------------->
+            <!------------------- chiplist of remainders stops ------------------------>
+
+            <!----------------- chiplist of labels start----------------------------->
+            <!-- <div> -->
+            <div class="labelIconAlingment" *ngFor="let labelChip of note.noteLabels">
               <div *ngIf="labelChip.isDeleted == false">
                 <mat-chip-list>
                   <mat-chip class="reminderChipAlign" (click)="labelPage(labelChip)">
-                    {{labelChip.label}}
+                    <span class="labelAlign">{{labelChip.label}}</span>
                     <mat-icon matChipRemove (click)="remove(labelChip.id, note.id)">cancel</mat-icon>
                   </mat-chip>
                 </mat-chip-list>
               </div>
             </div>
-          </div>
-          <!------------------- chiplist of labels end ------------------------------>
+            <!-- </div> -->
+            <!------------------- chiplist of labels end ------------------------------>
 
-          <!------------------- chiplist of remainders start ----------------------->
-          <div fxLayout="row">
-          <div *ngIf="reminderOff(note.reminder[0])" fxLayout="row">
-            <div *ngFor="let remainderChip of note.reminder">
-              <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> Today {{note.reminder | date:'shortTime'}}
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-
-              <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> Tomorrow {{note.reminder | date:'shortTime'}}
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-
-              <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
-              (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> {{note.reminder | date:'medium'}}
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-            </div>
-          </div>
-          </div>
-          <!----------------------------------  reminder strike out initiates ---------------------->
-          <div *ngIf="!reminderOff(note.reminder[0])" fxLayout="row">
-            <div *ngFor="let remainderChip of note.reminder">
-              <div *ngIf="(remindToday | date:'shortDate') == (remainderChip | date:'shortDate')">
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> <del> Today {{note.reminder | date:'shortTime'}}</del>
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-
-              <div *ngIf="(remindTomorrow | date:'shortDate') == (remainderChip | date:'shortDate')">
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> <del> Tomorrow {{note.reminder | date:'shortTime'}}</del>
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-
-              <div *ngIf="(remindToday | date:'shortDate')  != (remainderChip | date:'shortDate') &&
-              (remindTomorrow | date:'shortDate') != (remainderChip | date:'shortDate')">>
-                <mat-chip-list>
-                  <mat-chip class="reminderChipAlign"> <del>{{note.reminder | date:'medium'}}</del>
-                    <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
-                    <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)">
-                    </app-remind>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-
-            </div>
-          </div>
-          <!------------------------------- reminder strike out cease ------------->
-          <!------------------- chiplist of remainders stops ------------------------>
-          <br>
-          <div fxLayout = "row wrap" >
-          <div class="collaboratorIconAlign" 
-                *ngFor="let collaboratorIcon of note.collaborators">
-              <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)"  
-              mat-mini-fab >
+            <!--------------------------------- Collaborator starts ------------------------------>
+            <!-- <div fxLayout = "row wrap" > -->
+            <div class="labelIconAlingment" *ngFor="let collaboratorIcon of note.collaborators">
+              <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)" mat-mini-fab>
                 {{collaboratorIcon.firstName | slice : 0:1}}
-                </button>
+              </button>
+            </div>
+            <!-- </div> -->
           </div>
-          </div>
-          <br>
+          <!-------------------------------- Collaborator stops ---------------------------------->
+
           <!-------------------  displaying icons   --------------------------------->
-          <!-- <span> -->
           <div fxLayout="row" fxLayoutAlign="space-between" class="iconInvisible">
             <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)" *ngIf="deleteNotesForever == delete"></app-remind>
             <app-collaborator [collaboratorPop]='note' *ngIf="deleteNotesForever == delete"></app-collaborator>
@@ -145,7 +145,6 @@
               (unarchiveEvent)="unarchiveEvent($event)" (emitArchive)="messageDelete($event)"></app-add-archive>
             <app-more [deleteNotesForever]="deleteNotesForever" [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>
-          <!-- </span> -->
         </mat-card>
       </div>
     </div>

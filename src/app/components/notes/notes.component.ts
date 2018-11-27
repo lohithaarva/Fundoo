@@ -59,11 +59,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         }
         console.log('notes',this.notes);
         
-      },
-        )
-        error =>{
-          console.log("Error" , error);
-        }
+      })
         }
  
       getPinnedList() {
@@ -82,11 +78,7 @@ export class NotesComponent implements OnInit, OnDestroy {
                 })
               }
             }
-          },
-            )
-            error =>{
-              console.log("Error" , error);
-            }
+          })
             }
 
   ngOnDestroy() {

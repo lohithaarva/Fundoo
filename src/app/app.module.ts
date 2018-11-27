@@ -14,9 +14,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { RemaindersComponent } from './components/remainders/remainders.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { LabelsComponent } from './components/labels/labels.component';
-import { IconsListComponent } from './components/icons-list/icons-list.component';
 import { RemindComponent } from './components/remind/remind.component';
 import { CollaboratorComponent } from './components/collaborator/collaborator.component';
 import { ColorComponent } from './components/color/color.component';
@@ -71,9 +69,7 @@ import { CollaboratorDialogComponent } from './components/collaborator-dialog/co
     RemaindersComponent,
     ArchiveComponent,
     TrashComponent,
-    SettingsComponent,
     LabelsComponent,
-    IconsListComponent,
     RemindComponent,
     CollaboratorComponent,
     ColorComponent,

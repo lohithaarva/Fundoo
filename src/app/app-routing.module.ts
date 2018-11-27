@@ -10,7 +10,6 @@ import { RemaindersComponent } from './components/remainders/remainders.componen
 import { LabelsComponent } from './components/labels/labels.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
@@ -28,7 +27,6 @@ const routes : Routes =[
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
               { path: 'search', component: SearchComponent},
-              { path: 'settings', component:SettingsComponent},
               { path:'', redirectTo:'notes',pathMatch:'full'},
   ]},
 

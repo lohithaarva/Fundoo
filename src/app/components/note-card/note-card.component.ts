@@ -81,8 +81,6 @@ export class NoteCardComponent implements OnInit, OnDestroy {
       .subscribe(Response => {
         LoggerService.log(Response);
         this.eventEmit.emit({})
-      }, error => {
-        LoggerService.log(error)
       })
   }
 
@@ -98,9 +96,6 @@ export class NoteCardComponent implements OnInit, OnDestroy {
         (data) => {
           LoggerService.log("POST Request is successful ", data);
           this.eventEmit.emit({});
-        },
-        error => {
-          LoggerService.log("Error", error);
         })
   }
 
@@ -144,13 +139,9 @@ export class NoteCardComponent implements OnInit, OnDestroy {
   openCollaboratorDialog(noteData): void {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, { 
       width: '600px',
-      data: noteData,
-      
+      data: noteData,  
     });
-    // dialogRef.afterClosed()
-    // .subscribe(result => {
-    //   this.close = result;  
-    // });
+    
   }
 
   ngOnDestroy() {

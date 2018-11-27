@@ -56,9 +56,7 @@ search : any;
           .subscribe(data =>{
         console.log("Post Request is successful", data);
         this.delete.emit({})
-        },error=>{
-        console.log("Error", error);
-      })
+        })
   }
 
   getLabels() {
@@ -82,8 +80,6 @@ search : any;
             .subscribe(Response => {
               console.log(Response);
               this.delete.emit({})
-            }, error => {
-              console.log(error)
             })
           // }
 }

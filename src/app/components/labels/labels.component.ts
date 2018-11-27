@@ -57,10 +57,7 @@ export class LabelsComponent implements OnInit, OnDestroy {
         this.updateLabel.emit({
         })
         this.delete();
-      },
-        error => {
-          console.log("Error", error);
-        })
+      })
   }
 
   labelDelete(val) {
@@ -86,9 +83,6 @@ export class LabelsComponent implements OnInit, OnDestroy {
           }
           this.value1 = this.array;
           console.log(this.value1);
-        },
-        error => {
-          console.log("Error", error);
         })
   }
 
@@ -107,10 +101,7 @@ export class LabelsComponent implements OnInit, OnDestroy {
         this.updateLabel.emit({
         })
         console.log(data);
-      },
-        error => {
-          console.log("Error", error);
-        })
+      })
   }
   edit2(id) {
     this.show = true;
@@ -134,9 +125,6 @@ export class LabelsComponent implements OnInit, OnDestroy {
               console.log("DELETE Request is successful ", data);
               this.delete();
               this.data.changeDelete(true);
-            },
-            error => {
-              console.log("Error", error);
             })
         }
         console.log('The dialog was closed');

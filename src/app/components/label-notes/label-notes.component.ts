@@ -35,8 +35,6 @@ export class LabelNotesComponent implements OnInit, OnDestroy {
         console.log("successfull", response);
         this.labelArray = response['data'].data
         console.log(this.labelArray);
-      }, error => {
-        console.log("failed", error)
       })
 
   }

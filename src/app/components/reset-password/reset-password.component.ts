@@ -46,8 +46,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       .subscribe(response=>{
         console.log("successfull",response);
         this.router.navigateByUrl('login')
-      },error=>{
-        console.log("failed",error)
       })
       console.log("accessToken",this.accessToken)
     }

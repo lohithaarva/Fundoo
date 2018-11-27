@@ -19,7 +19,13 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('Form should be valid '),async(()=>{
+    expect(component.info.email.toEqual('kajol@gmail.com'));
+    expect(component.info.password.toEqual('Lohitha@12345'));
+    })
+    
+    it('Invalid Form'),async(()=>{
+    expect(component.info.email.toEqual(''));
+    expect(component.info.password.toEqual(''));
+    })
 });

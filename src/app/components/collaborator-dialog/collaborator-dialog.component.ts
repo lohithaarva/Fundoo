@@ -23,7 +23,7 @@ import { NoteService } from '../../core/services/noteservice/note.service';
 import { UserService } from 'src/app/core/services/userService/user.service';
 import { LoggerService } from 'src/app/core/services/logger/logger.service';
 import { DialogComponentComponent, DialogData } from '../dialog-component/dialog-component.component';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 /**A componenet can be reused throughout the application & even in other applications */
 
 @Component({
@@ -36,9 +36,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 /**To use components in other modules , we have to export them */
 export class CollaboratorDialogComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-/**Input and Output are two decorators in Angular responsible for 
-      * communication between two components*/
-       /**EventEmitter:creates an instance of this class that can delliver events  */
+  /**Input and Output are two decorators in Angular responsible for 
+        * communication between two components*/
+  /**EventEmitter:creates an instance of this class that can delliver events  */
   @Output() removeCollaboratorEvent = new EventEmitter();
   private owner = this.data['user'];
   private profilePhoto = environment.apiUrl + this.owner.imageUrl;
@@ -56,8 +56,8 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
   addCollaboraor: any;
   public show: boolean = false;
 
- 
-  constructor(public dialog: MatDialog,
+
+  constructor(public dialog: MatDialog, public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public noteService: NoteService,
     private userService: UserService) { }
@@ -80,7 +80,7 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-/**Method to search names */
+  /**Method to search names */
   keySearch(event) {
     var RequestBody = {
       "searchWord": this.collaboratorSearch,
@@ -97,7 +97,7 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
         LoggerService.log('data', this.collaboratorList);
       })
   }
-/** Method to cancel single collaborator in the list */
+  /** Method to cancel single collaborator in the list */
   cancelCollaborator() {
     const dialogRef = this.dialog.open(DialogComponentComponent, {
       data: this.data,
@@ -105,7 +105,7 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed()
   }
-/** Method to add collaboraotors to the list */
+  /** Method to add collaboraotors to the list */
   addCollaborator(name) {
     var RequestBody = {
       'firstName': name.firstName,
@@ -123,8 +123,17 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
   clickitem(email) {
     this.collaboratorSearch = email;
   }
-/**Method to display email and details of the person, on clicked */
+  /**Method to display email and details of the person, on clicked */
   enterDetails(searchPerson) {
+    for (let duplicateEntry = 0; duplicateEntry < this.addCollaboraorNew.length; duplicateEntry++) {
+      if (this.collaboratorSearch == this.addCollaboraorNew[duplicateEntry].email) {
+        this.snackBar.open("Collaborator already exists", "fail", {
+          duration: 3000
+        })
+        this.collaboratorSearch = null;
+        return false;
+      }
+    }
     for (let index = 0; index < this.collaboratorList.length; index++) {
       if (this.collaboratorList[index].email == searchPerson) {
         this.addCollaboraorNew.push(this.collaboratorList[index]);
@@ -132,7 +141,7 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
     }
     this.collaboratorSearch = [];
   }
-/**Mthod to remove collaborator from the list */
+  /**Mthod to remove collaborator from the list */
   removeCollaborator(userId) {
     this.noteService.removeCollaborator(this.data.id, userId)
       .pipe(takeUntil(this.destroy$))

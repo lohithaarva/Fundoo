@@ -39,7 +39,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         data => {
           this.notes = [];
           var notesArray:Inote[] = data['data'].data
-
           for (var i =notesArray.length - 1; i >= 0; i--) {
             if (notesArray[i].isDeleted == false && notesArray[i].isArchived == false) {
               this.notes.push(notesArray[i]);
@@ -49,7 +48,6 @@ export class SearchComponent implements OnInit, OnDestroy {
           for (var index = 0; index < (this.notes.length); index++) {
             if (this.notes[index].isDeleted == false) {
               this.main.push(this.notes[index])
-
             }
           }
           for (var index = 0; index < (this.notes.length); index++) {

@@ -86,18 +86,18 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
     <mat-nav-list>
       <br>
-      <a class="mainTitle" (click)='changeHeader("Fundoo")' mat-list-item routerLink='/home/notes'>
+      <a class="mainTitle" (click)='changeHeader("Fundoo")' mat-list-item routerLink="/home/notes" routerLinkActive='focusOn'>
         <img class="imageColor" src="../../../assets/images/notes.svg">
         <div class="mainTitle">Notes</div>
       </a>
-      <a class="mainTitle" (click)='changeHeader("Reminders")' mat-list-item routerLink="/home/remainders">
+      <a class="mainTitle" (click)='changeHeader("Reminders")' mat-list-item routerLink="/home/remainders" routerLinkActive='focusOn'>
         <img class="imageColor" src="../../../assets/images/remainders.svg">
         <div class="mainTitle">Remainders</div>
       </a>
       <hr>
       <div class="mainTitleLabels">LABELS</div>
-      <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)">
-        <a class="mainTitle" (click)='changeHeader(result.label)' mat-list-item>
+      <div *ngFor="let result of value; trackBy:result?.id" (click)="labelPage(result)" >
+        <a class="mainTitle" (click)='changeHeader(result.label)' mat-list-item >
           <mat-icon>label_outline</mat-icon>
           <span class="mainTitle" class="sideNavLabels">{{result.label}}</span>
         </a>
@@ -107,11 +107,11 @@
           create</mat-icon>Edit Labels
       </a>
       <hr>
-      <a class="mainTitle" (click)='changeHeader("Archive")' mat-list-item routerLink="/home/archive">
+      <a class="mainTitle" (click)='changeHeader("Archive")' mat-list-item routerLink="/home/archive" routerLinkActive='focusOn'>
         <img class="imageColor" src="../../../assets/images/archive.svg">
         <div class="mainTitle">Archive</div>
       </a>
-      <a class="mainTitle" (click)='changeHeader("Trash")' mat-list-item routerLink="/home/trash">
+      <a class="mainTitle" (click)='changeHeader("Trash")' mat-list-item routerLink="/home/trash" routerLinkActive='focusOn'>
         <img class="imageColor" src="../../../assets/images/trash.svg">
         <div class="mainTitle">Trash</div>
       </a>

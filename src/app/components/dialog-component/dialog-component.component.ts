@@ -59,7 +59,6 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     private noteService: NoteService) { }
 
   /**OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. */
-
   ngOnInit() {
     if (this.data['noteCheckLists'].length > 0) {
       this.checklist = true;
@@ -87,19 +86,19 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
   removelabel(labelId, noteId) {
     var requestBody = {
       "noteId": noteId,
-      "lableId": labelId 
+      "lableId": labelId
     }
     this.noteService.removeLabelFromNotes(requestBody, noteId, labelId)
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe( /**registers handlers for events emitted by this instance */
         Response => {
-        LoggerService.log(Response);
-        this.eventEmit.emit({})
-      })
+          LoggerService.log(Response);
+          this.eventEmit.emit({})
+        })
   }
 
+  /**Method to update notecards */
   update() {
-
     if (this.checklist == false) {
       var id = this.data['id'];
       this.title = document.getElementById('titleId').innerHTML;
@@ -112,12 +111,13 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "noteLabels": ""
       }
       this.noteService.noteUpdate(requestBody)
-      .subscribe(data => {
-        this.snackBar.open("note updated successfully", "update", {
-          duration: 10000,
-        });
-        this.eventEmit.emit({})
-      })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(data => {
+          this.snackBar.open("note updated successfully", "update", {
+            duration: 10000,
+          });
+          this.eventEmit.emit({})
+        })
     }
     else {
       var apiData = {
@@ -126,11 +126,12 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
       }
       this.noteService.updateChecklist(JSON.stringify(apiData), this.data.id,
         this.modifiedCheckList.id)
+        .pipe(takeUntil(this.destroy$))
         .subscribe( /**registers handlers for events emitted by this instance */
           response => {
-          LoggerService.log(response);
-          this.eventEmit.emit({})
-        })
+            LoggerService.log(response);
+            this.eventEmit.emit({})
+          }) 
     }
   }
 
@@ -165,15 +166,16 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
 
   removeCheckList() {
     this.noteService.removeChecklist(null, this.data.id, this.removedList.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe( /**registers handlers for events emitted by this instance */
-      response => {
-        LoggerService.log(response);
-        for (var i = 0; i < this.tempArray.length; i++) {
-          if (this.tempArray[i].id == this.removedList.id) {
-            this.tempArray.splice(i, 1)
+        response => {
+          LoggerService.log(response);
+          for (var i = 0; i < this.tempArray.length; i++) {
+            if (this.tempArray[i].id == this.removedList.id) {
+              this.tempArray.splice(i, 1)
+            }
           }
-        }
-      })
+        })
   }
   public adding = false;
   public addCheck = false;
@@ -198,16 +200,17 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
         "status": this.status
       }
       this.noteService.addChecklist(this.newData, this.data.id)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(   /**registers handlers for events emitted by this instance */
           response => {
-          LoggerService.log(response);
-          this.newList = null;
-          this.addCheck = false;
-          this.adding = false;
-          LoggerService.log(response['data'].details);
-          this.tempArray.push(response['data'].details)
-          LoggerService.log(this.tempArray)
-        })
+            LoggerService.log(response);
+            this.newList = null;
+            this.addCheck = false;
+            this.adding = false;
+            LoggerService.log(response['data'].details);
+            this.tempArray.push(response['data'].details)
+            LoggerService.log(this.tempArray)
+          })
     }
   }
 
@@ -239,11 +242,11 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
   openCollaboratorDialog(noteData): void {
-    const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+  const dialogNew= this.dialog.open(CollaboratorDialogComponent, {
       width: '600px',
       data: noteData,
-
-    });
+    })
+    dialogNew.close();
   }
 
 

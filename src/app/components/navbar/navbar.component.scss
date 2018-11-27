@@ -22,6 +22,7 @@
   width: 215px;
   margin-top: 55px;
   background-color: $white_color;
+  margin-left: -1%;
 }
 .mat-toolbar.mat-primary {
   position: sticky;
@@ -181,7 +182,11 @@ button.active {
  .smallerSearchIcon{
   margin-top: 3%;
  }
-
+ .mat-nav-list .focusOn{
+   background-color: $router_color;
+  border-radius: 0px 15px 15px 0px; 
+ }
+  
 
 
 

@@ -6,9 +6,6 @@ import { UserService } from 'src/app/core/services/userService/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
-
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -128,10 +125,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         (data) => {
           console.log("POST Request is successful ", data);
           this.router.navigateByUrl('home')
-        },
-        error => {
-
-          console.log("Error", error);
         })
   }
   ngOnDestroy() {
