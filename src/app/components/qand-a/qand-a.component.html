@@ -1,0 +1,47 @@
+<div fxLayout="column">
+
+  <div fxLayout="row">
+    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+    <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayoutAlign="space-around center">
+      <div class="qandaCard">
+        <div fxLayout="row">
+          <div fxFLex="100">
+            <div>
+              <button class="qandaClose"  mat-button> Close</button></div>
+            <div class="qandaTitle" [innerHTML]="titleId"></div>
+            <div [innerHTML]="description"></div>
+          </div>
+        </div>
+        <hr>
+        <div>Question Asked</div>
+        <input class="contentDiv" [(ngModel)]="typeQuestion" (keydown.enter)="addQuestionToNote(typeQuestion)"
+          placeholder="Type your Question?">
+      </div>
+    </div>
+    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex.lg="17" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+
+    <div fxFlex.lg="67" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+      <!-- <div > -->
+
+        <div fxFlex="5%" class="profileFab">
+          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
+        </div>
+        <div fxFlex="95%">
+        <div class="profileFab"><sup>Username</sup></div>
+        <div class="profileFab" >
+        <div contenteditable="true" class="contentDiv" [innerHTML]="newQuestion[0].message"></div>
+        </div>
+        </div>
+
+      <!-- </div> -->
+    </div>
+
+    <div fxFlex.lg="17" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+  </div>
+
+
+</div>

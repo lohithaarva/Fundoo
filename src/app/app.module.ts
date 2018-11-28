@@ -51,6 +51,7 @@ import { InterceptService} from './core/services/interceptor/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
+import { QandAComponent } from './components/qand-a/qand-a.component';
 
 
 
@@ -86,7 +87,8 @@ import { CollaboratorDialogComponent } from './components/collaborator-dialog/co
     CropImageComponent,
     LabelTrashDialogComponent,
     PinComponent,
-    CollaboratorDialogComponent
+    CollaboratorDialogComponent,
+    QandAComponent
     
     
   ],

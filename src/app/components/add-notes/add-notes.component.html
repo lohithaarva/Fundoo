@@ -20,7 +20,7 @@
             <!-------------------------------------------------------------------------------------------------->
 
             <!---------------------------------Extension of the matcard ------------------------------------------->
-            <mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="hiddentakeNotes">
+            <mat-card [style.backgroundColor]="color" *ngIf="!enterExpression" class="card">
                 <div class="hiddenDiv">
                     <span>
                         <div><img (eventEmit)="pinEvent()" class="pinIcon" src="../../../assets/images/pin.svg" alt="">
@@ -140,7 +140,7 @@
         <div fxFlex.lg="30" fxFLex.md="20" fxFlex.sm="5" fxFlex.xs="5"></div>
         <div fxFLex.lg="40" fxFlex.md="60" fxFlex.sm="90" fxFlex.xs="95">
             <div fxLayout="column" >
-                <mat-card class="hiddentakeNotes">
+                <mat-card class="card">
                     <mat-card-header><b>Collaborators</b></mat-card-header>
                     <mat-divider></mat-divider>
                     <div class="main">

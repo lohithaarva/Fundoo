@@ -164,7 +164,6 @@ export class AddNotesComponent implements OnInit, OnDestroy {
           this.reminderAdd = '';
           this.remind = '';
           this.addCollaboraorNew = [];
-
           this.messageEvent.emit({
           })
           this.color = "#fafafa";

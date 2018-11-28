@@ -89,7 +89,7 @@
                   <mat-chip-list>
                     <mat-chip class="reminderChipAlign"> <del> Tomorrow {{note.reminder | date:'shortTime'}}</del>
                       <app-remind style="opacity: 0" [noteRemindeCard]="note" (remindEmit)="messageDelete($event)"></app-remind>
-                      <mat-icon  matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
+                      <mat-icon matChipRemove (click)="reminderDelete(note)">cancel</mat-icon>
                     </mat-chip>
                   </mat-chip-list>
                 </div>
@@ -125,13 +125,11 @@
             <!------------------- chiplist of labels end ------------------------------>
 
             <!--------------------------------- Collaborator starts ------------------------------>
-            <!-- <div fxLayout = "row wrap" > -->
             <div class="labelIconAlingment" *ngFor="let collaboratorIcon of note.collaborators">
               <button matTooltip="{{collaboratorIcon.firstName}}" (click)="openCollaboratorDialog(note)" mat-mini-fab>
                 {{collaboratorIcon.firstName | slice : 0:1}}
               </button>
             </div>
-            <!-- </div> -->
           </div>
           <!-------------------------------- Collaborator stops ---------------------------------->
 
@@ -145,6 +143,14 @@
               (unarchiveEvent)="unarchiveEvent($event)" (emitArchive)="messageDelete($event)"></app-add-archive>
             <app-more [deleteNotesForever]="deleteNotesForever" [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>
+
+          <hr>
+          <div><b> Question Asked </b></div>
+          <div routerLink="/home/qanda/{{note.id}}" class="questionDisplay"
+          *ngFor="let questionAnswer of note.questionAndAnswerNotes">
+            {{questionAnswer.message}}
+          </div>
+
         </mat-card>
       </div>
     </div>

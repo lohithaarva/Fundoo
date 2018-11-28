@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { DialogComponentComponent } from '../dialog-component/dialog-component.component';
 import { DataService } from "../../core/services/dataservice/data.service";
 import { LoggerService } from '../../core/services/logger/logger.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params  } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
@@ -28,11 +28,12 @@ export class NoteCardComponent implements OnInit, OnDestroy {
   private checkArray = [];
   private modifiedCheckList;
   private remindToday = new Date();
+  private qAnswerId;
   private remindTomorrow = new Date(this.remindToday.getFullYear(), this.remindToday.getMonth(),
   this.remindToday.getDate() + 1)
 
 
-  constructor(public dialog: MatDialog, private noteService: NoteService,
+  constructor(public dialog: MatDialog, private noteService: NoteService, public route: ActivatedRoute,
     private data: DataService,
     private router: Router) {
     this.data.currentDelete
@@ -135,6 +136,8 @@ export class NoteCardComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/labelNotes/' + labelName]);
   }
   ngOnInit() { }
+
+
 
   openCollaboratorDialog(noteData): void {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, { 

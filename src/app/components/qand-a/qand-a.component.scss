@@ -1,0 +1,29 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
+.qandaTitle{
+    padding-bottom: 10px;
+}
+.qandaClose{
+float: right;
+    margin-top: -2%;
+}
+.qandaCard{
+    margin-top: 1%;
+    width:80%;
+}
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
+.contentDiv{
+    margin-top: 1%;
+    @include inputTitle();
+    background-color: $white_color;
+}
+.profileFab{
+    margin-top: 2%;
+}
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}

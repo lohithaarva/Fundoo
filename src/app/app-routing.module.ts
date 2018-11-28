@@ -13,6 +13,7 @@ import { TrashComponent } from './components/trash/trash.component';
 import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
+import { QandAComponent } from './components/qand-a/qand-a.component';
 
 const routes : Routes =[
   { path: 'login', component: LoginComponent},
@@ -27,7 +28,8 @@ const routes : Routes =[
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
               { path: 'search', component: SearchComponent},
-              { path:'', redirectTo:'notes',pathMatch:'full'},
+              { path: 'qanda/:noteDetail', component: QandAComponent},
+              { path:'', redirectTo:'notes',pathMatch:'full'}, 
   ]},
 
   { path: 'resetpassword/:forgotToken', component: ResetPasswordComponent},

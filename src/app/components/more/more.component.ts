@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -16,17 +17,16 @@ export class MoreComponent implements OnInit, OnDestroy {
   close: string;
 checkboxLabel = [];
 search : any;
-  constructor(private noteService : NoteService,public dialog: MatDialog) { }
+  constructor(private noteService : NoteService,public dialog: MatDialog, private router: Router) { }
   @Input() noteDeleteCard;
   @Output() delete = new EventEmitter();
   @Output() labelEvent = new EventEmitter();
   @Input() deleteNotesForever;
+  ;
   
   ngOnInit() {
               this.getLabels();
               }
-
-  token = localStorage.getItem("token");
   openTrashDialog(): void {
     const dialogRef = this.dialog.open(TrashDialogComponent, { 
     });
@@ -69,11 +69,6 @@ search : any;
 
     selectLabel(id){
       this.labelEvent.emit(id);
-        console.log("selected label is", id);
-        console.log( 'Id is here', id.label);
-        
-        // if (this.noteDeleteCard!= null && markLabel.isChecked==null){    
-          console.log(id)
           this.noteService.addLabeltoNotes(this.noteDeleteCard.id, id.id ,{"noteId" : this.noteDeleteCard.id,
         "lableId" : id.id})
         .pipe(takeUntil(this.destroy$))
@@ -117,6 +112,11 @@ restore(){
         this.destroy$.next(true);
         // Now let's also unsubscribe from the subject itself:
         this.destroy$.unsubscribe();
+      }
+      /** Method to ask question and answer for particular note */
+      askAQuestion(){
+                this.router.navigate(['/home/qanda/' + this.noteDeleteCard.id]);
+                console.log(this.noteDeleteCard)
       }
   
 }

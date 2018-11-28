@@ -1,6 +1,7 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item *ngIf="deleteNotesForever != 'delete'" (click)="deleteCard(noteDeleteCard.id)">Delete</button>
   <button mat-menu-item *ngIf="deleteNotesForever != 'delete'" [matMenuTriggerFor]="AddLabels"> Add label</button>
+  <button mat-menu-item *ngIf="deleteNotesForever != 'delete'" (click) = "askAQuestion(noteDeleteCard.id)">Ask A Question</button>
 
   <button mat-menu-item *ngIf="deleteNotesForever == 'delete'" (click)="openTrashDialog()">Delete forever</button>
   <button mat-menu-item *ngIf="deleteNotesForever == 'delete'" (click)="restore()">Restore</button>
