@@ -1,47 +1,193 @@
 <div fxLayout="column">
-
-  <div fxLayout="row">
-    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayoutAlign="space-around center">
-      <div class="qandaCard">
-        <div fxLayout="row">
-          <div fxFLex="100">
-            <div>
-              <button class="qandaClose"  mat-button> Close</button></div>
-            <div class="qandaTitle" [innerHTML]="titleId"></div>
-            <div [innerHTML]="description"></div>
-          </div>
+  <!-- <div fxLayoutAlign="space-between center" > -->
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
+    <!-- <div fxFlex.lg="90" fxFlex.md="90" fxFlex="80" fxFlex.xs="100"> -->
+    <div class="qandaCard">
+      <div fxLayout="row">
+        <div fxFLex="100">
+          <div><button class="qandaClose" mat-button (click)="backToNotes()"> Close</button></div>
+          <div class="qandaTitle" [innerHTML]="titleId"></div>
+          <div [innerHTML]="description"></div>
         </div>
-        <hr>
-        <div>Question Asked</div>
-        <input class="contentDiv" [(ngModel)]="typeQuestion" (keydown.enter)="addQuestionToNote(typeQuestion)"
-          placeholder="Type your Question?">
       </div>
+      <hr>
+      <div>Question Asked</div>
+      <input class="contentDiv" [(ngModel)]="typeQuestion" *ngIf="addQuestions.length == 0" 
+              (keydown.enter)="addQuestionToNote(typeQuestion)"
+        placeholder="Type your Question?">
+      <div *ngIf="addQuestions.length != 0">
+        <div class="contentDiv" [innerHTML]="addQuestions.message"></div>
+      </div>
+
     </div>
-    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+
+    <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
   </div>
 
-  <div fxLayout="row">
-    <div fxFlex.lg="17" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+  <!---------------------------1st  main owner division --------------------------------------->
+  <div fxLayout="row" *ngIf="addQuestions.length != 0">
+    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+    <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+      <div fxFlex.lg="5%" fxFlex.md = "5" fxFlex.sm = "10" fxFLex.xs = "10" class="profileFab">
+        <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
+      </div>
+      <div fxFlex.lg="70%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
+        <div class="profileFab"><sup>{{addQuestions.user.firstName}}</sup></div>
+        <div contenteditable="true" class="contentDiv2" [innerHTML]="addQuestions.message"></div>
+      </div>
+      <div fxFLex="10" fxLayoutAlign="end end">
+        <button mat-icon-button class="icon_button" (click)="replyTo(addQuestions)">
+          <mat-icon>reply</mat-icon>
+        </button>
+      </div>
+      <div fxFLex="10" fxLayoutAlign="end end">
+        <button *ngIf="show" mat-icon-button class="thumbsUp-icon" (click)="like(addQuestions);">
+          <img src="../../../assets/images/outline-thumb_up-24px.svg">
+        </button>
+        <button *ngIf="!show" mat-icon-button class="thumbsUp-icon" (click)=like(addQuestions)>
+          <img src="../../../assets/images/baseline-thumb_up-24px.svg">
+        </button>
+        <div><sup>{{count}}</sup></div>
+      </div>
+      <!-- <div fxFlex="12" fxLayoutAlign="end end">
+        <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
+      </div> -->
+      <div class="icon" class="rate " *ngIf="addQuestions.rate.length!=0">
+          <bar-rating (rateChange)="ratingAnswer(addQuestions,$event)" [(rate)]="addQuestions.rate[0].rate" [max]="5"></bar-rating>
+        </div>
 
-    <div fxFlex.lg="67" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-      <!-- <div > -->
+        <div class="icon" class="rate " *ngIf="addQuestions.rate.length==0">
+          <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(addQuestions,$event)" [max]="5"></bar-rating>
+        </div>
+      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+    </div>
+  </div>
 
+<!-------------------------- 2nd reply division --------------------------------------------->
+<div *ngFor = "let onceReplyHere of replyOnce">
+  <div fxLayout="row" *ngIf="addQuestions.length != 0">
+      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+      <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+        <div fxFlex.lg="5%" fxFlex.md = "5" fxFlex.sm = "10" fxFLex.xs = "10" class="profileFab">
+          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
+        </div>
+        <div fxFlex.lg="70%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
+          <div class="profileFab"><sup>{{onceReplyHere.user.firstName}}</sup></div>
+          <div contenteditable="true" class="contentDiv2" [innerHTML]="onceReplyHere.message"></div>
+        </div>
+        <div fxFLex="10" fxLayoutAlign="end end">
+          <button mat-icon-button class="icon_button" (click)="replyTo(onceReplyHere)">
+            <mat-icon>reply</mat-icon>
+          </button>
+        </div>
+        <div fxFLex="10" fxLayoutAlign="end end">
+          <button *ngIf="show" mat-icon-button class="thumbsUp-icon" (click)="like(onceReplyHere);">
+            <img src="../../../assets/images/outline-thumb_up-24px.svg">
+          </button>
+          <button *ngIf="!show" mat-icon-button class="thumbsUp-icon" (click)=like(onceReplyHere)>
+            <img src="../../../assets/images/baseline-thumb_up-24px.svg">
+          </button>
+          <div><sup>{{count}}</sup></div>
+        </div>
+        <!-- <div fxFlex="12" fxLayoutAlign="end end">
+          <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
+        </div> -->
+        <div class="icon" class="rate " *ngIf="onceReplyHere.rate.length!=0">
+            <bar-rating (rateChange)="ratingAnswer(onceReplyHere,$event)" [(rate)]="onceReplyHere.rate[0].rate" [max]="5"></bar-rating>
+          </div>
+  
+          <div class="icon" class="rate " *ngIf="onceReplyHere.rate.length==0">
+            <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(onceReplyHere,$event)" [max]="5"></bar-rating>
+          </div>
+
+        <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+      </div>
+    </div>
+</div>
+
+<!--------------------------------- 3rd reply division ------------------------------>
+
+
+
+
+
+
+
+<!----------------------------Reply division -------------------------------------------->
+  <div *ngIf="addQuestions.length != 0" fxLAyout="row">
+    <div *ngIf="replied">
+      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+      <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
         <div fxFlex="5%" class="profileFab">
           <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
         </div>
-        <div fxFlex="95%">
-        <div class="profileFab"><sup>Username</sup></div>
-        <div class="profileFab" >
-        <div contenteditable="true" class="contentDiv" [innerHTML]="newQuestion[0].message"></div>
+        <div fxFlex="70%">
+          <div class="profileFab"><sup>Username</sup></div>
+          <div contenteditable="true" data-text="Enter text here" #reply></div>
         </div>
+        <div fxLayoutAlign="end end" >
+        <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
+          <mat-icon>send</mat-icon>
+        </button>
         </div>
-
-      <!-- </div> -->
+      </div>
+      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
     </div>
-
-    <div fxFlex.lg="17" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
   </div>
 
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

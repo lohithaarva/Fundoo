@@ -52,6 +52,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
+import { BarRatingModule } from "ngx-bar-rating";
+
 
 
 
@@ -119,7 +121,8 @@ import { QandAComponent } from './components/qand-a/qand-a.component';
     MatNativeDateModule,
     ImageCropperModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    BarRatingModule
   
   ],
   

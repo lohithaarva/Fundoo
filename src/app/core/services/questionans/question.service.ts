@@ -23,6 +23,17 @@ askQuestionAnswer(noteId){
 addQuestionToNote(RequestBody){
   this.url = this.baseUrl + "/questionAndAnswerNotes/addQuestionAndAnswer/";
   return this.service.PostJson(this.url , RequestBody)
-
+}
+addLikes(RequestBody,id ){
+  this.url = this.baseUrl + "/questionAndAnswerNotes/like/" +id;
+  return this.service.PostJson(this.url , RequestBody)
+}
+replyTo(RequestBody,id){
+  this.url = this.baseUrl + "/questionAndAnswerNotes/reply/" +id;
+  return this.service.PostJson(this.url, RequestBody)
+}
+rateStars(RequestBody,id){
+  this.url = this.baseUrl + "/questionAndAnswerNotes/rate/" +id;
+  return this.service.PostJson(this.url, RequestBody)
 }
 }

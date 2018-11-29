@@ -4,9 +4,12 @@
 .qandaTitle{
     padding-bottom: 10px;
 }
-.qandaClose{
-float: right;
-    margin-top: -2%;
+.qandaClose{ 
+    float: right;
+    margin-top: -2%;  
+}
+.qandaClosed{
+    margin-top: -66%;
 }
 .qandaCard{
     margin-top: 1%;
@@ -20,10 +23,22 @@ float: right;
     @include inputTitle();
     background-color: $white_color;
 }
+.contentDiv2{
+    @include inputTitle();
+    background-color: $white_color;
+    font-size: 145%;
+    margin-top: -1%;
+}
 .profileFab{
     margin-top: 2%;
 }
 sup {
     vertical-align: super;
     font-size: smaller;
+}
+.replyIcon{
+    margin-top: 1%;
+}
+.thumbsUp-icon{
+    margin-top: 1%;
 }

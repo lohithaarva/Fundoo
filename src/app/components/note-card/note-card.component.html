@@ -144,13 +144,14 @@
             <app-more [deleteNotesForever]="deleteNotesForever" [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>
           </div>
 
-          <hr>
+          
+          <div *ngIf="note.questionAndAnswerNotes.length!==0">
+            <hr>
           <div><b> Question Asked </b></div>
-          <div routerLink="/home/qanda/{{note.id}}" class="questionDisplay"
-          *ngFor="let questionAnswer of note.questionAndAnswerNotes">
-            {{questionAnswer.message}}
+          <div routerLink="/home/qanda/{{note.id}}" class="questionDisplay">
+            {{note.questionAndAnswerNotes[0].message}}
           </div>
-
+        </div>
         </mat-card>
       </div>
     </div>
