@@ -13,8 +13,8 @@ export interface Inote {
     modifiedDate: Date,
     noteCheckLists: Array<checkLists>,
     noteLabels: Array<Label>,
-    questionAndAnswerNotes: Array<Object>,
-    reminder: [Date],
+    questionAndAnswerNotes: [object] ,  
+     reminder: [Date],
     title: string,
     userId: string
 }
