@@ -1,197 +1,97 @@
 <div fxLayout="column">
 
-  <div class="fixDivision">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row">
     <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
-    <!-- <div fxFlex.lg="90" fxFlex.md="90" fxFlex="80" fxFlex.xs="100"> -->
-    <div class="qandaCard">
-      <div fxLayout="row">
-        <div fxFLex="100">
-          <div><button class="qandaClose" mat-button (click)="backToNotes()"> Close</button></div>
+    <div fxFlex.lg="90" fxFlex.md="90" fxFlex="80" fxFlex.xs="100">
+      <div class="qandaCard">
+        <div class="cardShadow">
+        <mat-card>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
           <div class="qandaTitle" [innerHTML]="titleId"></div>
-          <div [innerHTML]="description"></div>
-          <div *ngFor="let list of checklist">
-            <div>
+          <div> <button class="qandaClose" mat-button (click)="backToNotes()"> Close</button></div>
+        </div>
+        <div [innerHTML]="description"></div>
+        <div *ngFor="let list of checklist">
+          <div>
             <mat-checkbox [ngModel]="true" *ngIf="list.status=='close' && list.isDeleted==false"></mat-checkbox>
             <span *ngIf="list.status=='close' && list.isDeleted==false">{{list.itemName}}</span>
             <mat-checkbox [ngModel]="false" *ngIf="list.status=='open' && list.isDeleted==false"></mat-checkbox>
             <span *ngIf="list.status=='open' && list.isDeleted==false">{{list.itemName}}</span>
-            </div>
-            </div>
+          </div>
+        </div>
+        </mat-card>
+        </div>
+        <hr>
+        <div>Question Asked</div>
+        <input class="contentDiv" [(ngModel)]="typeQuestion" *ngIf="addQuestions.length == 0" (keydown.enter)="addQuestionToNote(typeQuestion)"
+          placeholder="Type your Question?">
+        <div *ngIf="addQuestions.length != 0">
+          <div class="contentDiv" contenteditable="false" [innerHTML]="addQuestions[0].message"></div>
         </div>
       </div>
-      <hr>
-      <div>Question Asked</div>
-      <input class="contentDiv" [(ngModel)]="typeQuestion" *ngIf="addQuestions.length == 0" (keydown.enter)="addQuestionToNote(typeQuestion)"
-        placeholder="Type your Question?">
-      <div *ngIf="addQuestions.length != 0">
-        <div class="contentDiv" contenteditable="false" [innerHTML]="addQuestions.message"></div>
-      </div>
     </div>
-
     <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
-  </div>
   </div>
 
 
   <div class="scrollDivision">
-  <!---------------------------1st  main owner division --------------------------------------->
-  <div fxLayout="row" *ngIf="addQuestions.length != 0">
-    <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-      <div fxFlex.lg="5%" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
-        <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfImg+ ')','background-size':'cover'}"></button>
-      </div>
-      <div fxFlex.lg="70%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
-        <div class="profileFab"><sup>{{addQuestions[0].user.firstName}}</sup></div>
-        <div contenteditable="true" class="contentDiv2" [innerHTML]="addQuestions[0].message"></div>
-      </div>
-      <div fxFLex="10" fxLayoutAlign="end end">
-        <button mat-icon-button class="icon_button" (click)="replyTo(addQuestions[0])">
-          <mat-icon>reply</mat-icon>
-        </button>
-      </div>
-      <div fxFLex="10" fxLayoutAlign="end end">
-        <button mat-icon-button class="thumbsUp-icon" (click)=like(addQuestions[0])>
-          <img src="../../../assets/images/baseline-thumb_up-24px.svg">
-        </button>
-        <div><sup>{{count}}</sup></div>
-      </div>
-      <div class="icon" class="rate " *ngIf="addQuestions[0].rate.length!=0">
-        <bar-rating (rateChange)="ratingAnswer(addQuestions[0],$event)" [(rate)]="addQuestions[0].rate[0].rate" [max]="5"></bar-rating>
-      </div>
-
-      <div class="icon" class="rate " *ngIf="addQuestions[0].rate.length==0">
-        <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(addQuestions[0],$event)" [max]="5"></bar-rating>
-      </div>
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    </div>
-  </div>
-  <!--reply section-->
-  <div *ngIf="addQuestions.length != 0" fxLAyout="row">
-    <div *ngIf="replied && replyToQuestion.id == addQuestions[0].id ">
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-      <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-        <div fxFlex="5%" class="profileFab">
-          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
+    <!---------------------------1st  main owner division --------------------------------------->
+    <div fxLayout="row wrap" *ngIf="addQuestions.length != 0">
+      <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
+      <div fxFlex.lg="90" fxFlex.md="90" fxFlex="80" fxFlex.xs="100" fxLayout="row wrap">
+        <!-- <div> -->
+        <!-- Diplay icon ----->
+        <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="14" class="profileFab">
+          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ addQuestions[0].user.imageUrl+ ')','background-size':'cover'}"></button>
         </div>
-        <div fxFlex="70%">
-          <div class="profileFab"><sup>Username</sup></div>
-          <div contenteditable="true" data-text="Enter text here" #reply></div>
+        <!--- Display question ---->
+        <div fxFlex.lg="63" fxFLex.md="70" fxFlex.sm="80" fxFlex.xs="70" class="profileFab">
+          <div><sup>{{addQuestions[0].user.firstName}}</sup></div>
+          <div contenteditable="true" class="contentDiv2" [innerHTML]="addQuestions[0].message"></div>
         </div>
-        <div fxLayoutAlign="end end">
-          <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    </div>
-  </div>
-
-
-<div>
-  <!-------------------------- 2nd reply division (1st reply to owner)--------------------------------------------->
-  <div  style="margin-left:5%" *ngFor="let onceReplyHere of replyOnce">
-    <div fxLayout="row">
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-      <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-        <div fxFlex.lg="5%" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
-          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+onceReplyHere.user.imageUrl+ ')','background-size':'cover'}"></button>
-        </div>
-        <div fxFlex.lg="70%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
-          <div class="profileFab"><sup>{{onceReplyHere.user.firstName}}</sup></div>
-          <div contenteditable="true" class="contentDiv2" [innerHTML]="onceReplyHere.message"></div>
-        </div>
-        <div fxFLex="10" fxLayoutAlign="end end">
-          <button mat-icon-button class="icon_button"  (click)="replyTo(onceReplyHere)">
+        <!---- reply icon ------>
+        <div fxLayout = "row wrap" fxLayoutAlign="start end" >
+          <button mat-icon-button class="icon_button" (click)="replyTo(addQuestions[0])">
             <mat-icon>reply</mat-icon>
           </button>
-        </div>
-        <div fxFLex="10" fxLayoutAlign="end end">
-          <button mat-icon-button class="thumbsUp-icon" (click)=like(onceReplyHere)>
+        
+        <!---Display likes ----->
+          <button mat-icon-button class="thumbsUp-icon" (click)=like(xyz[0].id)>
             <img src="../../../assets/images/baseline-thumb_up-24px.svg">
           </button>
-          <div><sup>{{count}}</sup></div>
+          <div><sup>{{xyz[0].like.length}}</sup></div>
+       
+        <!---- Display ratings ----->
+
+        <div *ngIf="addQuestions[0].rate.length!=0">
+          <bar-rating (rateChange)="ratingAnswer(addQuestions[0],$event)" [(rate)]="addQuestions[0].rate[0].rate" [max]="5"></bar-rating>
         </div>
-        <div class="icon" class="rate " *ngIf="onceReplyHere.rate.length!=0">
-          <bar-rating (rateChange)="ratingAnswer(onceReplyHere,$event)" [(rate)]="onceReplyHere.rate[0].rate" [max]="5"></bar-rating>
+        <div><sup>{{averageRating(addQuestions[0].rate)}}</sup></div>
+        <div *ngIf="addQuestions[0].rate.length==0">
+          <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(addQuestions[0],$event)" [max]="5"></bar-rating>
         </div>
 
-        <div class="icon" class="rate " *ngIf="onceReplyHere.rate.length==0">
-          <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(onceReplyHere,$event)" [max]="5"></bar-rating>
-        </div>
+         <!---- Key down Icon-->
+         <button mat-icon-button *ngIf="!firstReply" (click)="firstReply=true"><mat-icon>keyboard_arrow_down</mat-icon></button>
+         <button mat-icon-button *ngIf="firstReply" (click)="firstReply=false"><mat-icon>keyboard_arrow_up</mat-icon></button>
+         <span class="username"><sup>{{replies.length}}replies</sup></span>
 
+      </div>
+
+      </div>
+      <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="0"></div>
+    </div>
+    <!--reply section-->
+    <div *ngIf="addQuestions.length != 0">
+      <div *ngIf="replied && replyToQuestion.id == addQuestions[0].id ">
         <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-      </div>
-    </div>
-    <!--reply-->
-  <div  fxLayout="row">
-    <div *ngIf="replied && replyToQuestion.id == onceReplyHere.id">
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-      <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-        <div fxFlex="5%" class="profileFab">
-          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
-        </div>
-        <div fxFlex="70%">
-          <div class="profileFab"><sup>Username</sup></div>
-          <div contenteditable="true" data-text="Enter text here" #reply></div>
-        </div>
-        <div fxLayoutAlign="end end">
-          <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    </div>
-  </div>
-  
-  <!---------second --------------->
- 
-  <div  *ngIf="hasReply(onceReplyHere)">    
-  <div class="question_div" *ngFor="let secondReplyHere of rX" >
-    <div  fxLayout="row">
-      <div fxFlex.lg="15" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-      <div fxFlex.lg="70" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-        <div fxFlex.lg="5%" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
-          <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfUrl+ ')','background-size':'cover'}"></button>
-        </div>
-        <div fxFlex.lg="70%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
-          <div class="profileFab"><sup>{{secondReplyHere.user.firstName}}</sup></div>
-          <div contenteditable="true"  style="color:purple" class="contentDiv2" [innerHTML]="secondReplyHere.message"></div>
-        </div>
-        <div fxFLex="10" fxLayoutAlign="end end">
-          <button mat-icon-button class="icon_button" (click)="replyTo(secondReplyHere)">
-            <mat-icon>reply</mat-icon>
-          </button>
-        </div>
-        <div fxFLex="10" fxLayoutAlign="end end">
-          <button mat-icon-button class="thumbsUp-icon" (click)=like(secondReplyHere)>
-            <img src="../../../assets/images/baseline-thumb_up-24px.svg">
-          </button>
-          <div><sup>{{count}}</sup></div>
-        </div>
-        <div class="icon" class="rate " *ngIf="secondReplyHere.rate.length!=0">
-          <bar-rating (rateChange)="ratingAnswer(secondReplyHere,$event)" [(rate)]="secondReplyHere.rate[0].rate" [max]="5"></bar-rating>
-        </div>
-
-        <div class="icon" class="rate " *ngIf="secondReplyHere.rate.length==0">
-          <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(secondReplyHere,$event)" [max]="5"></bar-rating>
-        </div>
-      </div>
-      <div fxFlex.lg="15" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-    </div>
-    <div style = "margin-left: 100%; margin-top: 10%;" fxLAyout="row">
-      <div *ngIf="replied && replyToQuestion.id == secondReplyHere.id">
-        <div fxFlex.lg="20" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-        <div fxFlex.lg="60" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+        <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
           <div fxFlex="5%" class="profileFab">
-            <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"></button>
+            <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfImg+ ')','background-size':'cover'}"></button>
           </div>
           <div fxFlex="70%">
-            <div class="profileFab"><sup>Username</sup></div>
-            <div contenteditable="true" data-text="Enter text here" #reply></div>
+            <div class="profileFab"><sup>{{addQuestions[0].user.firstName}}</sup></div>
+            <div class="replyDivision" contenteditable="true" data-text="Enter text here" #reply></div>
           </div>
           <div fxLayoutAlign="end end">
             <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
@@ -199,79 +99,209 @@
             </button>
           </div>
         </div>
-        <div fxFlex.lg="20" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+        <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
       </div>
     </div>
-    
 
 
-    <!--third-->
-
-    <div *ngIf="hasReplysecnd(secondReplyHere)" >  
-      <div  *ngFor="let thirdReplyHere of rZ" style="margin-top: -9%"> 
-        <div fxLayout="row">
-          <div fxFlex.lg="20" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
-          <div fxFlex.lg="60" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
-
-            <div fxFlex.lg="7%" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
-              <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfUrl+ ')','background-size':'cover'}"></button>
+    <!-- <div *ngIf="keyDownArray"> -->
+      <!-------------------------- 2nd reply division (1st reply to owner)--------------------------------------------->
+      <div style="margin-left:5%" *ngFor="let onceReplyHere of replyOnce">
+        <div *ngIf="firstReply">
+        <div fxLayout="row wrap">
+          <div fxFlex.lg="3" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+          <div fxFlex.lg="94" fxFlex.md="80" fxFlex="90" fxFlex.xs="100"  fxLayout="row wrap" class="profileFab">
+            <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFlex.xs="14">
+              <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+onceReplyHere.user.imageUrl+ ')','background-size':'cover'}"></button>
+            </div>
+            <!----- Write message ----->
+            <div fxFlex.lg="61" fxFLex.md="70" fxFlex.sm="80" fxFlex.xs="70">
+              <div class="profileFab"><sup>{{onceReplyHere.user.firstName}}</sup></div>
+              <div contenteditable="true" class="contentDiv3" [innerHTML]="onceReplyHere.message"></div>
             </div>
 
-            <div fxFlex.lg="75%" fxFLex.md="70%" fxFlex.sm="80" fxFlex.xs="80">
-              <div class="profileFab"><sup>{{thirdReplyHere.user.firstName}}</sup></div>
-              <div contenteditable="true"  style="color:royalblue"  class="contentDiv2" [innerHTML]="thirdReplyHere.message"></div>
-            </div>
-          </div>
-          <div fxFLex="10" fxLayoutAlign="end end">
-            <!-- <button mat-icon-button class="icon_button" (click)="replyTo(secondReplyHere)">
-              <mat-icon>reply</mat-icon>
-            </button> -->
-          </div>
-            <!-- <div fxLayout="row" class="thumbupCollab"> -->
-            <div  fxFLex="10" fxLayoutAlign="end end">
-              <button mat-icon-button class="thumbsUp-icon" (click)=like(thirdReplyHere)>
+            <div  fxLayout = "row wrap" fxLayoutAlign="start end" >
+              <!--- reply icon ---->
+              <button mat-icon-button class="icon_button" (click)="replyTo(onceReplyHere)">
+                <mat-icon>reply</mat-icon>
+              </button>
+            <!------ Like icon ----->
+              <button mat-icon-button class="thumbsUp-icon" (click)=like(onceReplyHere.id)>
                 <img src="../../../assets/images/baseline-thumb_up-24px.svg">
               </button>
-              <div><sup>{{count}}</sup></div>
+              <div *ngIf="onceReplyHere.like.length != 0"><sup>{{onceReplyHere.like.length}}</sup></div>
+              <!-- rate icon ----->
+              <div *ngIf="onceReplyHere.rate.length!=0">
+                <bar-rating (rateChange)="ratingAnswer(onceReplyHere,$event)" [(rate)]="onceReplyHere.rate[0].rate"
+                  [max]="5"></bar-rating>
+              </div>
+              <div><sup>{{averageRating(onceReplyHere.rate)}}</sup></div>
+              <div *ngIf="onceReplyHere.rate.length==0">
+                <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(onceReplyHere,$event)" [max]="5"></bar-rating>
+              </div>
+              
+                <!---- Key down Icon-->
+                <div>
+                    <button mat-icon-button *ngIf="!secondReply || obj!==onceReplyHere" (click)="secondReply=true;obj=onceReplyHere"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                    <button mat-icon-button *ngIf="secondReply && obj==onceReplyHere" (click)="secondReply=false;obj=onceReplyHere"><mat-icon>keyboard_arrow_up</mat-icon></button>
+                     <span *ngIf="hasReply(onceReplyHere)"><sup>{{reply_count}}replies</sup></span>
+                  </div>
+      
             </div>
-
-            <div fxFLex="10">
-            <div class="icon" class="rate " *ngIf="thirdReplyHere.rate.length!=0">
-              <bar-rating (rateChange)="ratingAnswer(thirdReplyHere,$event)" [(rate)]="thirdReplyHere.rate[0].rate" [max]="5"></bar-rating>
-            </div>
-            <div class="icon" class="rate " *ngIf="thirdReplyHere.rate.length==0">
-              <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(thirdReplyHere,$event)" [max]="5"></bar-rating>
-            </div>
+            
+            <div fxFlex.lg="3" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
           </div>
-          <!-- </div> -->
-
-          <div fxFlex.lg="20" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
         </div>
-</div>  
-</div>  
-</div> 
-  </div>  
-</div>
-</div>
-</div>
+        <!--reply-->
+        <div class="alignFirstReply">
+          <div *ngIf="replied && replyToQuestion.id == onceReplyHere.id">
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+            <div fxFlex.lg="80" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+              <div fxFlex.lg="5" class="profileFab">
+                <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfImg+ ')','background-size':'cover'}"></button>
+              </div>
+              <div fxFlex.lg="70">
+                <div class="profileFab"><sup>{{addQuestions[0].user.firstName}}</sup></div>
+                <div contenteditable="true" data-text="Enter text here" #reply></div>
+              </div>
+              <div fxLayoutAlign="end end">
+                <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
+                  <mat-icon>send</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div fxFlex.lg="10" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+          </div>
+        </div>
+        </div>
+    
+
+        <!---------second --------------->
+
+        <div *ngIf="hasReply(onceReplyHere)">
+          <div *ngFor="let secondReplyHere of rX">
+            <div *ngIf="secondReply && obj==onceReplyHere">
+            <div fxLayout="row wrap">
+              <div fxFlex.lg="7" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+              <div fxFlex.lg="86" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row wrap">
+                <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
+                  <button mat-mini-fab [ngStyle]="{'background-image':'url(' +img+secondReplyHere.user.imageUrl+ ')','background-size':'cover'}"></button>
+                </div>
+                <div fxFlex.lg="63" fxFLex.md="70" fxFlex.sm="80" fxFlex.xs="80" class="profileFab">
+                  <div><sup>{{secondReplyHere.user.firstName}}</sup></div>
+                  <div contenteditable="true" style="color:purple" class="contentDiv3" [innerHTML]="secondReplyHere.message"></div>
+                </div>
+
+                <div fxLayout = "row wrap" fxLayoutAlign="start end">
+                  <!--- reply icon ----->
+                  <button mat-icon-button class="icon_button" (click)="replyTo(secondReplyHere)">
+                    <mat-icon>reply</mat-icon>
+                  </button>
+
+                <!--- like icon ---->
+                  <button mat-icon-button class="thumbsUp-icon" (click)=like(secondReplyHere.id)>
+                    <img src="../../../assets/images/baseline-thumb_up-24px.svg">
+                  </button>
+                  <div *ngIf="secondReplyHere != 0 "><sup>{{secondReplyHere.like.length}}</sup></div>
+
+                  <!---- rate icon ---->
+                  <div class="icon" class="rate " *ngIf="secondReplyHere.rate.length!=0">
+                    <bar-rating (rateChange)="ratingAnswer(secondReplyHere,$event)" [(rate)]="secondReplyHere.rate[0].rate"
+                      [max]="5"></bar-rating>
+                  </div>
+                  <div><sup>{{averageRating(secondReplyHere.rate)}}</sup></div>
+                  <div class="icon" class="rate " *ngIf="secondReplyHere.rate.length==0">
+                    <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(secondReplyHere,$event)" [max]="5"></bar-rating>
+                  </div>
+                    
+               <!---- Key down Icon-->
+
+               <div>
+                  <button mat-icon-button *ngIf="!thirdReply || obj_two!=secondReplyHere" (click)="thirdReply=true;obj_two=secondReplyHere"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                  <button mat-icon-button *ngIf="thirdReply && obj_two==secondReplyHere" (click)="thirdReply=false;obj_two=secondReplyHere"><mat-icon>keyboard_arrow_up</mat-icon></button>
+                  <span class="username" *ngIf="hasReplysecnd(secondReplyHere)">{{reply_count}}replies</span>
+
+                </div>
+
+                </div>
+
+              </div>
+              <div fxFlex.lg="7" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+            </div>
+            
+              <div fxLAyout="row">
+                <div *ngIf="replied && replyToQuestion.id == secondReplyHere.id">
+                  <div fxFlex.lg="15" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+                  <div fxFlex.lg="70" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
+                    <div fxFlex="5%" class="profileFab">
+                      <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfImg+ ')','background-size':'cover'}"></button>
+                    </div>
+                    <div fxFlex="70%">
+                      <div class="profileFab"><sup>{{addQuestions[0].user.firstName}}</sup></div>
+                      <div contenteditable="true" data-text="Enter text here" #reply></div>
+                    </div>
+                    <div fxLayoutAlign="end end">
+                      <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
+                        <mat-icon>send</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <div fxFlex.lg="15" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!--third-->
+            <div *ngIf="thirdReply && obj_two==secondReplyHere"> 
+            <div *ngIf="hasReplysecnd(secondReplyHere)">
+              <div *ngFor="let thirdReplyHere of rZ">
+                <div fxLayout="row wrap">
+                  <div fxFlex.lg="13" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+                  <div fxFlex.lg="84" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row wrap" class="blueClass">
+
+                    <div fxFlex.lg="5" fxFlex.md="5" fxFlex.sm="10" fxFLex.xs="10" class="profileFab">
+                      <button mat-mini-fab [ngStyle]="{'background-image':'url('+img+thirdReplyHere.user.imageUrl+ ')','background-size':'cover'}"></button>
+                    </div>
+
+                    <div fxFlex.lg="62" fxFLex.md="70" fxFlex.sm="80" fxFlex.xs="80">
+                      <div class="profileFab"><sup>{{thirdReplyHere.user.firstName}}</sup></div>
+                      <div contenteditable="true" style="color:royalblue" class="contentDiv3" [innerHTML]="thirdReplyHere.message"></div>
+                    </div>
+                
+                 
+                  <div fxLayout = "row wrap" fxLayoutAlign="start end">
+                    <!----- Like icon ----->
+                    <button mat-icon-button class="thumbsUp-icon" (click)=like(thirdReplyHere.id)>
+                      <img src="../../../assets/images/baseline-thumb_up-24px.svg">
+                    </button>
+                    <div *ngIf="thirdReplyHere.like.length != 0"><sup>{{thirdReplyHere.like.length}}</sup></div>
+
+                    <!----- Rate icon ------>
+                    <div class="icon" class="rate " *ngIf="thirdReplyHere.rate.length!=0">
+                      <bar-rating (rateChange)="ratingAnswer(thirdReplyHere,$event)" [(rate)]="thirdReplyHere.rate[0].rate"
+                        [max]="5"></bar-rating>
+                    </div>
+                    <div> <sup>{{averageRating(thirdReplyHere.rate)}} </sup></div>
+                    <div class="icon" class="rate " *ngIf="thirdReplyHere.rate.length==0">
+                      <bar-rating matTooltip="Rate" (rateChange)="ratingAnswer(thirdReplyHere,$event)" [max]="5"></bar-rating>
+                    </div>
+                </div>
+
+                  </div>
+
+                  <div fxFlex.lg="13" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
 </div>
 <!---------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

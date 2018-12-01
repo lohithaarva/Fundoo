@@ -8,25 +8,32 @@
     float: right;
     margin-top: -2%;  
 }
-.qandaClosed{
-    margin-top: -66%;
-}
+// .qandaClosed{
+//     margin-top: -66%;
+// }
 .qandaCard{
-    margin-top: 1%;
-    width:80%;
+    margin-top: 10px;
 }
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
 }
 .contentDiv{
     margin-top: 1%;
+    opacity: $opacity_property;
     @include inputTitle();
     background-color: $white_color;
 }
+// .superScript{
+//     margin-top: 2%;
+//     margin-left: -1%;
+// }
 .contentDiv2{
-    @include inputTitle();
+    @include listItem();
     background-color: $white_color;
-    font-size: 145%;
+    font-size: 135%;
+    margin-top: -1%;
+}
+.contentDiv3{
     margin-top: -1%;
 }
 .profileFab{
@@ -43,16 +50,22 @@ sup {
     margin-top: 1%;
 }
 .scrollDivision{
-    overflow-y: scroll;
+    overflow-y: auto;
     height:400px;
 }
 .thumbupCollab{
     margin-left: 5%;
 }
-// :host::ng-deep.mat-drawer-content {
-//     position: relative;
-//     z-index: 1;
-//     display: block;
-//     height: 100%;
-//      overflow: hidden !important; 
-// }
+.cardShadow{
+    box-shadow: 10px 10px 10px grey;
+}
+.alignFirstReply{
+    margin-left: 7%;
+    margin-top: 1%;
+}
+.replyDivision{
+    @include listItem();
+}
+.blueClass{
+    margin-top: 1%;
+}
