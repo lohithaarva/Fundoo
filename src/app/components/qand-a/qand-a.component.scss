@@ -36,12 +36,18 @@
 .contentDiv3{
     margin-top: -1%;
 }
+.secondReplyColor{
+    color: $reply_color;
+}
+.thirdReplyColor{
+    color:$green_light;
+}
 .profileFab{
     margin-top: 2%;
 }
 sup {
     vertical-align: super;
-    font-size: smaller;
+    font-size: x-small;
 }
 .replyIcon{
     margin-top: 1%;
@@ -51,7 +57,7 @@ sup {
 }
 .scrollDivision{
     overflow-y: auto;
-    height:400px;
+    height: 335px;
 }
 .thumbupCollab{
     margin-left: 5%;
@@ -60,12 +66,32 @@ sup {
     box-shadow: 10px 10px 10px grey;
 }
 .alignFirstReply{
-    margin-left: 7%;
-    margin-top: 1%;
+    margin-left: -10%;
+    margin-bottom: 1%;
 }
 .replyDivision{
     @include listItem();
 }
 .blueClass{
     margin-top: 1%;
+}
+.date_format{
+    margin-left: 2%;
+    opacity: $opacity_property;
+}
+.name_format{
+    opacity: $opacity_property;
+}
+.date_name{
+    margin-top: 2%;
+}
+.replies_text{
+    font-size: x-small;
+    margin-left: -1%;
+}
+.firstReply_division{
+    margin-right: 2%;
+}
+.thirdReply_division{
+    margin-right: 10%;
 }
