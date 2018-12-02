@@ -53,6 +53,7 @@ import { ErrorsHandler } from './core/services/errorHandlers/error-handler';
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { BarRatingModule } from "ngx-bar-rating";
+import { ECommerceComponent } from './components/e-commerce/e-commerce.component';
 
 
 
@@ -90,7 +91,8 @@ import { BarRatingModule } from "ngx-bar-rating";
     LabelTrashDialogComponent,
     PinComponent,
     CollaboratorDialogComponent,
-    QandAComponent
+    QandAComponent,
+    ECommerceComponent
     
     
   ],

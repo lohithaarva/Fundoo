@@ -14,13 +14,15 @@ import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
+import { ECommerceComponent } from './components/e-commerce/e-commerce.component';
 
 const routes : Routes =[
+  { path:'', redirectTo:'notes',pathMatch:'full'}, 
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'home', component:HomeComponent , canActivate:[AuthGuard], children  :[
-
+    
               { path: 'notes', component: NotesComponent }, 
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
@@ -28,12 +30,14 @@ const routes : Routes =[
               { path: 'archive', component: ArchiveComponent},
               { path: 'trash', component: TrashComponent},
               { path: 'search', component: SearchComponent},
-              { path: 'qanda/:noteDetail', component: QandAComponent},
-              { path:'', redirectTo:'notes',pathMatch:'full'}, 
+             
+              { path: 'qanda/:noteDetail', component: QandAComponent}
+              
   ]},
 
   { path: 'resetpassword/:forgotToken', component: ResetPasswordComponent},
-  { path: '', redirectTo: '/login', pathMatch: 'full', }
+  { path: '', redirectTo: '/login', pathMatch: 'full', },
+  { path: 'ecommerce', component: ECommerceComponent},
 ];
 
 @NgModule({
