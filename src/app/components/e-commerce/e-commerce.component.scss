@@ -6,3 +6,18 @@
 .ecommerce_main{
     background-color: $yellow_color;
 }
+.cartAlign{
+    margin-top: 5%;
+}
+ul.cartOptions {
+    list-style-type: square;   
+   margin-left: -14%;
+   line-height: 200%;
+}
+.cartMatCard{
+    width: 160px;
+    height: 235px;
+}
+.cartShadow{
+    box-shadow: 5px 10px #888888;
+}

@@ -1,7 +1,7 @@
+<div fxLayout="row" class="ecommerce_main">
+  <mat-toolbar>fundooNotes</mat-toolbar>
+</div>
 <div fxLayout="column">
-  <div fxLayout="row" class="ecommerce_main">
-    <mat-toolbar>fundooNotes</mat-toolbar>
-  </div>
   <div fxLayout="row">
     <div fxFlex.lg="15" fxFlex.md="15" fxFlex.sm="20" fxFlex.xs="0"></div>
     <div fxFlex.lg="70" fxFlex.md="70" fxFlex.sm="60" fxFlex.xs="100" fxLayoutAlign="center center" class="ecommerce_header">
@@ -9,4 +9,40 @@
     </div>
     <div fxFlex.lg="15" fxFlex.md="15" fxFlex.sm="20" fxFlex.xs="0"></div>
   </div>
+
+  <div fxLayout="row" class="cartAlign">
+    <div fxFlex.lg="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="0"></div>
+    <div fxFlex.lg="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayout="row" fxLayoutAlign="space-around center">
+      <div class="cartShadow">
+        <mat-card class="cartMatCard">
+          <div>$ 6.99 per Month</div>
+          <div>Advance</div>
+          <div>
+              <ul class="cartOptions">
+                  <li>Unlimited Wall Space</li>
+                  <li>Nice Interface</li>
+                  <li>$6.99/month</li>
+                  <li>Ability to add only title and description</li>
+                </ul>
+          </div>
+        </mat-card>
+      </div>
+      <div>
+          <mat-card class="cartMatCard">
+            <div>$ 3.99 per Month</div>
+            <div>Basic</div>
+            <div>
+                <ul class="cartOptions">
+                    <li>Unlimited Wall Space</li>
+                    <li>Nice Interface</li>
+                    <li>$6.99/month</li>
+                    <li>Ability to add only title and description</li>
+                  </ul>
+            </div>
+          </mat-card>
+        </div>
+    </div>
+    <div fxFlex.lg="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="0"></div>
+  </div>
+
 </div>

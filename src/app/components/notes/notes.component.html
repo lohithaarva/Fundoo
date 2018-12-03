@@ -1,7 +1,12 @@
 <!-------------------- Displaying notes which are pinned as well as other notes ---------->
 <app-add-notes (messageEvent)="receiveMessage($event)" (newDate)="addNotes($event)"></app-add-notes>
+<div class="spinner"  *ngIf="spinnerLoader==false" >
+    <div class="cube1"></div>
+    <div class="cube2"></div>
+  </div>
 <app-note-card fxLayoutAlign="start start" [cardAdded]="pinNotes" [length]='pinNotes.length' [word]="'Pinned'"
     (eventEmit)="receiveMessage($event)"></app-note-card>
+
 <app-note-card fxLayoutAlign="start center" [cardAdded]="notes" (eventEmit)="receiveMessage($event)" 
     [length]='pinNotes.length' [word]="'Others'"></app-note-card>
 <!----------------------------- End of displaying notes ------------------------------------>

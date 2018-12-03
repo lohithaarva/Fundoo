@@ -10,7 +10,9 @@
               <div class="qandaTitle" [innerHTML]="titleId"></div>
               <div> <button class="qandaClose" mat-button (click)="backToNotes()"> Close</button></div>
             </div>
+            <div class="mainScroller">
             <div [innerHTML]="description"></div>
+            </div>
             <div *ngFor="let list of checklist">
               <div>
                 <mat-checkbox [ngModel]="true" *ngIf="list.status=='close' && list.isDeleted==false"></mat-checkbox>
@@ -60,10 +62,10 @@
           </button>
 
           <!---Display likes ----->
-          <button mat-icon-button (click)=like(xyz[0].id)>
+          <button mat-icon-button (click)=like(answerQuestion[0].id)>
             <img src="../../../assets/images/baseline-thumb_up-24px.svg">
           </button>
-          <div><sup>{{xyz[0].like.length}}</sup></div>
+          <div><sup>{{answerQuestion[0].like.length}}</sup></div>
 
           <!---- Display ratings ----->
 
@@ -94,7 +96,7 @@
     <!--reply section-->
     <div *ngIf="addQuestions.length != 0">
       <div *ngIf="replied && replyToQuestion.id == addQuestions[0].id ">
-        <div fxFlex.lg="5" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
+        <div fxFlex.lg="7" fxFlex.md="10" fxFlex.sm="5" fxFlex.xs="0"></div>
         <div fxFlex.lg="90" fxFlex.md="80" fxFlex="90" fxFlex.xs="100" fxLayout="row">
           <div fxFlex="5%" class="profileFab">
             <button mat-mini-fab [ngStyle]="{'background-image':'url(' +selfImg+ ')','background-size':'cover'}"></button>
@@ -106,8 +108,8 @@
             </div>
             <div class="replyDivision" contenteditable="true" data-text="Enter text here" #reply></div>
           </div>
-          <div fxLayoutAlign="end end">
-            <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
+          <div fxLayoutAlign="end end" >
+            <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone" >
               <mat-icon>send</mat-icon>
             </button>
           </div>

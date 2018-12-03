@@ -15,8 +15,8 @@
               <app-pin (pinEventEmit)="messageDelete($event)" class="pinIcon" [notePinCard]="note"></app-pin>
             </span>
           </div>
-          <div>
-            <span fxFlex="100" (click)="openDialog(note)" [innerHTML]="note.description"></span>
+          <div class="noteCardDescription">
+            <div fxFlex="100" (click)="openDialog(note)" [innerHTML]="note.description"></div>
           </div>
 
 
@@ -134,7 +134,7 @@
           <!-------------------------------- Collaborator stops ---------------------------------->
 
           <!-------------------  displaying icons   --------------------------------->
-          <div fxLayout="row" fxLayoutAlign="space-between" class="iconInvisible">
+          <div fxLayout="row" fxLayoutAlign="space-evenly end"  class="iconInvisible">
             <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)" *ngIf="deleteNotesForever == delete"></app-remind>
             <app-collaborator [collaboratorPop]='note' *ngIf="deleteNotesForever == delete"></app-collaborator>
             <app-color *ngIf="deleteNotesForever == delete" [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>

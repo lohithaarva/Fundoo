@@ -14,9 +14,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>(); 
   private notes = [] as Array<Inote>
   private pinNotes =[] as Array<Inote>
-  access_token = localStorage.getItem("token");
-  message: boolean;
-  main = [];
+  private message: boolean;
+  private main = [];
+  public spinnerLoader:boolean=false;
   @Output() notesEventEmit = new EventEmitter();
 
   constructor(private noteService: NoteService, private auth: AuthService) {
@@ -46,6 +46,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe(
       data => {
+        this.spinnerLoader = true;
         this.notes = [];
         var notesArray:Inote[] = data['data'].data
         for (var i = notesArray.length - 1; i >= 0; i--) {
@@ -57,6 +58,7 @@ export class NotesComponent implements OnInit, OnDestroy {
             })
           }
         }
+        
         console.log('notes',this.notes);
         
       })
@@ -67,6 +69,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
+            this.spinnerLoader = true;
             this.pinNotes = [];
             var notesArray:Inote[] = data['data'].data 
             for (var i = notesArray.length - 1; i >= 0; i--) {
@@ -74,11 +77,13 @@ export class NotesComponent implements OnInit, OnDestroy {
           && notesArray[i].isArchived == false 
           && notesArray[i].isPined == true) {
                 this.pinNotes.push(notesArray[i]);
+
                 this.notesEventEmit.emit({
                 })
               }
             }
           })
+         
             }
 
   ngOnDestroy() {

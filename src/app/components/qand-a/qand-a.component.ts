@@ -14,9 +14,7 @@ import { QuestionService } from '../../core/services/questionans/question.servic
 })
 export class QandAComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  // @Input() noteDeleteCard;
   @ViewChild('reply') public replySucess: ElementRef;
-  // @ViewChild ('typeQuestion') typeQuestion:ElementRef;
   private noteDetail;
   private titleId;
   private description;
@@ -34,25 +32,26 @@ export class QandAComponent implements OnInit, OnDestroy {
   private show = true;
   private replyToQuestion;
   private showPlaceHolder = true;
-  private replied ;
+  private replied;
   count: any;
   private replyDone = true;
   private replyOnce = [];
   private replyFirstLevel;
   private replySecondLevel;
   private secondReply = [];
-  public thirdReply=[];
-  private xyz;
+  public thirdReply = [];
+  private answerQuestion;
   private value;
   private avgRate;
-  // private keyDownArray: boolean = false;
-  // private keyDownArrayOnce:boolean = false;
-  // private keyDownArrayTwice:boolean = false;
-  private replies=[]
+  private replies = []
   private replyObj;
+  public rX = []
+  private reply_count;
+  public rZ;
+
   constructor(public questionanswer: QuestionService, public route: ActivatedRoute, private router: Router) { }
 
-  
+
   ngOnInit() {
     this.image = localStorage.getItem('imageUrl');
     this.img = environment.apiUrl;
@@ -69,7 +68,6 @@ export class QandAComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/notes']);
   }
 
-
   getQuestionAnswer() {
     this.questionanswer.askQuestionAnswer(this.noteDetail)
       .pipe(takeUntil(this.destroy$))
@@ -77,37 +75,31 @@ export class QandAComponent implements OnInit, OnDestroy {
         data => {
           this.qandAData = data['data']['data'][0];
           this.replyFirstLevel = data['data']['data'][0];
-          console.log(this.qandAData)
+          console.log(this.qandAData);
           this.titleId = (this.qandAData.title);
           this.description = (this.qandAData.description);
-
           for (let i = 0; i < this.qandAData.noteCheckLists.length; i++) {
             if (this.qandAData.noteCheckLists[i].isDeleted == false) {
               this.checklist.push(this.qandAData.noteCheckLists[i])
             }
           }
-
           if (this.qandAData.questionAndAnswerNotes[0] != undefined) {
             this.addQuestions.push(this.qandAData.questionAndAnswerNotes[0]);
             this.likeCount = this.qandAData.questionAndAnswerNotes[0].like.length
-            this.xyz = this.qandAData.questionAndAnswerNotes;
+            this.answerQuestion = this.qandAData.questionAndAnswerNotes;
             for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
-              if(this.qandAData.questionAndAnswerNotes[i].parentId===this.addQuestions[0].id){
-              this.replyOnce.push(this.qandAData.questionAndAnswerNotes[i])
+              if (this.qandAData.questionAndAnswerNotes[i].parentId === this.addQuestions[0].id) {
+                this.replyOnce.push(this.qandAData.questionAndAnswerNotes[i])
               }
             }
-        for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
-          if (this.qandAData.questionAndAnswerNotes[0].id === this.qandAData.questionAndAnswerNotes[i].parentId) {
-            this.replies.push(this.qandAData.questionAndAnswerNotes[i]);
+            for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
+              if (this.qandAData.questionAndAnswerNotes[0].id === this.qandAData.questionAndAnswerNotes[i].parentId) {
+                this.replies.push(this.qandAData.questionAndAnswerNotes[i]);
+              }
+            }
           }
-        }
-          }
-          console.log("question and answer successfull", this.qandAData);
         })
   }
-
-
-
 
   addQuestionToNote(typeQuestion) {
     var RequestBody = {
@@ -118,8 +110,7 @@ export class QandAComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.addQuestions = data['data']['details'].message
-        LoggerService.log(data);
-
+        this.getQuestionAnswer()
       })
   }
 
@@ -132,8 +123,6 @@ export class QandAComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.count = data['data']['details'].count;
       })
-      console.log(ques,'id of like is here');
-      
   }
 
   ratingAnswer(value, event) {
@@ -145,17 +134,12 @@ export class QandAComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         LoggerService.log('success rate', data);
-
       })
   }
 
   replyTo(quesObj) {
     // debugger;
-    console.log(quesObj.id,'reply to here ');
-    
     this.replyToQuestion = quesObj
-    console.log(this.replyToQuestion,'assignment variable');
-    
     this.replied = true;
   }
 
@@ -167,34 +151,31 @@ export class QandAComponent implements OnInit, OnDestroy {
     this.questionanswer.replyTo(RequestBody, this.replyToQuestion.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        console.log(data);
-        console.log(this.replyToQuestion,'lohitha');
-        
+        this.replied = false;
+        this.getQuestionAnswer();
       })
+
   }
 
-  public rX=[]
-  private reply_count;
-    hasReply(ques)
-  {
-      this.rX=[];
-      this.reply_count=0;
-      for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
-        if (ques.id === this.qandAData.questionAndAnswerNotes[i].parentId) {
-          this.rX.push(this.qandAData.questionAndAnswerNotes[i])
-          }
+
+  hasReply(ques) {
+    this.rX = [];
+    this.reply_count = 0;
+    for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
+      if (ques.id === this.qandAData.questionAndAnswerNotes[i].parentId) {
+        this.rX.push(this.qandAData.questionAndAnswerNotes[i]);
       }
-      this.reply_count=this.rX.length;
-     return true;
-  }  
-  public rZ;
-  hasReplysecnd(ques){
-  this.rZ=[];
-  this.reply_count = 0;
+    }
+    this.reply_count = this.rX.length;
+    return true;
+
+  }
+  hasReplysecnd(ques) {
+    this.rZ = [];
+    this.reply_count = 0;
     for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
       if (ques.id === this.qandAData.questionAndAnswerNotes[i].parentId) {
         this.rZ.push(this.qandAData.questionAndAnswerNotes[i])
-  
       }
     }
     this.reply_count = this.rZ.length;
@@ -204,13 +185,13 @@ export class QandAComponent implements OnInit, OnDestroy {
   averageRating(rateArray) {
     this.value = 0;
     if (rateArray.length != 0) {
-    for (let i = 0; i < rateArray.length; i++) {
-    this.value += rateArray[i].rate
+      for (let i = 0; i < rateArray.length; i++) {
+        this.value += rateArray[i].rate
+      }
+      this.avgRate = this.value / rateArray.length;
+      return this.avgRate;
     }
-    this.avgRate = this.value / rateArray.length;
-    return this.avgRate;
-    }
-    }
+  }
 
   ngOnDestroy() {
     this.destroy$.next(true);

@@ -16,12 +16,18 @@
     margin-left: -1%;
 }
   .inputNote{
-    @include inputTitle();
+    @include listItem();
     cursor: $cursor_text;
     font-size: 16px;
     padding-left: 10px;
     margin-left: 2%;
     word-wrap: break-word;
+    max-height: 250px;
+    min-height: 40px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 93%;
+    
 }
   .icons {
     float: right;

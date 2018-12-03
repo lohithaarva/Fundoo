@@ -149,7 +149,6 @@
     box-sizing: border-box;
     display: flex;
     place-content: center;
-    /* align-items: center; */
     flex: 1 1 100%;
     max-width: 80%;
 }
@@ -159,7 +158,14 @@
 }
 .questionDisplay{
   margin-top: 4%;
-  @include inputTitle();
+  @include  listItem();
+  height: 50px;
+  overflow-y: auto;
+  width: 97%;
+}
+.noteCardDescription{
+  @include emailName();
+  width: 175px;
 }
 
 @media only screen and (min-width: 200px) and (max-width: 600px){
