@@ -25,8 +25,14 @@
         </div>
         <hr>
         <div>Question Asked</div>
-        <input class="contentDiv" [(ngModel)]="typeQuestion" *ngIf="addQuestions.length == 0" (keydown.enter)="addQuestionToNote(typeQuestion)"
-          placeholder="Type your Question?">
+        <!-- <input class="contentDiv" [(ngModel)]="typeQuestion" *ngIf="addQuestions.length == 0" (keydown.enter)="addQuestionToNote(typeQuestion)"
+          placeholder="Type your Question?"> -->
+          <div class="replyDivision" *ngIf="addQuestions.length == 0" 
+           [froalaEditor]="Editor" [(froalaModel)]="editorContent"></div>
+           <button  *ngIf="addQuestions.length == 0"  mat-icon-button  (click)="addQuestionToNote()">
+            <mat-icon>send</mat-icon>
+          </button>
+
         <div *ngIf="addQuestions.length != 0">
           <div class="contentDiv" contenteditable="false" [innerHTML]="addQuestions[0].message"></div>
         </div>
@@ -106,7 +112,9 @@
             <div class="name_format"><sup>{{addQuestions[0].user.firstName}}</sup></div>
             <div class="date_format"><sup>{{addQuestions[0].modifiedDate | date: shortDate}}</sup></div>
             </div>
-            <div class="replyDivision" contenteditable="true" data-text="Enter text here" #reply></div>
+            <!-- <div class="replyDivision" contenteditable="true" data-text="Enter text here" #reply></div> -->
+            <div class="replyDivision" [froalaEditor]="Editor" [(froalaModel)]="editorContent"></div>
+
           </div>
           <div fxLayoutAlign="end end" >
             <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone" >
@@ -185,7 +193,8 @@
                   <div class="name_format"><sup>{{addQuestions[0].user.firstName}}</sup></div>
                 <div class="date_format"><sup>{{addQuestions[0].modifiedDate | date: shortDate}}</sup></div>
                 </div>
-                <div contenteditable="true" data-text="Enter text here" #reply></div>
+                <!-- <div contenteditable="true" data-text="Enter text here" #reply></div> -->
+                <div class="replyDivision" [froalaEditor]="Editor" [(froalaModel)]="editorContent"></div>
               </div>
               <div fxLayoutAlign="end end">
                 <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">
@@ -268,7 +277,8 @@
                       <div class="name_format"><sup>{{addQuestions[0].user.firstName}}</sup></div>
                       <div class="date_format"><sup>{{addQuestions[0].modifiedDate | date: shortDate}}</sup></div>
                       </div>
-                      <div contenteditable="true" data-text="Enter text here" #reply></div>
+                      <!-- <div contenteditable="true" data-text="Enter text here" #reply></div> -->
+                      <div class="replyDivision" [froalaEditor]="Editor" [(froalaModel)]="editorContent"></div>
                     </div>
                     <div fxLayoutAlign="end end">
                       <button mat-icon-button (click)="sendReply() ; replyDone = !replyDone">

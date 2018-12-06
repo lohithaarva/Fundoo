@@ -159,8 +159,9 @@
 .questionDisplay{
   margin-top: 4%;
   @include  listItem();
+  @include emailName();
   height: 50px;
-  overflow-y: auto;
+  
   width: 97%;
 }
 .noteCardDescription{

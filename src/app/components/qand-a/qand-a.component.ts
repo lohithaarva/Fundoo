@@ -48,6 +48,7 @@ export class QandAComponent implements OnInit, OnDestroy {
   public rX = []
   private reply_count;
   public rZ;
+  private editorContent;
 
   constructor(public questionanswer: QuestionService, public route: ActivatedRoute, private router: Router) { }
 
@@ -73,6 +74,7 @@ export class QandAComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         data => {
+          this.replyOnce = [];
           this.qandAData = data['data']['data'][0];
           this.replyFirstLevel = data['data']['data'][0];
           console.log(this.qandAData);
@@ -88,12 +90,14 @@ export class QandAComponent implements OnInit, OnDestroy {
             this.likeCount = this.qandAData.questionAndAnswerNotes[0].like.length
             this.answerQuestion = this.qandAData.questionAndAnswerNotes;
             for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
-              if (this.qandAData.questionAndAnswerNotes[i].parentId === this.addQuestions[0].id) {
+              if (this.qandAData.questionAndAnswerNotes[i].parentId === this.addQuestions[0].id
+                && this.qandAData.questionAndAnswerNotes[i].isApproved == true) {
                 this.replyOnce.push(this.qandAData.questionAndAnswerNotes[i])
               }
             }
             for (let i = 1; i < this.qandAData.questionAndAnswerNotes.length; i++) {
-              if (this.qandAData.questionAndAnswerNotes[0].id === this.qandAData.questionAndAnswerNotes[i].parentId) {
+              if (this.qandAData.questionAndAnswerNotes[0].id === this.qandAData.questionAndAnswerNotes[i].parentId
+              ) {
                 this.replies.push(this.qandAData.questionAndAnswerNotes[i]);
               }
             }
@@ -101,9 +105,9 @@ export class QandAComponent implements OnInit, OnDestroy {
         })
   }
 
-  addQuestionToNote(typeQuestion) {
+  addQuestionToNote() {
     var RequestBody = {
-      'message': typeQuestion,
+      'message': this.editorContent,
       'notesId': this.noteDetail,
     }
     this.questionanswer.addQuestionToNote(RequestBody)
@@ -146,7 +150,7 @@ export class QandAComponent implements OnInit, OnDestroy {
 
   sendReply() {
     let RequestBody = {
-      "message": this.replySucess.nativeElement.innerHTML
+      "message": this.editorContent
     }
     this.questionanswer.replyTo(RequestBody, this.replyToQuestion.id)
       .pipe(takeUntil(this.destroy$))
@@ -192,6 +196,25 @@ export class QandAComponent implements OnInit, OnDestroy {
       return this.avgRate;
     }
   }
+
+  public Editor: Object = {
+    charCounterCount: false,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert', 'strikeThrough', 'subscript',
+      'superscript', 'fontFamily', 'fontSize', 'formatBlock', 'blockStyle', 'align', 'insertOrderedList',
+      'insertUnorderedList', 'outdent', 'indent', 'selectAll', 'undo', 'redo', 'fullscreen', 'orderedList'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert', 'fontSize',
+      'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'formatBlock', 'blockStyle',
+      'align', 'insertOrderedList', 'insertUnorderedList', 'outdent', 'indent', 'selectAll', 'undo', 'redo',
+      'fullscreen', 'orderedList'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert', 'fontSize',
+      'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'formatBlock', 'blockStyle',
+      'align', 'insertOrderedList', 'insertUnorderedList', 'outdent', 'indent', 'selectAll', 'undo', 'redo',
+      'fullscreen', 'orderedList'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert', 'fontSize',
+      'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'formatBlock', 'blockStyle',
+      'align', 'insertOrderedList', 'insertUnorderedList', 'outdent', 'indent', 'selectAll', 'undo', 'redo',
+      'fullscreen', 'orderedList'],
+  };
 
   ngOnDestroy() {
     this.destroy$.next(true);

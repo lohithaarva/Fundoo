@@ -1,3 +1,19 @@
+/************************************************************************************************
+*  Execution       :   1. default node         cmd> archive.ts 
+*        
+*  Purpose         : To add a new notecard 
+* 
+*  Description    
+* 
+*  @file           : archive.ts
+*  @overview       : To add a new notecard 
+*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @author         : LohithaShree <lohitha.arva@gmail.com>
+*  @since          : 20-10-2018
+*
+*************************************************************************************************/
+/**component has imports , decorator & class */
+
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,12 +22,16 @@ import { UserService } from 'src/app/core/services/userService/user.service';
 import { NoteService } from '../../core/services/noteservice/note.service';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material';
-
+/**A componenet can be reused throughout the application & even in other applications */
 @Component({
-  selector: 'app-add-notes',
-  templateUrl: './add-notes.component.html',
-  styleUrls: ['./add-notes.component.scss']
+  selector: 'app-add-notes',/**A string value which represents the component on browser at 
+                             execution time */
+  templateUrl: './add-notes.component.html',/**External templating process to define html
+                             tags in component */
+  styleUrls: ['./add-notes.component.scss']/**It is used to provide style of components */
 })
+/**To use components in other modules , we have to export them */
+
 export class AddNotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   private enterExpression = true;
@@ -46,7 +66,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   public searchResult = []
   public collabs = [];
   private addCollaboraorNew = [];
-  // privateaddCollaboraor: any;
+  public spinnerLoader: boolean = false;
   private show: boolean = false;
 
 
@@ -55,6 +75,10 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     'isArchived': false,
     'id': ''
   }
+  /**EventEmitter:creates an instance of this class that can delliver events  */
+
+  /**it is a interface */
+  /**OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. */
 
   constructor(private noteService: NoteService, public snackBar: MatSnackBar,
     private userService: UserService) { }
@@ -103,6 +127,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
         'collaberators': JSON.stringify(this.addCollaboraorNew),
       }).pipe(takeUntil(this.destroy$))
         .subscribe(data => {
+
           this.newDate.emit(data["status"].details)
           LoggerService.log("POST Request is successful ", data);
           this.dataArray = [];
@@ -266,12 +291,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     this.labelChipId = [];
   }
 
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
+  /** Method to search a notecard */
   keySearch(event) {
     var RequestBody = {
       "searchWord": this.collaboratorSearch,
@@ -291,14 +311,16 @@ export class AddNotesComponent implements OnInit, OnDestroy {
         LoggerService.log("Error", error);
       }
   }
-
+  /**Method to add a collaborator */
   addCollaborator(name) {
   }
+
   clickitem(email) {
     LoggerService.log(email);
     this.collaboratorSearch = email;
   }
 
+  /**Method to check if the collaborator added is present  */
   enterDetails(searchPerson) {
     for (let duplicateName = 0; duplicateName < this.addCollaboraorNew.length; duplicateName++) {
       if (this.collaboratorSearch == this.addCollaboraorNew[duplicateName].email) {
@@ -317,6 +339,7 @@ export class AddNotesComponent implements OnInit, OnDestroy {
     this.collaboratorSearch = [];
   }
 
+  /**Method to remove collaborator from notecard */
   removeCollaborator(userId) {
     for (var i = 0; i < this.addCollaboraorNew.length; i++) {
       if (this.addCollaboraorNew[i].userId == userId) {
@@ -328,6 +351,14 @@ export class AddNotesComponent implements OnInit, OnDestroy {
   saveBackToAdd() {
     this.collaboratorDivision = true;
   }
+
+  /** A callback method that performs custom clean-up, invoked immediately after a directive, 
+       * pipe, or service instance is destroyed. */
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 
 }
 

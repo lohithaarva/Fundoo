@@ -18,7 +18,6 @@ import { LabelsComponent } from './components/labels/labels.component';
 import { RemindComponent } from './components/remind/remind.component';
 import { CollaboratorComponent } from './components/collaborator/collaborator.component';
 import { ColorComponent } from './components/color/color.component';
-import { AddImageComponent } from './components/add-image/add-image.component';
 import { AddArchiveComponent } from './components/add-archive/add-archive.component';
 import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
@@ -54,6 +53,8 @@ import { CollaboratorDialogComponent } from './components/collaborator-dialog/co
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { ECommerceComponent } from './components/e-commerce/e-commerce.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { LoadersComponent } from './components/loaders/loaders.component';
 
 
 
@@ -77,7 +78,6 @@ import { ECommerceComponent } from './components/e-commerce/e-commerce.component
     RemindComponent,
     CollaboratorComponent,
     ColorComponent,
-    AddImageComponent,
     AddArchiveComponent,
     MoreComponent,
     AddNotesComponent,
@@ -92,7 +92,9 @@ import { ECommerceComponent } from './components/e-commerce/e-commerce.component
     PinComponent,
     CollaboratorDialogComponent,
     QandAComponent,
-    ECommerceComponent
+    ECommerceComponent,
+    LoadersComponent,
+    
     
     
   ],
@@ -124,7 +126,8 @@ import { ECommerceComponent } from './components/e-commerce/e-commerce.component
     ImageCropperModule,
     MatSelectModule,
     MatTooltipModule,
-    BarRatingModule
+    BarRatingModule,
+   [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
   
   ],
   
