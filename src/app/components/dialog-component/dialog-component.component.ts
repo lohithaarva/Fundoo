@@ -1,15 +1,15 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> dialog.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations to update a noteCard
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : dialog.ts
+*  @overview       : The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations to update a noteCard
+*  @module         : dialog.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *
@@ -66,6 +66,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     this.tempArray = this.data['noteCheckLists']
   }
 
+
   onNoClick(id): void {
     var requestBody = {
       "noteId": [this.data.id],
@@ -83,6 +84,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  //**Method to remove label from noteCard */
   removelabel(labelId, noteId) {
     var requestBody = {
       "noteId": noteId,
@@ -131,19 +133,18 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
           response => {
             LoggerService.log(response);
             this.eventEmit.emit({})
-          }) 
+          })
     }
   }
-
+  /**Method to edit an checkBox */
   editing(editedList, event) {
-
-    LoggerService.log(editedList);
     if (event.code == "Enter") {
       this.modifiedCheckList = editedList;
       this.update();
     }
   }
 
+  /**Method to display checkboxes */
   checkBox(checkList) {
 
     if (checkList.status == "open") {
@@ -152,18 +153,17 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
     this.modifiedCheckList = checkList;
     this.update();
   }
 
+
   public removedList;
   removeList(checklist) {
-    LoggerService.log(checklist)
     this.removedList = checklist;
     this.removeCheckList()
   }
-
+  //**Method to remove a checkBox */
   removeCheckList() {
     this.noteService.removeChecklist(null, this.data.id, this.removedList.id)
       .pipe(takeUntil(this.destroy$))
@@ -181,6 +181,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
   public addCheck = false;
   public status = "open"
 
+  /**Method to add an checkList to noteCard */
   addList(event) {
     if (this.newList != "") {
       this.adding = true;
@@ -213,7 +214,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
           })
     }
   }
-
+  //**Method to delete a reminder from noteCard */
   reminderDelete(data) {
     var id = data.id;
     LoggerService.log('reminder note id is', id);
@@ -226,6 +227,7 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
     })
   }
 
+  //**Method to strike out reminders from noteCard*/
   reminderOff(cuttOff) {
     var currentReminderTime = new Date().getTime();
     var timeValue = new Date(cuttOff).getTime();
@@ -236,13 +238,17 @@ export class DialogComponentComponent implements OnInit, OnDestroy {
       return false;
     }
   }
-
+  /** A callback method that performs custom clean-up, invoked immediately after a directive, 
+       * pipe, or service instance is destroyed. */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+  /** The dialog service can be used to open modal dialogs with Material Design styling and animations 
+   * to popup a noteCard
+ */
   openCollaboratorDialog(noteData): void {
-  const dialogNew= this.dialog.open(CollaboratorDialogComponent, {
+    const dialogNew = this.dialog.open(CollaboratorDialogComponent, {
       width: '600px',
       data: noteData,
     })

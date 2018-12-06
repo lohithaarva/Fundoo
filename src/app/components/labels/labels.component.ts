@@ -1,3 +1,18 @@
+/************************************************************************************************
+*  Execution       :   1. default node         cmd> labels.ts 
+*        
+*  Purpose         :  To display labels on notecards
+* 
+*  Description    
+* 
+*  @file           : labels.ts
+*  @overview       :  To display labels on notecards
+*  @module         : labels.ts - This is optional if expeclictly its an npm or local package
+*  @author         : LohithaShree <lohitha.arva@gmail.com>
+*  @since          : 20-10-2018
+*
+*************************************************************************************************/
+/**component has imports , decorator & class */
 import { OnDestroy, Component, OnInit, Inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,18 +22,21 @@ import { DataService } from '../../core/services/dataservice/data.service';
 import { Inote, Label } from '../../core/models/Inote'
 import { LabelTrashDialogComponent } from '../label-trash-dialog/label-trash-dialog.component';
 import { NoteService } from 'src/app/core/services/noteservice/note.service';
+/**A componenet can be reused throughout the application & even in other applications */
 
 @Component({
-  selector: 'app-labels',
-  templateUrl: './labels.component.html',
-  styleUrls: ['./labels.component.scss']
+  selector: 'app-labels',/**A string value which represents the component on browser at 
+  execution time */
+  templateUrl: './labels.component.html',/**External templating process to define html
+  tags in component */
+  styleUrls: ['./labels.component.scss']/**It is used to provide style of components */
 })
 export class LabelsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   public show = true;
   constructor(private noteService: NoteService,
-  private data: DataService, public dialog: MatDialog) { }
+    private data: DataService, public dialog: MatDialog) { }
   private value1: any = [];
   private array = [] as Array<Label>
 
@@ -131,7 +149,8 @@ export class LabelsComponent implements OnInit, OnDestroy {
         this.close = result;
       });
   }
-
+/** A callback method that performs custom clean-up, invoked immediately after a directive, 
+     * pipe, or service instance is destroyed. */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

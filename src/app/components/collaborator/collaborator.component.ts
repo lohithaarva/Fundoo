@@ -1,15 +1,13 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> collaborator.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  To add a person who works jointly on an activity.
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : collaborator.ts
+*  @overview       : To add a person who works jointly on an activity.
+*  @module         : collaborator.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *
@@ -44,6 +42,7 @@ export class CollaboratorComponent implements OnInit {
     }
   }
   constructor(private dialog: MatDialog) { }
+  /**Method to display dialog */
   openCollaboratorDialog(): void {
     if (this.collaboratorPop != undefined) {
       const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
@@ -56,6 +55,7 @@ export class CollaboratorComponent implements OnInit {
         });
     }
   }
+  /**EventEmitter:creates an instance of this class that can delliver events  */
   openCollaboratorDivision() {
     this.collaboratorEvent.emit({
     })

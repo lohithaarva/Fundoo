@@ -1,13 +1,13 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> add-notes.ts 
 *        
 *  Purpose         : To add a new notecard 
 * 
 *  Description    
 * 
-*  @file           : archive.ts
+*  @file           : add-notes.ts
 *  @overview       : To add a new notecard 
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @module         : add-notes.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *

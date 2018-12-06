@@ -1,15 +1,17 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> collaborator-dialog.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations.
+
+
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : collaborator-dialog.ts 
+*  @overview       : The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations.
+*  @module         : collaborator-dialog.ts  - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *
@@ -141,7 +143,7 @@ export class CollaboratorDialogComponent implements OnInit, OnDestroy {
     }
     this.collaboratorSearch = [];
   }
-  /**Mthod to remove collaborator from the list */
+  /**Method to remove collaborator from the list */
   removeCollaborator(userId) {
     this.noteService.removeCollaborator(this.data.id, userId)
       .pipe(takeUntil(this.destroy$))

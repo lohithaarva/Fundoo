@@ -1,15 +1,13 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> add-archive.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  To archive a noteCard and display in archive segment.
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : add-archive.ts
+*  @overview       : To archive a noteCard and display in archive segment.
+*  @module         : add-archive.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *

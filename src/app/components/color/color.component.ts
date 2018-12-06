@@ -1,15 +1,13 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> color.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  To provide colors for noteCards
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : color.ts
+*  @overview       : To provide colors for noteCards
+*  @module         : color.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *
@@ -23,9 +21,9 @@ import { takeUntil } from 'rxjs/operators';
 /**A componenet can be reused throughout the application & even in other applications */
 @Component({
   selector: 'app-color',/**A string value which represents the component on browser at 
-  execution time */
+                         execution time */
   templateUrl: './color.component.html',/**External templating process to define html
-  tags in component */
+                         tags in component */
   styleUrls: ['./color.component.scss']/**It is used to provide style of components */
 })
 /**To use components in other modules , we have to export them */

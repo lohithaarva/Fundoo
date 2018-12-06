@@ -1,15 +1,15 @@
 /************************************************************************************************
-*  Execution       :   1. default node         cmd> archive.ts 
+*  Execution       :   1. default node         cmd> crop-image.ts 
 *        
-*  Purpose         :  To display notecards which are archived and also perform functionality
-                      when clicked.
+*  Purpose         :  The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations for crooping an image.
 * 
 *  Description    
 * 
-*  @file           : archive.ts
-*  @overview       : To display notecards which are archived and also perform functionality
-                     when clicked
-*  @module         : archive.ts - This is optional if expeclictly its an npm or local package
+*  @file           : crop-image.ts 
+*  @overview       : The dialog service can be used to open modal dialogs with Material 
+                      Design styling and animations for crooping an image.
+*  @module         : crop-image.ts - This is optional if expeclictly its an npm or local package
 *  @author         : LohithaShree <lohitha.arva@gmail.com>
 *  @since          : 20-10-2018
 *
@@ -49,7 +49,7 @@ export class CropImageComponent implements OnInit {
     public image2 = localStorage.getItem('imageUrl');
     img = environment.apiUrl + this.image2;
 
-    /**Mthod to upload profile picture */
+    /**Method to upload profile picture */
     onUpload() {
         var token = localStorage.getItem('token');
         LoggerService.log(this.croppedImage);
