@@ -1,0 +1,53 @@
+<div fxLayout="column" fxLayoutGap="5%" fxLayoutGap.xs="10%">
+  <div class="headerColor" fxFlex=10% fxLayoutAlign="start center" fxLayoutAlign="space-between center">
+    <div class="popupHeader">Advanced Pack Details</div>
+    <div class="popupHeader">${{data.price}}/month</div>
+  </div>
+  <div>
+    <mat-tab-group>
+      <mat-tab label="First" class="tab1">
+        <div fxLayout="column">
+          <div class="popupHeader">{{data.description}}</div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="popUpButtonAlign">
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onClose()>remove</button>
+            </div>
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onProceed()> Proceed to Checkout</button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Second" class="tab1">
+        <div fxLayout="column">
+          <div class="popupHeader">{{data.description}}</div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="popUpButtonAlign">
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onClose()>remove</button>
+            </div>
+            <div> 
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onProceed()> Proceed to checkout </button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Third" class="tab1">
+        <div fxLayout="column">
+          <div class="popupHeader">{{data.description}}</div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="popUpButtonAlign">
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onClose()>remove</button>
+            </div>
+            <div>
+              <button mat-raised-button class="popUpButton" (click)=onProceed()> Proceed to checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -39,7 +39,7 @@ import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
          MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule,
          MatMenuModule, MatChipsModule, MatGridListModule, MatCheckboxModule,
          MatDialogModule, MatSnackBarModule, MatDatepickerModule,
-         MatNativeDateModule, MatSelectModule, MatTooltipModule } from '@angular/material';
+         MatNativeDateModule, MatSelectModule, MatTooltipModule,MatTabsModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -55,6 +55,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { ECommerceComponent } from './components/e-commerce/e-commerce.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { LoadersComponent } from './components/loaders/loaders.component';
+import { ECommerceDialogComponent } from './components/e-commerce-dialog/e-commerce-dialog.component';
 
 
 
@@ -94,6 +95,7 @@ import { LoadersComponent } from './components/loaders/loaders.component';
     QandAComponent,
     ECommerceComponent,
     LoadersComponent,
+    ECommerceDialogComponent,
     
     
     
@@ -127,6 +129,7 @@ import { LoadersComponent } from './components/loaders/loaders.component';
     MatSelectModule,
     MatTooltipModule,
     BarRatingModule,
+    MatTabsModule,
    [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
   
   ],
@@ -144,7 +147,7 @@ import { LoadersComponent } from './components/loaders/loaders.component';
     }
   ],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
-                    LabelTrashDialogComponent, CollaboratorDialogComponent],
+                    LabelTrashDialogComponent, CollaboratorDialogComponent, ECommerceDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

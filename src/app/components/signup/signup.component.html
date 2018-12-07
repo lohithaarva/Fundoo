@@ -35,19 +35,14 @@
                 <div class="password-container">
                     <div class="password">
                         <mat-form-field>
-                            <input matInput placeholder="Enter your password"
-                             minlength="6" [formControl]="password"
-                                [(ngModel)]="info.password" required 
-                                [type]="hide ? 'password' : 'text'" 
-                                pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
+                            <input matInput placeholder="Enter your password" minlength="6" [formControl]="password"
+                                [(ngModel)]="info.password" required [type]="hide ? 'password' : 'text'" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}$'>
                             <mat-error *ngIf="password.invalid"> {{getErrorMessagepassword()}}</mat-error>
                         </mat-form-field>
                     </div>
                     <mat-form-field>
-                        <input matInput placeholder="Confirm password" 
-                        minlength="6" [formControl]="confirmPassword"
-                            [(ngModel)]="info.confirmPassword" 
-                            [type]="hide ? 'password' : 'text'">
+                        <input matInput placeholder="Confirm password" minlength="6" [formControl]="confirmPassword"
+                            [(ngModel)]="info.confirmPassword" [type]="hide ? 'password' : 'text'">
                         <mat-error *ngIf="confirmPassword.invalid">
                             {{getErrorMessageconfirmPassword()}}</mat-error>
                         <mat-icon matSuffix (click)="hide = !hide">
@@ -57,22 +52,44 @@
                 <br>
                 <div class="footer"> Use 6 or more characters, with atleast one upper case,
                     one special character, one number</div><br>
-                <mat-card-subtitle> Subscribe</mat-card-subtitle>
-                <div flexLayout="row" fxFlexLayout="center" fxLayoutGap="-100px" class="cards">
-                    <div fxFlex.lg="50" *ngFor="let data of card">
-                        <mat-card mat-button (click)=" displayCards(data)" 
+                <mat-card-subtitle class="fontAlign"> Subscribe</mat-card-subtitle>
+                <div fxLayout="row" fxLayoutAlign="space-around center" class="fontAlign">
+                        <!-- <mat-card mat-button (click)=" displayCards(data)" 
                         [ngClass]="data.choose? 'choose': 'notchosen'">
                             <mat-card-title fxLayout="row" class=" card-title ">
                                 {{data.name}}</mat-card-title>
                             <mat-card-content class="description">
                                 {{data.description}}</mat-card-content>
-                        </mat-card>
-                    </div>
+                        </mat-card> -->
+
+                        <div *ngFor="let data of card">
+                                <mat-card class="shadowCart"  [ngClass]="data.id==product ? 'selectedbelow' : 'belowcard'" >
+                                  <div class="alignCart" >
+                              <mat-card
+                              class="cartMatCard cartSize" >
+                                <div class="priceAlign">$ {{data.price}} per month</div>
+                                <div fxLayout="row" class=" card-title subTitle">{{data.name | titlecase}}</div>
+                                <div>
+                                    <ul class="cartOptions">
+                                        <li>Unlimited Wall Space</li>
+                                        <li>Nice Interface</li>
+                                        <li>${{data.price}}</li>
+                                        <li> {{data.description}}</li>
+                                      </ul>
+                                </div>
+                              </mat-card>
+                            </div>
+                            <div class="cartTitle">ADD TO CART</div>
+                            </mat-card>
+                           
+                            </div>
                 </div>
-                <br><br>
-                <div class="signup-lastrow" fxLayout="row" fxLayoutGap="230px">
+            
+                <div class="signup-lastrow" fxLayout="row"  fxLayoutAlign="space-between center">
                     <a href="/login">Sign in instead</a>
-                    <button mat-raised-button color='primary' (click)="next()">Next</button>
+                    <div class="next-lastrow">
+                        <button mat-raised-button color='primary' (click)="next()">Next</button>
+                    </div>
                 </div><br>
             </form>
         </mat-card>

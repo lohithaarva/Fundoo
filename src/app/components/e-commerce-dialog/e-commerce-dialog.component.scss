@@ -1,0 +1,35 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
+.tab1{
+    
+    height: 48px;
+    padding: 0px!important;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: .6;
+    min-width: 50px!important;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+
+}
+::ng-deep.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: $yellow_color !important;
+}
+.popupHeader{
+    padding: 15px;
+}
+.headerColor{
+    background-color: $yellow_color;
+}
+.popUpButton{
+    background-color: $lightBlue_color;
+}
+.popUpButtonAlign{
+    padding: 12px;
+   
+}

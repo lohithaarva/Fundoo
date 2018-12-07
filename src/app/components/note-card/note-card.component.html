@@ -138,7 +138,6 @@
             <app-remind [noteRemindeCard]="note" (remindEmit)="messageDelete($event)" *ngIf="deleteNotesForever == delete"></app-remind>
             <app-collaborator [collaboratorPop]='note' *ngIf="deleteNotesForever == delete"></app-collaborator>
             <app-color *ngIf="deleteNotesForever == delete" [noteColorCard]="note" (emitColor)="messageDelete($event)"></app-color>
-            <app-add-image *ngIf="deleteNotesForever == delete"></app-add-image>
             <app-add-archive *ngIf="deleteNotesForever == delete" [noteArchiveCard]="note" (archiveEvent)="archiveEvent($event)"
               (unarchiveEvent)="unarchiveEvent($event)" (emitArchive)="messageDelete($event)"></app-add-archive>
             <app-more [deleteNotesForever]="deleteNotesForever" [noteDeleteCard]="note" (delete)="messageDelete($event)"></app-more>

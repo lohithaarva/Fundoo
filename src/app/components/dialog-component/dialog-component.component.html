@@ -95,7 +95,6 @@
         <app-remind></app-remind>
         <app-collaborator  ></app-collaborator>
         <app-color [noteColorCard]="data" (emitColor)="messageDelete($event)"></app-color>
-        <app-add-image></app-add-image>
         <app-add-archive [noteArchiveCard]="data"></app-add-archive>
         <app-more [noteDeleteCard]="data"></app-more>
         <button mat-button class="closeButton" (click)="onNoClick(data.id)">CLOSE</button>

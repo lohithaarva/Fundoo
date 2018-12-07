@@ -1,5 +1,14 @@
 <div fxLayout="row" class="ecommerce_main">
-  <mat-toolbar>fundooNotes</mat-toolbar>
+  <mat-toolbar>
+      <div class="signup-heading" fxlayout="row" fxLayoutAlign="flex-start">
+          <div>F</div>
+          <div>U</div>
+          <div>N</div>
+          <div>D</div>
+          <div>O</div>
+          <div>O</div>
+      </div>
+  </mat-toolbar>
 </div>
 <div fxLayout="column">
   <div fxLayout="row">
@@ -12,37 +21,32 @@
 
   <div fxLayout="row" class="cartAlign">
     <div fxFlex.lg="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="0"></div>
-    <div fxFlex.lg="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayout="row" fxLayoutAlign="space-around center">
-      <div class="cartShadow">
-        <mat-card class="cartMatCard">
-          <div>$ 6.99 per Month</div>
-          <div>Advance</div>
+    <div fxFlex.lg="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayout.lg="row" 
+        fxLayout.xs = "column"  fxLayoutAlign="space-around center" >
+      <div *ngFor="let cart of cartArray">
+          <mat-card class="shadowCart"  [ngClass]="cart.select ? 'selectedbelow' : 'belowcard'" >
+            <div class="alignCart" >
+        <mat-card [ngClass]="cart.select ? 'aboveCardSelected' : 'aboveCard'" 
+        class="cartMatCard cartSize" (click)="clicked(cart)">
+          <div class="priceAlign">$ {{cart.price}} per</div>
+          <div class="priceAlign">Month</div>
+          <div fxLayout="row" class=" card-title subTitle">{{cart.name | titlecase}}</div>
           <div>
               <ul class="cartOptions">
                   <li>Unlimited Wall Space</li>
                   <li>Nice Interface</li>
-                  <li>$6.99/month</li>
-                  <li>Ability to add only title and description</li>
+                  <li>${{cart.price}}</li>
+                  <li> {{cart.description}}</li>
                 </ul>
           </div>
+              
+                 
         </mat-card>
+        <div (click) = "openEcommerceDialog(cart)" class="cartTitle">ADD TO CART</div>
       </div>
-      <div>
-          <mat-card class="cartMatCard">
-            <div>$ 3.99 per Month</div>
-            <div>Basic</div>
-            <div>
-                <ul class="cartOptions">
-                    <li>Unlimited Wall Space</li>
-                    <li>Nice Interface</li>
-                    <li>$6.99/month</li>
-                    <li>Ability to add only title and description</li>
-                  </ul>
-            </div>
-          </mat-card>
-        </div>
+      </mat-card>
+      </div>
     </div>
     <div fxFlex.lg="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="0"></div>
   </div>
 
-</div>

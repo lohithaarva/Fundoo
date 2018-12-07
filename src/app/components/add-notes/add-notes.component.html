@@ -119,7 +119,6 @@
                             <app-collaborator (click)="collaboratorDivision = !collaboratorDivision"></app-collaborator>
                         </div>
                         <app-color (emitColorNotes)="ChangeColorNotes($event)"></app-color>
-                        <app-add-image></app-add-image>
                         <app-add-archive [noteArchiveCard]="note"></app-add-archive>
                         <app-more (labelEvent)=addLabel($event)></app-more>
                         <button mat-button class="closeButton" (click)="finish();exit()">CLOSE</button>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/userService/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CartService } from 'src/app/core/services/cartService/cart.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,9 +18,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   records = {};
   public card = [];
   info: any = {};
+  private product;
   service;
-  constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router) { }
-
+  constructor(private userService: UserService, private cartService: CartService,public snackBar: MatSnackBar, private router: Router) { }
+  cartId = localStorage.getItem('cartId')
   email = new FormControl('', [Validators.required, Validators.email]);
   firstName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
   lastName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
@@ -62,20 +64,20 @@ export class SignupComponent implements OnInit, OnDestroy {
         }
         console.log(this.card);
       })
-
+      this.getCardDetails();
   }
-  displayCards(card) {
-    console.log(card.name);
-    this.service = card.name;
-    card.choose = true;
-    for (var i = 0; i < this.card.length; i++) {
-      if (card.name == this.card[i].name) {
-        continue;
-      }
-      this.card[i].choose = false;
-    }
+  // displayCards(card) {
+  //   console.log(card.name);
+  //   this.service = card.name;
+  //   card.choose = true;
+  //   for (var i = 0; i < this.card.length; i++) {
+  //     if (card.name == this.card[i].name) {
+  //       continue;
+  //     }
+  //     this.card[i].choose = false;
+  //   }
 
-  }
+  // }
   check = false;
   next() {
 
@@ -127,6 +129,19 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl('home')
         })
   }
+
+  getCardDetails(){
+    this.cartService.getCarDetails(this.cartId) 
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
+      (data) => {
+        console.log(data);
+        console.log(this.cartId,'here is cartid');
+        console.log(data['data']['product'].id, 'product');
+        this.product=data['data']['product'].id;
+  })
+}
+
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:

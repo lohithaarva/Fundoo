@@ -10,7 +10,6 @@ export class UserService {
   baseUrl = environment.baseUrl;
 
 public url;
-public access_token=localStorage.getItem('id');
 public httpOptions ;
 public http;
 constructor(private service: httpService) { }

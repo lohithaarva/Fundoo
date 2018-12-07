@@ -2,23 +2,34 @@
 @import "../../../scss/variables.scss";
 
 .container{
-    height: 100vh;    
+    height: 100vh; 
+   
 }
 .signup-heading{
     font-size: 30px;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+.mat-card {
+  font-family: "Times New Roman", Times, serif;
 }
 .mat-card-subtitle{
    font-size: 20px;
    color: black;
+   padding-left: 15px;
+   padding-top: 15px;
 }
 .mat-card-content{
     font-size: 17px;
+    padding-left: 15px;
 }
   .name-container{
-      display: flex;       
+      display: flex; 
+      padding-left: 15px;      
 }
 .email{
   width:57%;
+  padding-left: 15px;      
 }
 .firstname{
     margin-right: 5%;
@@ -28,6 +39,7 @@
 }
 .password-container{
     display: flex;
+    padding-left: 15px;   
 }
 .password{
     margin-right: 5%;
@@ -64,6 +76,7 @@
 .footer{
   margin-top: -19px;
   font-size: 12px;
+  padding-left: 15px;      
 }
 .username{
   margin-right: 22%;
@@ -90,4 +103,96 @@ font-size:12px
 .image{
   width:80px;
   height:80px;
+}
+.fontAlign{
+  font-family: Georgia, 'Times New Roman', Times, serif
+}
+.mat-card {
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  display: block;
+  position: relative;
+   padding: 0px; 
+  /* border-radius: 2px; */
+}
+.signup-lastrow{
+  padding-left: 15px;      
+}
+.next-lastrow{
+  padding-right: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ecommerce_header{
+  margin-top: 40px;
+}
+.ecommerce_main{
+  background-color: $yellow_color;
+}
+.cartAlign{
+  margin-top: 5%;
+}
+ul.cartOptions {
+  list-style-type: square;   
+ margin-left: -14%;
+ line-height: 100%;
+    font-size: 15px;
+}
+.cartMatCard{
+  width: 160px;
+  height: 195px;
+}
+.priceAlign{
+  font-size: 110%;
+}
+.shadowCart{
+  width: 149px;
+  height: 225px;
+  background-color: $router_color;
+  cursor:$cursor_type;
+}
+.cartSize{
+  margin-top: -7%;
+  margin-left: -14%;
+}
+.alignCart{
+  margin-top: 10%;
+  margin-left: -8%;
+}
+.cartTitle{
+  padding: 8px;
+  color: $white_color;
+  font-size: small;
+}
+.subTitle{
+  font-size: 13px;
+  color: $blue_color
+}
+.selectedbelow{
+  background-color:$yellow_color;
+  width: 171px;
+  height: 267px;
+  box-shadow: 10px 10px 10px rgb(243, 240, 240)!important;
 }

@@ -12,12 +12,64 @@
 ul.cartOptions {
     list-style-type: square;   
    margin-left: -14%;
-   line-height: 200%;
+   line-height: 115%;
 }
 .cartMatCard{
     width: 160px;
     height: 235px;
 }
-.cartShadow{
-    box-shadow: 5px 10px #888888;
+.priceAlign{
+    font-size: 140%;
+}
+.shadowCart{
+    width: 169px;
+    height: 270px;
+    background-color: $router_color;
+    cursor:$cursor_type;
+}
+.cartSize{
+    margin-top: -42px;
+    margin-left: -14%;
+}
+.alignCart{
+    margin-top: 10%;
+    margin-left: -8%;
+}
+.cartTitle{
+    padding: 15px;
+    color: $white_color;
+}
+.subTitle{
+    font-size: 13px;
+    color: $blue_color
+}
+.selectedbelow{
+    background-color:$yellow_color;
+    width: 171px;
+    height: 267px;
+    box-shadow: 10px 10px 10px rgb(243, 240, 240)!important;
+}
+.signup-heading div:nth-child(1)
+{
+  color: $blue_color;
+}
+.signup-heading div:nth-child(2)
+{
+  color: $red_color;
+}
+.signup-heading div:nth-child(3)
+{
+  color: $yellow_color;
+}
+.signup-heading div:nth-child(4)
+{
+  color: $blue_color;
+}
+.signup-heading div:nth-child(5)
+{
+  color: $green_color;
+}
+.signup-heading div:nth-child(6)
+{
+  color: $red_color;
 }
