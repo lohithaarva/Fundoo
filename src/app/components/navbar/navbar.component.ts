@@ -173,6 +173,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     var labelsList = labelsList.label;
     this.router.navigate(['/home/label/' + labelsList])
   }
+  cartDetails(){
+    this.router.navigate(['/home/ecommerce-cart']);
+  }
   profileCropOpen(data): void { //Function for the dialog box
     const dialogRefPic = this.dialog.open(CropImageComponent, {
       width: '450px',

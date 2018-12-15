@@ -76,3 +76,9 @@
     position: relative;
     padding: 5px;
 }
+@mixin icons(){
+    color: $black_color;
+    opacity: $opacity;
+    cursor: $cursor_type;
+    align-items: center;
+}

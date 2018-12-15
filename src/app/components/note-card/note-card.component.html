@@ -7,7 +7,7 @@
     <div *ngIf="length!=0" class="pinNotesHeaders"> {{word}} </div>
     <div *ngFor="let note of cardAdded | LockFilter:globalSearch">
       <div [ngClass]="{ 'grid':condition, 'list': !condition }">
-        <mat-card (updateEvent)="messageDelete($event)" fxLayoutGap="2%" class="note-card" style="margin-bottom:6vh;"
+        <mat-card (updateEvent)="messageDelete($event)" class="note-card" style="margin-bottom:6vh;"
           [style.backgroundColor]="note.color">
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span fxFlex="90" (click)="openDialog(note)" [innerHTML]="note.title"></span>

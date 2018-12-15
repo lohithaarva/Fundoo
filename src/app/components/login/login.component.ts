@@ -53,7 +53,8 @@ constructor(public snackBar: MatSnackBar,private userService: UserService,
     LoggerService.log(this.info.email); 
     var requestBody = {
       "email": this.info.email,
-        "password":this.info.password      
+        "password":this.info.password,
+        "cartId": localStorage.getItem("cartId")    
     }
     this.userService
       .loginPost(requestBody)

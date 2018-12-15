@@ -63,7 +63,8 @@
                         </mat-card> -->
 
                         <div *ngFor="let data of card">
-                                <mat-card class="shadowCart"  [ngClass]="data.id==product ? 'selectedbelow' : 'belowcard'" >
+                                <mat-card class="shadowCart" 
+                                [ngClass]="data.id==product ? 'selectedbelow' : 'belowcard'" >
                                   <div class="alignCart" >
                               <mat-card
                               class="cartMatCard cartSize" >
@@ -79,7 +80,8 @@
                                 </div>
                               </mat-card>
                             </div>
-                            <div class="cartTitle">ADD TO CART</div>
+                            <div class="cartTitle" *ngIf="data.id==product">SELECTED</div>
+                            <div class="cartTitle" *ngIf="data.id!=product">ADD TO CART</div>
                             </mat-card>
                            
                             </div>

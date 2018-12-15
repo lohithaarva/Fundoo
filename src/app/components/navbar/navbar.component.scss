@@ -97,10 +97,12 @@ input:focus{
   padding-right: 15px;
 }
 .icons{
-  color: $black_color;
-  opacity: $opacity;
-  cursor: $cursor_type;
-  align-items: center;
+  @include icons();
+}
+.cartIcon{
+  @include icons();
+  margin-top: 25%;
+  opacity: $opacity_property;
 }
 .basic{
   height: 33%;
@@ -186,7 +188,8 @@ button.active {
    background-color: $router_color;
   border-radius: 0px 15px 15px 0px; 
  }
-  
-
+ .mat-card-actions .mat-button:first-child, .mat-card-actions .mat-raised-button:first-child {
+  margin-left: 161px;
+ }
 
 

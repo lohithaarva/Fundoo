@@ -46,9 +46,15 @@
     </div>
     <!--------------------------------------------------------------->
     <div fxFLex.xl = "30" fxFlex.lg="30" fxFlex.md="30" fxFlex.xs="5"></div>
-    <!------------------------pic icon and grid list ------------------->
-    <div fxFLex.xl = "13" fxFlex.lg="13" fxFlex.md="13" fxFlex.sm="10" fxFlex.xs="30" fxLayout="row" fxLayoutAlign="space-around center">
-      <div fxFlex.xl="50" fxFlex.lg="50" fxFlex.xs="50">
+    <!------------------------cart, pic icon and grid list ------------------->
+    <div fxFLex.xl = "13" fxFlex.lg="13" fxFlex.md="13" fxFlex.sm="10" 
+    fxFlex.xs="30" fxLayout="row" fxLayoutAlign="space-around center">
+    <!--------------------------------- cart Icon ---------------------------->
+    <div fxFlex.xl="33" fxFlex.lg="33" fxFlex.xs="33">
+        <div (click)="cartDetails()"><i class="material-icons cartIcon">shopping_cart</i></div>
+    </div>
+    <!------------------------------------------------------------------------>
+      <div fxFlex.xl="33" fxFlex.lg="33" fxFlex.xs="33">
         <div class="icons">
           <div fxShow fxHide.xs="true">
           <button mat-icon-button matTooltip="listView" (click)="cardsInList()" *ngIf="grid == 0">
@@ -63,7 +69,7 @@
         </div>
       </div>
       <!----------------------- Profile pic icon -------------------------->
-      <div  fxFlex.xl="50"  fxFlex.lg="50" fxFlex.xs="50">
+      <div  fxFlex.xl="33"  fxFlex.lg="33" fxFlex.xs="33">
         <button *ngIf="newimage2 == ''" mat-mini-fab (click)="clicked=!clicked ;" style="background-color: bisque; color: black;">
           {{firstName | slice:0:1}}
         </button>
@@ -152,7 +158,6 @@
     <mat-card-content></mat-card-content>
     <hr>
     <mat-card-actions fxLayoutAlign="space-between">
-      <button mat-button routerLink="/registration">Add Account</button>
       <button mat-button (click)="signout()">Sign Out</button>
     </mat-card-actions>
   </mat-card>

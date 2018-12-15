@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { httpService } from '../httpservice/http.service';
 import { environment } from '../../../../environments/environment'
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class EcommerceService {
   baseUrl = environment.baseUrl;
 
   public url;
@@ -14,15 +13,13 @@ export class CartService {
   public http;
   constructor(private service: httpService) { }
 
-  
-  addToCart(RequestBody) {
-console.log('xnlxkj',RequestBody);
-
-    this.url = this.baseUrl + "/productcarts/addToCart";
-    return this.service.PostJson(this.url, RequestBody)
+  myCartDetails(){
+    this.url = this.baseUrl +"/productcarts/myCart"
+    return this.service.getJson(this.url)
   }
-  getCarDetails(cartId){
-      this.url = this.baseUrl +"/productcarts/getCartDetails/" + cartId;
-      return this.service.getJson(this.url);
+
+  cartPlaceOrder(RequestBody){
+    this.url = this.baseUrl +"/productcarts/placeOrder"
+    return this.service.PostJson(this.url,RequestBody)
   }
 }

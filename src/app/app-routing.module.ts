@@ -15,6 +15,7 @@ import { SearchComponent } from './components/search/search.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { ECommerceComponent } from './components/e-commerce/e-commerce.component';
+import { EcommerceCartComponent } from './components/ecommerce-cart/ecommerce-cart.component';
 
 const routes : Routes =[
   { path:'', redirectTo:'notes',pathMatch:'full'}, 
@@ -24,6 +25,7 @@ const routes : Routes =[
   { path: 'home', component:HomeComponent , canActivate:[AuthGuard], children  :[
     
               { path: 'notes', component: NotesComponent }, 
+              { path: 'ecommerce-cart', component:EcommerceCartComponent},
               { path: 'remainders', component: RemaindersComponent },
               { path: 'labels', component: LabelsComponent},
               { path: 'labelNotes/:labelName', component: LabelNotesComponent},

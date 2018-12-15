@@ -37,8 +37,8 @@ import { AuthGuard } from '../app/core/services/authguard/auth.guard';
 import { LabelfilterPipe } from '../app/core/pipes/labelfilter.pipe';
 import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,
          MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule,
-         MatMenuModule, MatChipsModule, MatGridListModule, MatCheckboxModule,
-         MatDialogModule, MatSnackBarModule, MatDatepickerModule,
+         MatMenuModule, MatChipsModule, MatGridListModule, MatCheckboxModule,MatProgressBarModule,
+         MatDialogModule, MatSnackBarModule, MatDatepickerModule,MatStepperModule,
          MatNativeDateModule, MatSelectModule, MatTooltipModule,MatTabsModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
@@ -56,6 +56,10 @@ import { ECommerceComponent } from './components/e-commerce/e-commerce.component
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { LoadersComponent } from './components/loaders/loaders.component';
 import { ECommerceDialogComponent } from './components/e-commerce-dialog/e-commerce-dialog.component';
+import { EcommerceCartComponent } from './components/ecommerce-cart/ecommerce-cart.component';
+
+
+
 
 
 
@@ -96,6 +100,7 @@ import { ECommerceDialogComponent } from './components/e-commerce-dialog/e-comme
     ECommerceComponent,
     LoadersComponent,
     ECommerceDialogComponent,
+    EcommerceCartComponent,
     
     
     
@@ -130,6 +135,8 @@ import { ECommerceDialogComponent } from './components/e-commerce-dialog/e-comme
     MatTooltipModule,
     BarRatingModule,
     MatTabsModule,
+    MatStepperModule,
+    MatProgressBarModule,
    [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()],
   
   ],
@@ -144,10 +151,11 @@ import { ECommerceDialogComponent } from './components/e-commerce-dialog/e-comme
     {
       provide: ErrorHandler,
       useClass: ErrorsHandler,
-    }
+    },
+    
   ],
   entryComponents :[DialogComponentComponent , TrashDialogComponent, CropImageComponent,
                     LabelTrashDialogComponent, CollaboratorDialogComponent, ECommerceDialogComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

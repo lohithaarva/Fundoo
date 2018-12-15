@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   lastName = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
   password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
   confirmPassword = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]);
-  getErrorMessagefirstName() {
+  getErrorMessagefirstName() {     
     return this.firstName.hasError('required') ? 'First Name is Required' :
       this.firstName.hasError('pattern') ? 'Invalid First Name' :
         '';
@@ -54,7 +54,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.userService.getCards()
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
@@ -63,8 +62,8 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.card.push(data.data[i]);
         }
         console.log(this.card);
-      })
-      this.getCardDetails();
+        this.getCardDetails();
+      }) 
   }
   // displayCards(card) {
   //   console.log(card.name);
@@ -108,12 +107,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       })
       return;
     }
-
-    console.log(this.service.length)
-    console.log(this.info.firstName);
-    console.log(this.info.lastName);
-    console.log(this.info.email);
-    console.log(this.info.password);
     var requestBody = {
       "firstName": this.info.firstName,
       "lastName": this.info.lastName,
@@ -135,10 +128,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe(
       (data) => {
-        console.log(data);
-        console.log(this.cartId,'here is cartid');
-        console.log(data['data']['product'].id, 'product');
-        this.product=data['data']['product'].id;
+        this.product=data['data'].productId;
+        this.service=data['data']['product'].id;
   })
 }
 

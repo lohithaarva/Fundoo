@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './e-commerce-dialog.component.html',
   styleUrls: ['./e-commerce-dialog.component.scss']
 })
-export class ECommerceDialogComponent implements OnInit,OnDestroy {
+export class ECommerceDialogComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private cartService: CartService, public dialogRef: MatDialogRef<ECommerceComponent>,
@@ -28,15 +28,15 @@ export class ECommerceDialogComponent implements OnInit,OnDestroy {
 
   onProceed(){
     // cartId = this.data['id'];
-    console.log(this.data['id']);
       var requestBody =  {
         "productId": this.data['id'],
         
       }
       this.cartService.addToCart(requestBody)    
-      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         localStorage.setItem('cartId',data['data']['details'].id );
+        console.log('cartghgvjuygId',data['data']['details'].id);
+        
           console.log('success',data);
       },
       error =>
@@ -48,13 +48,5 @@ export class ECommerceDialogComponent implements OnInit,OnDestroy {
     this.dialogRef.close();
   }
   
-
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
-    this.destroy$.unsubscribe();
-  }
-
 }
 

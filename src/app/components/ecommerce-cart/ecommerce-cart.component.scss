@@ -1,0 +1,104 @@
+@import "../../../scss/mixin.scss"; 
+@import "../../../scss/variables.scss";
+
+// .fundooCart{
+//     margin-top: 3% !important;
+// }
+.fundooChip{
+  border-radius:10px;
+  background-color:#fb0;
+  color: white;
+  height: 30px;
+  }
+  .cartCard{
+    border:1px solid grey;
+    background-color: beige;
+  }
+  .cardAdvanceDetails{
+      color: $reply_color;
+  }
+  .advancePrice{
+      color: $red_color;
+  }
+.checkOut{
+    background-color: 	#1E90FF;
+    font-size: smaller;
+}
+.totalClass{
+    color: $red_color;
+}
+
+
+table td{
+    padding:1%;
+    
+}
+table {
+  border-collapse: collapse;
+}
+
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+    border:1px solid grey;
+    min-height:50px;
+}
+.mat-icon{
+    opacity:1;
+}
+.cart{
+    margin-top: -22px;
+    margin-left: 62px;
+    z-index: 9;
+    position: absolute;
+}
+.secndPlace{
+     margin-top: -9px;
+    margin-left: 142px;
+    z-index: 9;
+    position: absolute;
+
+}
+.thirdPlace{
+     margin-top: -9px;
+    margin-left: 295px;
+    z-index: 9;
+    position: absolute;
+}
+::ng-deep.mat-progress-bar-fill::after {
+    background-color: grey;
+}
+::ng-deep.mat-progress-bar-buffer {
+    background-color: 	#D3D3D3;
+}
+.cartMatcard{
+    background-color: $black_light;
+    border-radius:10px;
+}
+.partCard{
+    border:1px solid grey;
+    padding:2%
+}
+.signUpCart{
+    font-size: x-small;
+    margin-top: -3%;
+    margin-left: 13%;
+    color: $yellow_color;
+}
+.subTotalCart{
+    font-size: smaller;
+}
+.completeCart{
+    color: $randomBlue_color;
+}
+.cartPayment{
+    font-size:8px
+}
+.cartOrder{
+    font-size:8px
+}
+.cartStyle{
+    background-color:$grey_color;
+    border-radius:10px
+}
